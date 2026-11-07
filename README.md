@@ -22,6 +22,24 @@ python synthetic/generate.py --seed 20261107   # 复现
 python synthetic/check.py                     # 校验
 ```
 
+## 继续预训练语料（CPT）
+
+`cpt/` 提供可直接用于 **Qwen3.5-4B 继续预训练**的领域文本语料（音频工程/混音/DAW 格式/乐理）：
+
+| 产物 | 说明 |
+|---|---|
+| `cpt/data/corpus_{train,val}.jsonl` | CPT 语料（逐文档带 source / license / url） |
+| `cpt/data/manifest.json` | 计数、估算 tokens、sha256 |
+| `cpt/data/stats.md` / `ATTRIBUTIONS.md` | 分布统计 / 逐源署名 |
+
+```bash
+python cpt/fetch.py --source all   # 抓公开源（Wikipedia / Stack Exchange / DAWproject）
+python cpt/build.py                # 清洗 + 去重 + 切分
+python cpt/check.py                # 校验（CI 会跑）
+```
+
+许可：CC BY-SA 4.0 为主 + MIT + CC0；受版权的 REAPER/FL 手册只做私有源，不入仓库。
+
 ## 目录
 
 ```
@@ -30,6 +48,7 @@ registry/licenses.yaml   # SPDX → 档位/商用/再分发 映射
 cards/<id>.md            # 数据卡（许可、引用、已知问题）
 synthetic/              # 自建合成训练集 + 生成器 + 校验器
 training/               # 直接用数据训练的说明与配置
+cpt/                    # 继续预训练语料（fetch → build → data + manifest）
 tools/fetch.py           # 下载 + sha256 + 条款确认（T2 必须 --accept-license）
 tools/validate.py        # CI 校验（结构/许可/文件守卫）
 fixtures/               # 极小 CC BY 派生样本（仅 CI 冒烟）

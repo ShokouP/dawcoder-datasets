@@ -19,6 +19,8 @@ jobs:
         run: python tools/validate.py --strict
       - name: Synthetic training data (schema + semantics)
         run: python synthetic/check.py
+      - name: CPT corpus (manifest + license + provenance)
+        run: python cpt/check.py
       - name: No media binaries committed
         run: |
           ! git ls-files | grep -Ei '\.(wav|flac|mp3|m4a|aif|aiff|ogg|flp|als|rpp|mid|midi|mxl)$' | grep -v '^fixtures/'

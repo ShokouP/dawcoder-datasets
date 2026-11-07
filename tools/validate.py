@@ -99,7 +99,7 @@ def check_registry(res: Result, strict: bool, release: bool) -> None:
                 res.error(f"{where} 缺少许可证据（url/captured_at/reviewer）")
 
         fetch = ds.get("fetch", {})
-        if strict and meta["tier"] in {"T1", "T2"}:
+        if strict and meta["tier"] in {"T1", "T2"} and not ds.get("in_repo"):
             if fetch.get("method") in (None, "none") or not fetch.get("url"):
                 res.error(f"{where} T1/T2 必须提供 fetch 脚本与 URL")
         if release and fetch.get("method") in {"zenodo", "url", "git"} and not fetch.get("sha256"):

@@ -1,0 +1,66 @@
+{
+  "corpus": "dawcoder-cpt-v0.1",
+  "profile": "public",
+  "generated_at": "2026-11-07T05:23:52Z",
+  "docs": 3295,
+  "chars": 4040546,
+  "est_tokens": 1030857,
+  "train_docs": 3233,
+  "val_docs": 62,
+  "sources": {
+    "stackexchange-sound": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 1494,
+      "chars": 1471271,
+      "tokens": 367255
+    },
+    "stackexchange-music": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 708,
+      "chars": 1156029,
+      "tokens": 288738
+    },
+    "stackexchange-avp": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 236,
+      "chars": 232417,
+      "tokens": 58013
+    },
+    "arxiv-audio": {
+      "license": "CC0-1.0",
+      "tier": "T0",
+      "docs": 237,
+      "chars": 284128,
+      "tokens": 70946
+    },
+    "dawproject-spec": {
+      "license": "MIT",
+      "tier": "T1",
+      "docs": 3,
+      "chars": 34336,
+      "tokens": 8583
+    },
+    "dawcoder-ir-handbook": {
+      "license": "CC0-1.0",
+      "tier": "T0",
+      "docs": 617,
+      "chars": 862365,
+      "tokens": 237322
+    }
+  },
+  "files": {
+    "corpus_train.jsonl": {
+      "sha256": "3f87a568bbcf91a5a21b1858bd3b9a629390f4b46d93de455e25763bcf3bb8e2",
+      "bytes": 5599429,
+      "lines": 3233
+    },
+    "corpus_val.jsonl": {
+      "sha256": "8e0222a4184bb980f4f81bb2cb9eff12b45312cb5a989e87385f6016f6e797b8",
+      "bytes": 94164,
+      "lines": 62
+    }
+  }
+}

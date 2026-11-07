@@ -3,4 +3,5 @@ __pycache__/
 .venv/
 /data/
 /_tmp/
+cpt/raw/
 .DS_Store

@@ -1,0 +1,124 @@
+# DAWcoder 继续预训练（CPT）语料源注册表
+# 只允许 redistributable: true 的源进入公开语料（cpt/build.py --profile public）。
+# T2 源只能 fetch 到本地，不能进入公开语料；T3 禁止。
+version: 2
+corpus: dawcoder-cpt-v0.1
+sources:
+  - id: stackexchange-sound
+    title: Sound Design Stack Exchange（录音/混音/音效问答）
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    fetch:
+      method: stackexchange
+      site: sound
+      tags: [mixing, mastering, recording, eq, compression, reverb, monitoring, microphone]
+      questions_per_tag: 80
+    notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
+
+  - id: stackexchange-music
+    title: Music Practice & Theory Stack Exchange（乐理/编曲问答）
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    fetch:
+      method: stackexchange
+      site: music
+      tags: [theory, composition, chord-progressions]
+      questions_per_tag: 80
+    notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
+
+  - id: stackexchange-avp
+    title: Audio/Video Production Stack Exchange（音频制作问答）
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    fetch:
+      method: stackexchange
+      site: avp
+      tags: [audio, recording, sound-design]
+      questions_per_tag: 60
+    notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
+
+  - id: arxiv-audio
+    title: arXiv 音频/混音方向论文摘要（元数据 CC0）
+    license: CC0-1.0
+    tier: T0
+    redistributable: true
+    fetch:
+      method: arxiv
+      queries:
+        - '"automatic mixing"'
+        - '"music mixing"'
+        - '"audio effects"'
+        - '"source separation"'
+        - '"equalization"'
+        - '"dynamic range compression"'
+        - '"music production"'
+      max_results_per_query: 40
+    notes: "arXiv API 元数据（标题/摘要）按 CC0 1.0 提供；摘要版权归作者，按 arXiv 元数据许可使用"
+
+  - id: dawproject-spec
+    title: DAWproject 开放工程格式规范与示例（MIT）
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: raw_url
+      files:
+        - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/README.md", title: "DAWproject README"}
+        - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/Project.xsd", title: "DAWproject Project XSD"}
+        - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/MetaData.xsd", title: "DAWproject MetaData XSD"}
+    notes: "MIT：保留版权与许可声明"
+
+  - id: dawcoder-ir-handbook
+    title: DAWcoder 参数语义手册（自建，CC0）
+    license: CC0-1.0
+    tier: T0
+    redistributable: true
+    fetch:
+      method: synthetic
+      from: synthetic/data
+      max_docs: 900
+    notes: "由仓库内 SFT 合成样本转写的领域说明文本，完全自有"
+
+  - id: wikipedia-audio
+    title: Wikipedia 音频工程 / 音乐制作条目
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    optional: true
+    fetch:
+      method: wikipedia
+      max_pages: 200
+      full_text_pages: 0
+      categories:
+        - Audio engineering
+        - Audio effects
+        - Equalization (audio)
+        - Dynamic range compression
+        - Reverb
+        - Mixing (music)
+        - Music production
+        - Audio signal processing
+    notes: "可选源：Wikipedia 对批量抓取限速严格（429），失败时跳过；后续可用 dumps 补充"
+
+  - id: reaper-user-guide
+    title: REAPER User Guide（Cockos）
+    license: Non-Commercial
+    tier: T2
+    redistributable: false
+    fetch:
+      method: manual_request
+      url: "https://www.reaper.fm/userguide.php"
+    notes: "受版权保护，只能本地获取用于私有语料，不得进入公开语料"
+
+  - id: flstudio-manual
+    title: FL Studio 官方手册（Image-Line）
+    license: Non-Commercial
+    tier: T2
+    redistributable: false
+    fetch:
+      method: manual_request
+      url: "https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/"
+    notes: "受版权保护，只能本地获取用于私有语料，不得进入公开语料"

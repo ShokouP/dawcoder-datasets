@@ -53,6 +53,7 @@
         "group_key": {"type": "string"}
       }
     },
-    "notes": {"type": "string"}
+    "notes": {"type": "string"},
+    "in_repo": {"type": "boolean"}
   }
 }
