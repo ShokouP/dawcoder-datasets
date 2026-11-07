@@ -1,0 +1,24 @@
+name: validate-dawcoder-datasets
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install pyyaml jsonschema
+      - name: Registry (structure + license + file guard)
+        run: python tools/validate.py --strict
+      - name: Synthetic training data (schema + semantics)
+        run: python synthetic/check.py
+      - name: No media binaries committed
+        run: |
+          ! git ls-files | grep -Ei '\.(wav|flac|mp3|m4a|aif|aiff|ogg|flp|als|rpp|mid|midi|mxl)$' | grep -v '^fixtures/'

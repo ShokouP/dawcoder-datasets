@@ -1,0 +1,11 @@
+CC0 1.0 Universal
+
+The synthetic data, annotations and manifests created by the DAWcoder project
+and committed to this repository are dedicated to the public domain under the
+Creative Commons CC0 1.0 Universal Public Domain Dedication.
+
+Full text: https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+Note: third-party datasets referenced by registry/datasets.yaml are NOT covered
+by this dedication; each keeps its own license (see cards/ and the license
+evidence URLs). T2 datasets must not be redistributed.

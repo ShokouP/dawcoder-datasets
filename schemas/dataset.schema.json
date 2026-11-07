@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DAWcoder dataset registry entry",
+  "type": "object",
+  "required": ["id", "name", "task", "source_type", "modality", "license", "citation", "fetch", "splits"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "name": {"type": "string", "minLength": 1},
+    "task": {"type": "array", "minItems": 1, "items": {"enum": ["mix", "form", "texture", "tooling"]}},
+    "subtasks": {"type": "array", "items": {"type": "string"}},
+    "source_type": {
+      "enum": ["public_multitrack", "public_midi", "public_musicxml", "public_project", "public_annotation", "synthetic", "own_recording", "telemetry"]
+    },
+    "modality": {"type": "array", "minItems": 1, "items": {"enum": ["audio", "stems", "midi", "musicxml", "project_file", "annotation", "text", "video"]}},
+    "license": {
+      "type": "object",
+      "required": ["spdx", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "spdx": {"type": "string"},
+        "evidence": {
+          "type": "object",
+          "required": ["url", "captured_at", "reviewer"],
+          "additionalProperties": false,
+          "properties": {
+            "url": {"type": "string"},
+            "captured_at": {"type": "string"},
+            "reviewer": {"type": "string"}
+          }
+        },
+        "override_reason": {"type": "string"}
+      }
+    },
+    "citation": {"type": "string", "minLength": 1},
+    "fetch": {
+      "type": "object",
+      "required": ["method", "url", "size_bytes"],
+      "additionalProperties": false,
+      "properties": {
+        "method": {"enum": ["zenodo", "url", "git", "pip", "manual_request", "none"]},
+        "url": {"type": "string"},
+        "sha256": {"type": "string"},
+        "size_bytes": {"type": "integer", "minimum": 0}
+      }
+    },
+    "splits": {
+      "type": "object",
+      "required": ["policy", "group_key"],
+      "additionalProperties": false,
+      "properties": {
+        "policy": {"enum": ["song_level", "file_level", "none"]},
+        "group_key": {"type": "string"}
+      }
+    },
+    "notes": {"type": "string"}
+  }
+}

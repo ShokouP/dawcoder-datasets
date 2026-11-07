@@ -1,0 +1,50 @@
+# SPDX -> 档位映射（唯一依据；commercial_ok/redistributable/share_alike 由它推导）
+licenses:
+  CC0-1.0:
+    tier: T0
+    commercial_ok: true
+    redistributable: true
+    share_alike: false
+    attribution_required: false
+  Public-Domain:
+    tier: T0
+    commercial_ok: true
+    redistributable: true
+    share_alike: false
+    attribution_required: false
+  CC-BY-4.0:
+    tier: T1
+    commercial_ok: true
+    redistributable: true
+    share_alike: false
+    attribution_required: true
+  CC-BY-SA-4.0:
+    tier: T1
+    commercial_ok: true
+    redistributable: true
+    share_alike: true
+    attribution_required: true
+  MIT:
+    tier: T0
+    commercial_ok: true
+    redistributable: true
+    share_alike: false
+    attribution_required: true
+  CC-BY-NC-SA-4.0:
+    tier: T2
+    commercial_ok: false
+    redistributable: false
+    share_alike: true
+    attribution_required: true
+  Non-Commercial:
+    tier: T2
+    commercial_ok: false
+    redistributable: false
+    share_alike: false
+    attribution_required: true
+  Unknown:
+    tier: T3
+    commercial_ok: false
+    redistributable: false
+    share_alike: false
+    attribution_required: false

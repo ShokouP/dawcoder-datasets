@@ -1,0 +1,83 @@
+{
+  "version": "0.1.0",
+  "created": "2026-11-07",
+  "seed": 20261107,
+  "license": "CC0-1.0",
+  "generator": "synthetic/generate.py",
+  "files": {
+    "mix_train.jsonl": {
+      "sha256": "60594bce819a26eaec75e88ba735215ed4be5c4442dc27b5aaca7ce8af05bca4",
+      "bytes": 1781349,
+      "lines": 1080
+    },
+    "sft_mix_train.jsonl": {
+      "sha256": "2c3ba7f8b5041aba44cd0d439f06d9984cdafba62b8c6650ebc4e852cc1cf324",
+      "bytes": 2182312,
+      "lines": 1080
+    },
+    "mix_val.jsonl": {
+      "sha256": "863fdae487e9cd63df494be3c15a6fc240d39fe1c2f4964c76e384491f6742ec",
+      "bytes": 194486,
+      "lines": 120
+    },
+    "sft_mix_val.jsonl": {
+      "sha256": "3d12282e69cfa85608f8c9ccbc843603f5c3601a6c5fa220f5004cf9a6673740",
+      "bytes": 238603,
+      "lines": 120
+    },
+    "form_train.jsonl": {
+      "sha256": "a49d41149056b83cc270ede0196f8a71fb351ac1398babd873467d51ba970900",
+      "bytes": 742401,
+      "lines": 540
+    },
+    "sft_form_train.jsonl": {
+      "sha256": "288824d417258ae8947425e44181353c299b29270267a982c71cd0c2f69af0f7",
+      "bytes": 906520,
+      "lines": 540
+    },
+    "form_val.jsonl": {
+      "sha256": "e4cf4cfb0f8a41732c8de35cf50235f55bdc65f545f89102470274f8674ea810",
+      "bytes": 82248,
+      "lines": 60
+    },
+    "sft_form_val.jsonl": {
+      "sha256": "dbda353b6fe6b7a2cbc618c2b2f85a956208727b676bad39760c254a3112ec8a",
+      "bytes": 100468,
+      "lines": 60
+    },
+    "texture_train.jsonl": {
+      "sha256": "de49ce2e0247426a0d0f1f0c8a38aa74902808dbbd3c2b3a0f1296633f231e45",
+      "bytes": 8330958,
+      "lines": 1620
+    },
+    "sft_texture_train.jsonl": {
+      "sha256": "b85b11ecd33e9324583e4796cac621dd3ac324a048798669222df182b15e8490",
+      "bytes": 8789644,
+      "lines": 1620
+    },
+    "texture_val.jsonl": {
+      "sha256": "74187a988ed0051fdd8121720722e132df283d3ebbb4b2414ba203c6bfd9f8fe",
+      "bytes": 946109,
+      "lines": 180
+    },
+    "sft_texture_val.jsonl": {
+      "sha256": "5b2d9c63ed08454979c84861276c96d7bdf314cd49db73ef78876df63ed7335e",
+      "bytes": 997097,
+      "lines": 180
+    }
+  },
+  "counts": {
+    "mix_train.jsonl": 1080,
+    "sft_mix_train.jsonl": 1080,
+    "mix_val.jsonl": 120,
+    "sft_mix_val.jsonl": 120,
+    "form_train.jsonl": 540,
+    "sft_form_train.jsonl": 540,
+    "form_val.jsonl": 60,
+    "sft_form_val.jsonl": 60,
+    "texture_train.jsonl": 1620,
+    "sft_texture_train.jsonl": 1620,
+    "texture_val.jsonl": 180,
+    "sft_texture_val.jsonl": 180
+  }
+}

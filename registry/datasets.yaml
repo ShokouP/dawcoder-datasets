@@ -1,0 +1,170 @@
+# DAWcoder 数据集注册表（唯一事实源）
+# 字段说明见 schemas/dataset.schema.json；许可档位见 registry/licenses.yaml
+version: 1
+datasets:
+  - id: slakh2100
+    name: Slakh2100
+    task: [mix, texture]
+    subtasks: [stem_balance, bus_processing, midi_texture]
+    source_type: public_multitrack
+    modality: [audio, midi]
+    license:
+      spdx: CC-BY-4.0
+      evidence: {url: "https://zenodo.org/records/4599666", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Manilow et al., Cutting Music Source Separation Some Slakh, WASPAA 2019"
+    fetch: {method: zenodo, url: "https://zenodo.org/records/4599666/files/slakh2100_flac_redux.tar.gz", sha256: "", size_bytes: 112000000000}
+    splits: {policy: song_level, group_key: lakh_md5}
+    notes: "由 Lakh MIDI 合成；与 Lakh/MidiCaps 共享 song-level split；勿用 omitted/ 目录"
+
+  - id: babyslakh
+    name: BabySlakh
+    task: [mix]
+    subtasks: [smoke_test]
+    source_type: public_multitrack
+    modality: [audio, midi]
+    license:
+      spdx: CC-BY-4.0
+      evidence: {url: "https://zenodo.org/records/4603870", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Manilow et al., 2019 (Slakh)"
+    fetch: {method: zenodo, url: "https://zenodo.org/records/4603870/files/babyslakh_16k.tar.gz", sha256: "", size_bytes: 925700000}
+    splits: {policy: song_level, group_key: lakh_md5}
+    notes: "20 首 16kHz，用于 CI 冒烟与快速原型"
+
+  - id: lakh-midi
+    name: Lakh MIDI Dataset v0.1
+    task: [texture, mix]
+    subtasks: [midi_texture, param_prior]
+    source_type: public_midi
+    modality: [midi]
+    license:
+      spdx: CC-BY-4.0
+      evidence: {url: "https://colinraffel.com/projects/lmd/", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Colin Raffel, Learning-Based Methods for Comparing Sequences, PhD Thesis 2016"
+    fetch: {method: url, url: "http://hog.ee.columbia.edu/craffel/lmd/lmd_full.tar.gz", sha256: "", size_bytes: 1600000000}
+    splits: {policy: song_level, group_key: md5}
+    notes: "上游为受版权歌曲转录；商用训练保留，但生成侧需 MIDI 指纹过滤"
+
+  - id: pdmx
+    name: PDMX (public domain MusicXML)
+    task: [texture, form]
+    subtasks: [voicing, arrangement_skeleton]
+    source_type: public_musicxml
+    modality: [musicxml, midi]
+    license:
+      spdx: Public-Domain
+      evidence: {url: "https://zenodo.org/records/15571083", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Long et al., PDMX, ICASSP 2025"
+    fetch: {method: zenodo, url: "https://zenodo.org/records/15571083", sha256: "", size_bytes: 15000000000}
+    splits: {policy: song_level, group_key: pdmx_path}
+    notes: "只用 no_license_conflict 子集（222,856 首）；采集自 MuseScore 公有领域条目"
+
+  - id: salami-annotations
+    name: SALAMI structural annotations
+    task: [form]
+    subtasks: [section_boundaries, section_labels]
+    source_type: public_annotation
+    modality: [annotation]
+    license:
+      spdx: CC0-1.0
+      evidence: {url: "https://ddmal.ca/research/salami/annotation/", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Smith et al., SALAMI, ISMIR 2011"
+    fetch: {method: git, url: "https://github.com/DDMAL/salami-data-public", sha256: "", size_bytes: 50000000}
+    splits: {policy: song_level, group_key: salami_track_id}
+    notes: "只含标注；对应音频需自行从 Internet Archive 获取并核对权利"
+
+  - id: musdb18
+    name: MUSDB18
+    task: [mix]
+    subtasks: [evaluation]
+    source_type: public_multitrack
+    modality: [audio, stems]
+    license:
+      spdx: Non-Commercial
+      evidence: {url: "https://zenodo.org/records/1117372", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Rafii et al., MUSDB18, 2017"
+    fetch: {method: zenodo, url: "https://zenodo.org/records/1117372/files/musdb18.zip", sha256: "", size_bytes: 4700000000}
+    splits: {policy: song_level, group_key: musdb_track_id}
+    notes: "非商用；100 首来自 Cambridge-MT、46 首来自 MedleyDB(CC BY-NC-SA 4.0)；只做评测"
+
+  - id: medleydb-2
+    name: MedleyDB 2.0
+    task: [mix]
+    subtasks: [evaluation]
+    source_type: public_multitrack
+    modality: [audio, stems, annotation]
+    license:
+      spdx: CC-BY-NC-SA-4.0
+      evidence: {url: "https://zenodo.org/records/1715175", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Bittner et al., MedleyDB, ISMIR 2014; MedleyDB 2.0 ISMIR 2016"
+    fetch: {method: manual_request, url: "https://medleydb.weebly.com/", sha256: "", size_bytes: 0}
+    splits: {policy: song_level, group_key: medleydb_id}
+    notes: "需向 NYU 申请；与 MUSDB 有 46 首重叠，切分需合并"
+
+  - id: moisesdb
+    name: MoisesDB
+    task: [mix]
+    subtasks: [evaluation, stem_balance]
+    source_type: public_multitrack
+    modality: [audio, stems, annotation]
+    license:
+      spdx: CC-BY-NC-SA-4.0
+      evidence: {url: "https://huggingface.co/datasets/wearemusicai/moisesdb", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Pereira et al., MoisesDB, 2023"
+    fetch: {method: manual_request, url: "https://developer.moises.ai/research", sha256: "", size_bytes: 0}
+    splits: {policy: song_level, group_key: moises_track_id}
+    notes: "12 stems 细粒度；研究用途，不可商用"
+
+  - id: cambridge-mt-ms-multitracks
+    name: Cambridge-MT "Mixing Secrets" multitracks
+    task: [mix]
+    subtasks: [evaluation, reference_mix]
+    source_type: public_multitrack
+    modality: [audio, stems]
+    license:
+      spdx: Non-Commercial
+      evidence: {url: "https://cambridge-mt.com/ms3/mtk-faq/", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Mike Senior, Mixing Secrets for the Small Studio"
+    fetch: {method: manual_request, url: "https://cambridge-mt.com/ms3/mtk-faq/", sha256: "", size_bytes: 0}
+    splits: {policy: song_level, group_key: camt_song}
+    notes: "个人练习/教育，禁止再分发与商用；fetch 时必须接受条款"
+
+  - id: dawproject-spec
+    name: DAWproject open exchange format
+    task: [texture, form]
+    subtasks: [project_ir]
+    source_type: public_project
+    modality: [project_file]
+    license:
+      spdx: MIT
+      evidence: {url: "https://github.com/bitwig/dawproject", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "Bitwig, DAWproject 1.0"
+    fetch: {method: git, url: "https://github.com/bitwig/dawproject", sha256: "", size_bytes: 3000000}
+    splits: {policy: none, group_key: ""}
+    notes: "规范与示例工程；示例内嵌音频需逐文件核对，勿整仓搬运音频"
+
+  - id: flp-github-unverified
+    name: GitHub 上的 .flp 工程（许可不明）
+    task: [mix, form, texture]
+    source_type: public_project
+    modality: [project_file]
+    license:
+      spdx: Unknown
+      evidence: {url: "", captured_at: "", reviewer: ""}
+    citation: "不使用（T3，许可不明）"
+    fetch: {method: none, url: "", sha256: "", size_bytes: 0}
+    splits: {policy: none, group_key: ""}
+    notes: "T3：仅本地研究，永不进仓库、不进任何导出"
+
+  - id: dawcoder-synth-v1
+    name: DAWcoder Synthetic Starter v0.1
+    task: [mix, form, texture]
+    subtasks: [mix_params, section_plan, midi_texture]
+    source_type: synthetic
+    modality: [text, annotation]
+    license:
+      spdx: CC0-1.0
+      evidence: {url: "https://github.com/ShokouP/dawcoder-datasets", captured_at: "2026-11-07", reviewer: "shokoup"}
+    citation: "DAWcoder contributors, DAWcoder Synthetic Starter Dataset v0.1, 2026"
+    fetch: {method: none, url: "", sha256: "", size_bytes: 23000000}
+    splits: {policy: file_level, group_key: ""}
+    notes: "仓库内置训练集：3600 条结构化样本 + chat 格式，由 synthetic/generate.py 可复现生成；种子 20261107"
