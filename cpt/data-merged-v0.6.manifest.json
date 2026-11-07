@@ -1,0 +1,243 @@
+{
+  "corpus": "dawcoder-cpt-v0.6-merged",
+  "profile": "public",
+  "split_policy": "group",
+  "generated_at": "2026-11-07T10:08:43Z",
+  "inputs": [
+    "zhwiki-corpus",
+    "data-expanded",
+    "data-curated",
+    "data-permissive"
+  ],
+  "input_stats": {
+    "zhwiki-corpus": {
+      "docs": 3865,
+      "chars": 25002314,
+      "tokens": 12847232
+    },
+    "data-expanded": {
+      "docs": 70333,
+      "chars": 113923489,
+      "tokens": 28504029
+    },
+    "data-curated": {
+      "docs": 58972,
+      "chars": 96861276,
+      "tokens": 24237576
+    },
+    "data-permissive": {
+      "docs": 5978,
+      "chars": 37972590,
+      "tokens": 9512944
+    }
+  },
+  "docs": 74198,
+  "chars": 138925803,
+  "est_tokens": 41351261,
+  "train_docs": 72748,
+  "val_docs": 1450,
+  "dedupe": {
+    "removed_duplicates": 64950,
+    "unique_docs": 74198,
+    "val_split_recounted": 1450,
+    "note": "按 text_sha256 重算 98/2，避免跨 split 泄漏"
+  },
+  "language": {
+    "zh": 3411,
+    "mixed": 777,
+    "en": 70010
+  },
+  "license_class": {
+    "share-alike": 68215,
+    "permissive": 5983
+  },
+  "length": {
+    "p50": 946,
+    "p90": 3672,
+    "p99": 11997
+  },
+  "sources": {
+    "arxiv-audio": {
+      "docs": 1169,
+      "chars": 1405757,
+      "tokens": 351004,
+      "licenses": {
+        "CC0-1.0": 1169
+      }
+    },
+    "audioflux-docs": {
+      "docs": 186,
+      "chars": 244774,
+      "tokens": 61162,
+      "licenses": {
+        "MIT": 186
+      }
+    },
+    "clap-docs": {
+      "docs": 1,
+      "chars": 8588,
+      "tokens": 2147,
+      "licenses": {
+        "MIT": 1
+      }
+    },
+    "dawcoder-ir-handbook": {
+      "docs": 617,
+      "chars": 862365,
+      "tokens": 237322,
+      "licenses": {
+        "CC0-1.0": 617
+      }
+    },
+    "dawproject-spec": {
+      "docs": 2,
+      "chars": 59924,
+      "tokens": 14981,
+      "licenses": {
+        "MIT": 2
+      }
+    },
+    "gutenberg-music": {
+      "docs": 2683,
+      "chars": 32036091,
+      "tokens": 8008046,
+      "licenses": {
+        "Public-Domain": 2683
+      }
+    },
+    "librosa-docs": {
+      "docs": 295,
+      "chars": 563246,
+      "tokens": 140693,
+      "licenses": {
+        "ISC": 295
+      }
+    },
+    "mido-docs": {
+      "docs": 16,
+      "chars": 8679,
+      "tokens": 2164,
+      "licenses": {
+        "MIT": 16
+      }
+    },
+    "pretty-midi-docs": {
+      "docs": 37,
+      "chars": 26382,
+      "tokens": 6584,
+      "licenses": {
+        "MIT": 37
+      }
+    },
+    "pyloudnorm-docs": {
+      "docs": 7,
+      "chars": 8647,
+      "tokens": 2159,
+      "licenses": {
+        "MIT": 7
+      }
+    },
+    "pyroomacoustics-docs": {
+      "docs": 243,
+      "chars": 254210,
+      "tokens": 63460,
+      "licenses": {
+        "MIT": 243
+      }
+    },
+    "sfz-format-docs": {
+      "docs": 222,
+      "chars": 435977,
+      "tokens": 108913,
+      "licenses": {
+        "CC0-1.0": 222
+      }
+    },
+    "sonic-pi-tutorial": {
+      "docs": 90,
+      "chars": 341376,
+      "tokens": 90429,
+      "licenses": {
+        "CC-BY-SA-4.0": 90
+      }
+    },
+    "sounddevice-docs": {
+      "docs": 5,
+      "chars": 13466,
+      "tokens": 3365,
+      "licenses": {
+        "MIT": 5
+      }
+    },
+    "stackexchange-avp": {
+      "docs": 12645,
+      "chars": 14089846,
+      "tokens": 3517761,
+      "licenses": {
+        "CC-BY-SA-4.0": 12645
+      }
+    },
+    "stackexchange-music": {
+      "docs": 30821,
+      "chars": 41185035,
+      "tokens": 10284739,
+      "licenses": {
+        "CC-BY-SA-4.0": 30821
+      }
+    },
+    "stackexchange-sound": {
+      "docs": 20762,
+      "chars": 20206646,
+      "tokens": 5043929,
+      "licenses": {
+        "CC-BY-SA-4.0": 20762
+      }
+    },
+    "windows-midi-docs": {
+      "docs": 500,
+      "chars": 2070491,
+      "tokens": 517444,
+      "licenses": {
+        "MIT": 500
+      }
+    },
+    "zh-wikipedia-audio": {
+      "docs": 32,
+      "chars": 101989,
+      "tokens": 47727,
+      "licenses": {
+        "CC-BY-SA-4.0": 32
+      }
+    },
+    "zh-wikipedia-dump": {
+      "docs": 3865,
+      "chars": 25002314,
+      "tokens": 12847232,
+      "licenses": {
+        "CC-BY-SA-4.0": 3865
+      }
+    }
+  },
+  "files": {
+    "corpus_train.jsonl": {
+      "sha256": "a977eb23a26c19cf75e276899ad62f9f5facbd4bd8764927e1c383959747157a",
+      "bytes": 214548529,
+      "lines": 72748
+    },
+    "corpus_val.jsonl": {
+      "sha256": "364ed083a839b839dd47f35e18d82b58d220b4cb4bf905bbf6dad000325e642a",
+      "bytes": 3997996,
+      "lines": 1450
+    },
+    "cpt_train_text.jsonl": {
+      "sha256": "d2fa9cd9d946f3caf0674af73545aa3b79f89ab8e19f722ea3ef4717a946fd31",
+      "bytes": 177192418,
+      "lines": 72748
+    },
+    "cpt_val_text.jsonl": {
+      "sha256": "013e736466d64c0aa0d8c3f6bd3daa6c19b3d71e2075886a686385bed5feef7a",
+      "bytes": 3261230,
+      "lines": 1450
+    }
+  }
+}

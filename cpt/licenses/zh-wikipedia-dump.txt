@@ -1,0 +1,4 @@
+﻿Wikipedia (zh) text — CC BY-SA 4.0
+Source: https://zh.wikipedia.org/  (dump: zhwiki-latest-pages-articles.xml.bz2)
+License: https://creativecommons.org/licenses/by-sa/4.0/
+Attribution: 中文维基百科贡献者；每篇文档保留标题与永久链接。
