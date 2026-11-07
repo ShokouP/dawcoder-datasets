@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>DAWcoder Preview — 意图 → 工程参数</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; font: 14px/1.5 system-ui, "Segoe UI", sans-serif; background: #0f1115; color: #e6e6e6; }
+  header { padding: 14px 20px; border-bottom: 1px solid #262a33; display: flex; gap: 16px; align-items: baseline; }
+  header h1 { font-size: 16px; margin: 0; }
+  header .sub { color: #8b93a3; font-size: 12px; }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 16px 20px 40px; }
+  @media (max-width: 1000px) { main { grid-template-columns: 1fr; } }
+  section { background: #161a22; border: 1px solid #262a33; border-radius: 10px; padding: 14px; }
+  h2 { font-size: 13px; margin: 0 0 10px; color: #b9c2d0; font-weight: 600; }
+  label { display: block; color: #8b93a3; font-size: 12px; margin: 10px 0 4px; }
+  textarea { width: 100%; box-sizing: border-box; background: #0d1016; color: #dfe6f0; border: 1px solid #2b3140;
+             border-radius: 6px; padding: 8px; font: 12px/1.45 ui-monospace, Consolas, monospace; resize: vertical; }
+  #state { height: 150px; } #intent { height: 56px; } #out { height: 260px; }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  button { background: #2f6df6; color: #fff; border: 0; border-radius: 6px; padding: 8px 14px; cursor: pointer; font-size: 13px; }
+  button.ghost { background: #232936; border: 1px solid #333b4d; }
+  button:disabled { opacity: .5; cursor: wait; }
+  select, input { background: #0d1016; color: #dfe6f0; border: 1px solid #2b3140; border-radius: 6px; padding: 6px 8px; font-size: 12px; }
+  .task-btn { background: #232936; border: 1px solid #333b4d; }
+  .task-btn.active { background: #2f6df6; border-color: #2f6df6; }
+  #status { margin-top: 8px; font-size: 12px; color: #8b93a3; white-space: pre-wrap; }
+  #status.err { color: #ff6b6b; }
+  .patch { margin-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+  .op { background: #0d1016; border: 1px solid #232936; border-radius: 6px; padding: 6px 8px; font: 12px ui-monospace, Consolas, monospace; }
+  .muted { color: #8b93a3; }
+  code { background: #0d1016; padding: 1px 4px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>DAWcoder Preview</h1>
+  <span class="sub">意图 → 可校验的 DAW 工程参数 JSON · 本地 Ollama · 不上传工程数据</span>
+</header>
+
+<main>
+  <section>
+    <h2>输入</h2>
+    <div class="row">
+      <span class="muted">任务：</span>
+      <button class="task-btn active" data-task="mix">mix 混音</button>
+      <button class="task-btn" data-task="form">form 曲式</button>
+      <button class="task-btn" data-task="texture">texture 织体</button>
+    </div>
+    <label>Model</label>
+    <input id="model" value="dawcoder-preview" style="width:100%">
+    <label>工程状态 / 约束（JSON，state 字段）</label>
+    <textarea id="state" spellcheck="false"></textarea>
+    <label>制作意图（自然语言）</label>
+    <textarea id="intent" spellcheck="false"></textarea>
+    <div class="row" style="margin-top:10px">
+      <button id="gen">生成 Patch</button>
+      <button id="sample" class="ghost">载入示例</button>
+      <span id="status"></span>
+    </div>
+    <p class="muted" style="font-size:11px;margin-top:10px">
+      需要先运行 <code>ollama serve</code>，并设置 <code>OLLAMA_ORIGINS=*</code> 允许本页访问；
+      页面用 <code>python -m http.server 8000 --directory preview</code> 打开 <code>/demo.html</code>。
+    </p>
+  </section>
+
+  <section>
+    <h2>输出</h2>
+    <div class="row"><button id="copy" class="ghost">复制 JSON</button></div>
+    <textarea id="out" spellcheck="false" readonly placeholder="模型输出会显示在这里"></textarea>
+    <label>Patch 预览</label>
+    <div id="patch" class="patch muted">—</div>
+  </section>
+</main>
+
+<script>
+const SYSTEM = "你是 DAWcoder，一个把音乐制作意图翻译成 DAW 工程参数补丁的助手。只输出一个 JSON 对象，不要输出解释、Markdown 或代码块。mix 任务输出 {\"ops\": [...]}，form 任务输出 {\"sections\": [...], \"markers\": [...]}，texture 任务输出 {\"notes\": [...]}。所有数值用工程单位（dB、ms、Hz、MIDI note）。";
+
+const EXAMPLES = {
+  mix: {
+    state: {
+      genre: "pop", tempo: 120, sample_rate: 48000,
+      tracks: [
+        {name: "Kick", role: "kick", volume_db: -4.0, pan: 0.0, fx: [], sends: []},
+        {name: "Snare", role: "snare", volume_db: -6.0, pan: 0.0, fx: [], sends: []},
+        {name: "Hats", role: "hats", volume_db: -14.0, pan: 0.1, fx: [], sends: []},
+        {name: "Bass", role: "bass", volume_db: -6.0, pan: 0.0, fx: [], sends: []},
+        {name: "Pad", role: "pad", volume_db: -16.0, pan: 0.0, fx: [], sends: [{to: "Plate Reverb", gain_db: -12.0}]},
+        {name: "Lead Vocal", role: "vocal", volume_db: -8.0, pan: 0.0, fx: [], sends: [{to: "Plate Reverb", gain_db: -14.0}]}
+      ],
+      buses: [{name: "Drum Bus", volume_db: -2.0}, {name: "Plate Reverb", volume_db: -6.0}],
+      master: {target_lufs: -8.0, headroom_db: -6.0}
+    },
+    intent: "人声被鼓盖住了，帮我推出来一点，别太亮；顺便把 Pad 的中低频收一下。"
+  },
+  form: {
+    state: {genre: "house", tempo: 124, time_signature: "4/4", target_seconds: 240},
+    intent: "做一首约 4 分钟的 house：16 小节 intro、16 小节 build、32 小节 drop、16 小节 break、32 小节 drop、16 小节 outro，能量要有对比。"
+  },
+  texture: {
+    state: {tempo: 100, time_signature: "4/4", progression: ["Cmaj7", "G", "Am7", "F"], style: "arp_16", range: ["C3", "C5"]},
+    intent: "Cmaj7 - G - Am7 - F 进行，用 16 分音符上行琶音，音域 C3–C5，力度 70–95，不要和弦外音。"
+  }
+};
+
+let task = "mix";
+const $ = (id) => document.getElementById(id);
+const status = (msg, err = false) => { $("status").textContent = msg; $("status").className = err ? "err" : ""; };
+
+function loadExample() {
+  const ex = EXAMPLES[task];
+  $("state").value = JSON.stringify(ex.state, null, 1);
+  $("intent").value = ex.intent;
+}
+
+function renderPatch(obj) {
+  const box = $("patch");
+  box.innerHTML = "";
+  box.classList.remove("muted");
+  const add = (txt) => { const d = document.createElement("div"); d.className = "op"; d.textContent = txt; box.appendChild(d); };
+  if (obj && Array.isArray(obj.ops)) {
+    obj.ops.forEach((op) => {
+      if (op.op === "set_track") add(`set_track  ${op.track}  ${JSON.stringify(op.fields)}`);
+      else if (op.op === "set_eq") add(`EQ  ${op.track}  ${op.freq}Hz  ${op.gain_db}dB  Q=${op.q}`);
+      else if (op.op === "set_comp") add(`COMP  ${op.track}  ${JSON.stringify(op.params)}`);
+      else if (op.op === "set_send") add(`SEND  ${op.from} → ${op.to}  ${op.gain_db}dB`);
+      else add(JSON.stringify(op));
+    });
+  } else if (obj && Array.isArray(obj.sections)) {
+    obj.sections.forEach((s) => add(`${s.name}: bar ${s.start_bar} +${s.bars}  energy ${s.energy}  density ${s.density}`));
+  } else if (obj && Array.isArray(obj.notes)) {
+    add(`${obj.notes.length} notes`);
+    obj.notes.slice(0, 12).forEach((n) => add(`bar ${n.bar} step ${n.step} key ${n.key} len ${n.len_steps} vel ${n.vel}`));
+  } else {
+    box.classList.add("muted");
+    box.textContent = obj ? "未识别的输出结构" : "—";
+  }
+}
+
+function extractJson(text) {
+  const t = (text || "").trim().replace(/^```[a-z]*\n?/i, "").replace(/\n?```$/, "");
+  try { return JSON.parse(t); } catch (e) {}
+  const m = t.match(/\{[\s\S]*\}/);
+  if (m) { try { return JSON.parse(m[0]); } catch (e) {} }
+  return null;
+}
+
+async function generate() {
+  let state;
+  try { state = JSON.parse($("state").value); } catch (e) { status("state JSON 解析失败：" + e.message, true); return; }
+  const intent = $("intent").value.trim();
+  if (!intent) { status("请填写制作意图", true); return; }
+  const user = JSON.stringify({ task, state, intent });
+  $("gen").disabled = true;
+  status("请求本地模型…");
+  const body = {
+    model: $("model").value.trim(),
+    messages: [{ role: "system", content: SYSTEM }, { role: "user", content: user }],
+    stream: false,
+    options: { temperature: 0, top_p: 0.95, num_predict: 2048, num_ctx: 16384 }
+  };
+  try {
+    const r = await fetch("http://127.0.0.1:11434/api/chat", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body)
+    });
+    if (!r.ok) throw new Error("HTTP " + r.status + " " + (await r.text()).slice(0, 200));
+    const data = await r.json();
+    const raw = data.message ? data.message.content : JSON.stringify(data);
+    $("out").value = raw;
+    const obj = extractJson(raw);
+    renderPatch(obj);
+    status(obj ? "完成（JSON 解析成功）" : "输出不是合法 JSON，请重试", !obj);
+  } catch (e) {
+    status("请求失败：" + e.message + "\n确认 ollama serve 已启动、模型名正确、OLLAMA_ORIGINS=*", true);
+  } finally {
+    $("gen").disabled = false;
+  }
+}
+
+document.querySelectorAll(".task-btn").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".task-btn").forEach((x) => x.classList.remove("active"));
+  b.classList.add("active");
+  task = b.dataset.task;
+  loadExample();
+}));
+$("gen").addEventListener("click", generate);
+$("sample").addEventListener("click", loadExample);
+$("copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("out").value); status("已复制"); }
+  catch (e) { status("复制失败：" + e.message, true); }
+});
+loadExample();
+</script>
+</body>
+</html>

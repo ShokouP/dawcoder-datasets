@@ -22,6 +22,19 @@ python synthetic/generate.py --seed 20261107   # 复现
 python synthetic/check.py                     # 校验
 ```
 
+## DAWcoder 预览版（进行中）
+
+`preview/` 存放预览版打包与 demo（参照 3DCoder 的发布范式：专用小模型 + GGUF + 明确 system prompt/采样参数 + 可直接使用的产物）：
+
+- `preview/README.md`：快速开始（Ollama）、system prompt、采样参数、prompt 思路、限制
+- `preview/system_prompt.txt`：模型训练时使用的 system prompt（必须设置）
+- `preview/modelfile`：Ollama Modelfile 模板
+- `preview/demo.html`：本地网页 demo（意图 → patch JSON 可视化预览）
+- `preview/examples.md`：mix / form / texture 示例输入
+- `preview/REFERENCE-3DCODER.md`：3DCoder 使用方式与可复用经验
+
+模型：`dawcoder-preview`（基于 Qwen3.5-4B 的 CPT + SFT，Q4_K_M），训练与导出记录见 `cpt/TRAINING.md`、`training/README.md`。
+
 ## 继续预训练语料（CPT）
 
 `cpt/` 提供 **Qwen3.5-4B 继续预训练**的领域文本语料（音频工程/混音/DAW 格式/乐理/声学）：
