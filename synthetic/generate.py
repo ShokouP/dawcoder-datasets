@@ -400,7 +400,9 @@ def to_chat(sample: dict) -> dict:
 
 
 def write_jsonl(path: Path, rows: list[dict]) -> dict:
-    path.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows), encoding="utf-8")
+    data = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows)
+    # 强制 LF：保证 Windows 生成的 sha256 与 Linux checkout 一致
+    path.write_text(data, encoding="utf-8", newline="\n")
     return {"sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "bytes": path.stat().st_size,
             "lines": len(rows)}
 
@@ -427,7 +429,8 @@ def main() -> None:
     manifest = {"version": VERSION, "created": "2026-11-07", "seed": args.seed,
                 "license": "CC0-1.0", "generator": "synthetic/generate.py", "files": files,
                 "counts": {k: v["lines"] for k, v in files.items()}}
-    (DATA_DIR / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    (DATA_DIR / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2),
+                                            encoding="utf-8", newline="\n")
     total = sum(v["lines"] for k, v in files.items() if not k.startswith("sft_"))
     print(f"生成完成：{total} 条结构化样本，{sum(v['lines'] for k, v in files.items() if k.startswith('sft_'))} 条 chat 样本")
     for name, meta in files.items():
