@@ -1,18 +1,18 @@
 # 语料合并报告（MERGE-REPORT）
 
-- 输出：`D:\train\data\dawcoder-merged-v0.6`
-- 版本：`dawcoder-cpt-v0.6-merged`
-- 结果：**74,198 docs / 138,925,803 chars / ~41,351,261 tokens**（train 72,748 / val 1,450）
-- 输入规模：zhwiki-corpus: 3,865 docs / ~12.8M tok；data-expanded: 70,333 docs / ~28.5M tok；data-curated: 58,972 docs / ~24.2M tok；data-permissive: 5,978 docs / ~9.5M tok
+- 输出：`D:\train\data\dawcoder-merged-v0.7`
+- 版本：`dawcoder-cpt-v0.7-merged`
+- 结果：**71,627 docs / 120,729,147 chars / ~32,083,379 tokens**（train 70,231 / val 1,396）
+- 输入规模：zhwiki-corpus-v2: 1,294 docs / ~3.6M tok；data-expanded: 70,333 docs / ~28.5M tok；data-curated: 58,972 docs / ~24.2M tok；data-permissive: 5,978 docs / ~9.5M tok
 - 去重移除：64,950 条重复（含 permissive 与 expanded 的重叠部分）
-- 语言：{'zh': 3411, 'mixed': 777, 'en': 70010}
-- 许可分类：{'share-alike': 68215, 'permissive': 5983}
+- 语言：{'zh': 1263, 'mixed': 382, 'en': 69982}
+- 许可分类：{'share-alike': 65644, 'permissive': 5983}
 
 ## 输入对照
 
 | 输入 | docs | ~tokens |
 |---|---:|---:|
-| zhwiki-corpus | 3,865 | 12.85M |
+| zhwiki-corpus-v2 | 1,294 | 3.58M |
 | data-expanded | 70,333 | 28.50M |
 | data-curated | 58,972 | 24.24M |
 | data-permissive | 5,978 | 9.51M |
@@ -40,7 +40,7 @@
 | stackexchange-sound | 20,762 | 5.044M | CC-BY-SA-4.0 |
 | windows-midi-docs | 500 | 0.517M | MIT |
 | zh-wikipedia-audio | 32 | 0.048M | CC-BY-SA-4.0 |
-| zh-wikipedia-dump | 3,865 | 12.847M | CC-BY-SA-4.0 |
+| zh-wikipedia-dump | 1,294 | 3.579M | CC-BY-SA-4.0 |
 
 ## 使用建议
 
