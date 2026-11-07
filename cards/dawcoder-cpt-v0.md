@@ -17,8 +17,9 @@
 DAWcoder contributors, "DAWcoder CPT Corpus v0.1", 2026.
 
 ## 已知问题
-- v0.1 是管道验证版，规模有限（见 `cpt/data/stats.md`）；正式 CPT 前需扩展私有/授权语料。
-- Wikipedia 覆盖以英文条目为主，中文术语覆盖不足。
+- v0.1 是管道验证版，规模有限（3,313 docs / ~105 万 tokens，见 `cpt/data/stats.md`）；正式 CPT 前需扩展私有/授权语料。
+- **中文覆盖不足**：中文维基仅 18 篇，中文术语与教学语料需要专门补充。
+- Wikipedia 英文源本次因限速跳过，后续用 dumps 或分批抓取。
 - Stack Exchange 内容为问答体，风格与工程文档不同，CPT 时注意配比。
 - CC BY-SA 的相同方式共享要求是否传导到模型权重存在法律争议，商用前需法务确认。
 - 与 `synthetic/` 的 SFT 数据有少量重叠（参数语义手册），CPT 时可降采样。

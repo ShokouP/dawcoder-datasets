@@ -1,12 +1,26 @@
 {
   "corpus": "dawcoder-cpt-v0.1",
   "profile": "public",
-  "generated_at": "2026-11-07T05:23:52Z",
-  "docs": 3295,
-  "chars": 4040546,
-  "est_tokens": 1030857,
-  "train_docs": 3233,
-  "val_docs": 62,
+  "generated_at": "2026-11-07T05:29:29Z",
+  "docs": 3313,
+  "chars": 4089786,
+  "est_tokens": 1054447,
+  "train_docs": 3249,
+  "val_docs": 64,
+  "dedupe": {
+    "exact_removed": 503,
+    "near_removed": 0
+  },
+  "language": {
+    "zh": 15,
+    "en": 2978,
+    "mixed": 320
+  },
+  "length": {
+    "p50": 888,
+    "p90": 2585,
+    "p99": 5185
+  },
   "sources": {
     "stackexchange-sound": {
       "license": "CC-BY-SA-4.0",
@@ -49,18 +63,25 @@
       "docs": 617,
       "chars": 862365,
       "tokens": 237322
+    },
+    "zh-wikipedia-audio": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 18,
+      "chars": 49240,
+      "tokens": 23590
     }
   },
   "files": {
     "corpus_train.jsonl": {
-      "sha256": "3f87a568bbcf91a5a21b1858bd3b9a629390f4b46d93de455e25763bcf3bb8e2",
-      "bytes": 5599429,
-      "lines": 3233
+      "sha256": "724b4b51795e1b8f9187a131321430846172c2c072e6d210a200a0f25af7b37c",
+      "bytes": 5718996,
+      "lines": 3249
     },
     "corpus_val.jsonl": {
-      "sha256": "8e0222a4184bb980f4f81bb2cb9eff12b45312cb5a989e87385f6016f6e797b8",
-      "bytes": 94164,
-      "lines": 62
+      "sha256": "5b9f4d5c0933bfa45b5e49144bd6dcd7f81b7a5416b1b29983fc11be050065e4",
+      "bytes": 98453,
+      "lines": 64
     }
   }
 }

@@ -4,9 +4,11 @@
 
 ## 当前构建（v0.1，2026-11-07）
 
-- 3,295 篇文档 / 4,040,546 字符 / 估算 **1,030,857 tokens**
-- 来源分布：Stack Exchange sound 1,494 篇 + music 708 篇 + avp 236 篇、arXiv 摘要 237 篇、DAWproject 规范 3 篇、自建参数手册 617 篇
-- Wikipedia：本次因 429 限速跳过（`wikipedia-audio` 为 optional 源），后续用 dumps 或分批补充
+- 3,313 篇文档 / 4,089,786 字符 / 估算 **1,054,447 tokens**
+- 来源分布：Stack Exchange sound 1,494 + music 708 + avp 236、arXiv 摘要 237、DAWproject 规范 3、中文维基条目 18、自建参数手册 617
+- 语言分布：英文 2,978 / 中英混合 320 / 中文 15（中文仍偏少，后续补）
+- 去重：精确重复 503，近似重复 0（SimHash）
+- Wikipedia（英文）：本次因 429 限速跳过（optional 源），后续用 dumps 或分批补充
 
 ## 设计原则
 

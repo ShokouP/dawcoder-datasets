@@ -61,6 +61,56 @@ def est_tokens(text: str) -> int:
     return int(cjk / 1.6 + (len(text) - cjk) / 4)
 
 
+def cjk_ratio(text: str) -> float:
+    if not text:
+        return 0.0
+    cjk = sum(1 for ch in text if "\u4e00" <= ch <= "\u9fff")
+    return cjk / len(text)
+
+
+def simhash64(text: str) -> int:
+    """轻量 SimHash：用于近似重复检测。"""
+    words = re.findall(r"[a-z0-9]+|[\u4e00-\u9fff]", text.lower())
+    if len(words) < 40:
+        return 0
+    step = max(1, (len(words) - 6) // 300)
+    shingles = {" ".join(words[i:i + 6]) for i in range(0, len(words) - 6, step)}
+    bits = [0] * 64
+    for sh in shingles:
+        h = int.from_bytes(hashlib.blake2b(sh.encode("utf-8"), digest_size=8).digest(), "big")
+        for b in range(64):
+            bits[b] += 1 if (h >> b) & 1 else -1
+    sig = 0
+    for b in range(64):
+        if bits[b] > 0:
+            sig |= 1 << b
+    return sig
+
+
+def hamming(a: int, b: int) -> int:
+    return bin(a ^ b).count("1")
+
+
+def dedupe_near(rows: list[dict]) -> tuple[list[dict], int]:
+    """按 SimHash 分桶检测近似重复（Hamming ≤ 3）。返回 (保留, 删除数)。"""
+    buckets: dict[int, list[int]] = {}
+    kept: list[dict] = []
+    sigs: list[int] = []
+    removed = 0
+    for d in rows:
+        sig = simhash64(d["text"])
+        bucket = sig >> 56
+        candidates = [i for b in (bucket - 1, bucket, bucket + 1) for i in buckets.get(b, [])]
+        dup = any(sigs[i] and hamming(sig, sigs[i]) <= 3 for i in candidates)
+        if dup:
+            removed += 1
+            continue
+        sigs.append(sig)
+        buckets.setdefault(bucket, []).append(len(kept))
+        kept.append(d)
+    return kept, removed
+
+
 def describe_op(op: dict) -> str:
     kind = op["op"]
     if kind == "set_track":
@@ -162,7 +212,7 @@ def main() -> None:
     # 去重：长度过滤 + 精确 hash + doc_id
     seen_text: set[str] = set()
     seen_ids: set[str] = set()
-    unique: list[dict] = []
+    exact: list[dict] = []
     for d in docs:
         text = d.get("text", "")
         if not (MIN_CHARS <= len(text) <= MAX_CHARS):
@@ -173,7 +223,11 @@ def main() -> None:
         seen_text.add(h)
         seen_ids.add(d["doc_id"])
         d["text_sha256"] = h
-        unique.append(d)
+        exact.append(d)
+
+    # 近似去重（SimHash）
+    unique, near_removed = dedupe_near(exact)
+    exact_removed = len(docs) - len(exact)
 
     # 切分：按 hash 后两位 98/2
     train, val = [], []
@@ -200,6 +254,12 @@ def main() -> None:
 
     total_chars = sum(len(d["text"]) for d in unique)
     total_tokens = sum(est_tokens(d["text"]) for d in unique)
+    lang = {"zh": 0, "en": 0, "mixed": 0}
+    for d in unique:
+        r = cjk_ratio(d["text"])
+        lang["zh" if r > 0.5 else "en" if r < 0.1 else "mixed"] += 1
+    lengths = sorted(len(d["text"]) for d in unique)
+    pct = lambda p: lengths[min(len(lengths) - 1, int(len(lengths) * p))] if lengths else 0
     manifest = {
         "corpus": "dawcoder-cpt-v0.1",
         "profile": args.profile,
@@ -209,6 +269,9 @@ def main() -> None:
         "est_tokens": total_tokens,
         "train_docs": len(train),
         "val_docs": len(val),
+        "dedupe": {"exact_removed": exact_removed, "near_removed": near_removed},
+        "language": lang,
+        "length": {"p50": pct(0.5), "p90": pct(0.9), "p99": pct(0.99)},
         "sources": {sid: {"license": included[sid]["license"], "tier": included[sid]["tier"], **st}
                     for sid, st in per_source.items()},
         "files": files,
@@ -219,7 +282,10 @@ def main() -> None:
     stats = ["# CPT 语料统计", "",
              f"- 语料版本：`dawcoder-cpt-v0.1`（{args.profile}）",
              f"- 文档数：**{len(unique)}**（train {len(train)} / val {len(val)}）",
-             f"- 字符数：**{total_chars:,}**；估算 tokens：**{total_tokens:,}**", "",
+             f"- 字符数：**{total_chars:,}**；估算 tokens：**{total_tokens:,}**",
+             f"- 语言分布：中文 {lang['zh']} / 英文 {lang['en']} / 中英混合 {lang['mixed']}",
+             f"- 长度分位（字符）：p50 {pct(0.5):,} / p90 {pct(0.9):,} / p99 {pct(0.99):,}",
+             f"- 去重：精确重复 {exact_removed} / 近似重复 {near_removed}", "",
              "| 源 | 许可 | 文档 | 字符 | 估算 tokens |", "|---|---|---:|---:|---:|"]
     for sid, st in sorted(per_source.items()):
         src = included[sid]

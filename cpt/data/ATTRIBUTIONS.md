@@ -31,3 +31,8 @@
 - 许可：**CC-BY-SA-4.0**（tier T1）
 - 来源：stackexchange
 - 要求：署名 + 相同方式共享；本语料按 CC BY-SA 4.0 分发。
+
+## 中文维基百科 音频工程条目（`zh-wikipedia-audio`）
+- 许可：**CC-BY-SA-4.0**（tier T1）
+- 来源：wikipedia_titles
+- 要求：署名 + 相同方式共享；本语料按 CC BY-SA 4.0 分发。

@@ -249,6 +249,35 @@ def fetch_arxiv(source: dict, out: Path) -> int:
     return append(out, rows)
 
 
+# ------------------------------------------------------------------ wikipedia titles（中文）
+
+def fetch_wikipedia_titles(source: dict, out: Path) -> int:
+    cfg = source["fetch"]
+    docs: list[dict] = []
+    for title in cfg["titles"]:
+        url = ("https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1"
+               f"&exlimit=1&redirects=1&format=json&titles={urllib.parse.quote(title)}")
+        try:
+            data = fetch_json(url)
+        except RuntimeError as exc:
+            log(f"  中文条目失败（跳过）：{title}：{exc}")
+            continue
+        for page in data.get("query", {}).get("pages", {}).values():
+            text = page.get("extract") or ""
+            if len(text) < 200:
+                continue
+            docs.append({
+                "doc_id": f"zhwiki-{page.get('pageid')}", "source": source["id"],
+                "license": source["license"], "tier": source["tier"],
+                "title": page.get("title", ""),
+                "url": f"https://zh.wikipedia.org/?curid={page.get('pageid')}",
+                "kind": "full", "text": text, "retrieved_at": now(),
+            })
+        time.sleep(2.0)
+    log(f"  zh-wikipedia 最终 {len(docs)} 篇")
+    return append(out, docs)
+
+
 # ------------------------------------------------------------------ raw_url
 
 def fetch_raw_url(source: dict, out: Path) -> int:
@@ -303,6 +332,8 @@ def main() -> int:
         try:
             if method == "wikipedia":
                 n = fetch_wikipedia(src, out)
+            elif method == "wikipedia_titles":
+                n = fetch_wikipedia_titles(src, out)
             elif method == "stackexchange":
                 n = fetch_stackexchange(src, out)
             elif method == "arxiv":

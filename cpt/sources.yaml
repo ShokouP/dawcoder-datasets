@@ -103,6 +103,51 @@ sources:
         - Audio signal processing
     notes: "可选源：Wikipedia 对批量抓取限速严格（429），失败时跳过；后续可用 dumps 补充"
 
+  - id: zh-wikipedia-audio
+    title: 中文维基百科 音频工程条目
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    optional: true
+    fetch:
+      method: wikipedia_titles
+      titles:
+        - 混音
+        - 均衡器
+        - 压缩器
+        - 动态范围压缩
+        - 混响
+        - 母带处理
+        - 响度
+        - 分轨
+        - 数字音频工作站
+        - 音频信号处理
+        - 音频滤波器
+        - 频率响应
+        - 总谐波失真
+        - 信噪比
+        - 采样率
+        - 位深度
+        - 效果器
+        - 合成器
+        - 采样器
+        - 声像
+        - 效果器
+        - 音频接口
+        - 前置放大器
+        - 麦克风
+        - 监听音箱
+        - 相位
+        - 立体声
+        - 降噪
+        - 噪声门
+        - 限制器
+        - 动态范围
+        - 多段压缩
+        - 混音师
+        - 母带
+    notes: "中文术语覆盖；逐条抓取全文，限速时跳过"
+
   - id: reaper-user-guide
     title: REAPER User Guide（Cockos）
     license: Non-Commercial
