@@ -2,7 +2,7 @@
 
 - 输出：`D:\train\data\dawcoder-merged`
 - 版本：`dawcoder-cpt-v0.5-merged`
-- 结果：**70,333 docs / 113,923,489 chars / ~28,504,029 tokens**（train 68,854 / val 1,479）
+- 结果：**70,333 docs / 113,923,489 chars / ~28,504,029 tokens**（train 68,958 / val 1,375）
 - 输入规模：data-expanded: 70,333 docs / ~28.5M tok；data-curated: 58,972 docs / ~24.2M tok；data-permissive: 5,978 docs / ~9.5M tok
 - 去重移除：64,950 条重复（含 permissive 与 expanded 的重叠部分）
 - 语言：{'en': 69980, 'mixed': 325, 'zh': 28}

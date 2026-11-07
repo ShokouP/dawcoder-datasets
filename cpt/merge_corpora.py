@@ -52,6 +52,13 @@ def cjk_ratio(text: str) -> float:
     return cjk / len(text)
 
 
+def split_of(d: dict) -> bool:
+    """按 group_key（同源文档族）或 text hash 决定是否 val，保证同源不跨切分。"""
+    group = d.get("group_key")
+    key = group if group else d["text_sha256"]
+    return int(hashlib.sha256(key.encode("utf-8")).hexdigest()[:4], 16) % 100 < 2
+
+
 def iter_records(path: Path):
     with path.open(encoding="utf-8") as fh:
         for line in fh:
@@ -115,7 +122,7 @@ def main() -> int:
                         continue
                     seen.add(h)
                     d["text_sha256"] = h
-                    is_val = int(h[:4], 16) % 100 < 2
+                    is_val = split_of(d)
                     if split == "val":
                         conflict_split += 1
                     rec = json.dumps(d, ensure_ascii=False) + "\n"
@@ -155,6 +162,8 @@ def main() -> int:
 
     manifest = {
         "corpus": args.name,
+        "profile": "public",
+        "split_policy": "group",
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "inputs": [p.name for p in inputs],
         "input_stats": input_stats,

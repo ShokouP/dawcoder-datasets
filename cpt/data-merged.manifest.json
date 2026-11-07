@@ -1,6 +1,8 @@
 {
   "corpus": "dawcoder-cpt-v0.5-merged",
-  "generated_at": "2026-11-07T08:38:17Z",
+  "profile": "public",
+  "split_policy": "group",
+  "generated_at": "2026-11-07T08:40:40Z",
   "inputs": [
     "data-expanded",
     "data-curated",
@@ -26,12 +28,12 @@
   "docs": 70333,
   "chars": 113923489,
   "est_tokens": 28504029,
-  "train_docs": 68854,
-  "val_docs": 1479,
+  "train_docs": 68958,
+  "val_docs": 1375,
   "dedupe": {
     "removed_duplicates": 64950,
     "unique_docs": 70333,
-    "val_split_recounted": 1479,
+    "val_split_recounted": 1375,
     "note": "按 text_sha256 重算 98/2，避免跨 split 泄漏"
   },
   "language": {
@@ -204,24 +206,24 @@
   },
   "files": {
     "corpus_train.jsonl": {
-      "sha256": "7ce5986186eb21e0f0e1c7d447e8e74c20cb402cb03bfd4d04e04ab4f99cee82",
-      "bytes": 148953055,
-      "lines": 68854
+      "sha256": "ddd6fbfd73bff785a373c4fbaa1463f5f336fb966edf35021f7e8727ad175bff",
+      "bytes": 149366582,
+      "lines": 68958
     },
     "corpus_val.jsonl": {
-      "sha256": "3db798389682d8a4c763ad7e01f6f6de9eb1c4ad440eb86f606a99d283963127",
-      "bytes": 3296062,
-      "lines": 1479
+      "sha256": "c4359d59097d68a2d199ac2506b6b058839ac80eddcfaa471281173eaf4e8c18",
+      "bytes": 2882535,
+      "lines": 1375
     },
     "cpt_train_text.jsonl": {
-      "sha256": "935b077bf640b6e690bec62eec2dc168e527f48b6f16ce9eb0fa88ae1a0ab45d",
-      "bytes": 113137571,
-      "lines": 68854
+      "sha256": "f09943b7fa41a9da1ce849b39c9b21456d1a9d76b59b21631ee843b55340554d",
+      "bytes": 113488253,
+      "lines": 68958
     },
     "cpt_val_text.jsonl": {
-      "sha256": "adc223bb8514bdf3f0bd92a34d3ee94d8d94a1e7a7a242f18a088200635a7049",
-      "bytes": 2525774,
-      "lines": 1479
+      "sha256": "ac8dc80ece47554a9e1efb598dd99af94a9ff1620dd3e54057e98db31629e933",
+      "bytes": 2175092,
+      "lines": 1375
     }
   }
 }

@@ -2,7 +2,7 @@
 
 - 语料版本：`dawcoder-cpt-v0.5-merged`
 - 输入：data-expanded, data-curated, data-permissive
-- 文档数：**70,333**（train 68,854 / val 1,479）
+- 文档数：**70,333**（train 68,958 / val 1,375）
 - 字符数：**113,923,489**；估算 tokens：**28,504,029**
 - 语言分布：中文 28 / 英文 69980 / 中英混合 325
 - 许可分类：{'share-alike': 64350, 'permissive': 5983}
