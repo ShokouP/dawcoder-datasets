@@ -40,7 +40,3 @@
 - 许可：**CC-BY-SA-4.0**（tier T1）
 - 来源：wikipedia_titles
 - 要求：署名 + 相同方式共享；本语料按 CC BY-SA 4.0 分发。（Stack Exchange 内容版权归各贡献者，见记录中的 url/author）
-
-## 中文维基文库 古代音乐文献（公版）（`zh-wikisource-music`）
-- 许可：**Public-Domain**（tier T0）
-- 来源：wikipedia_titles

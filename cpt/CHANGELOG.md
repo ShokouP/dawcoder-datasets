@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.3 — 2026-11-07（curated，用于 CPT 训练）
+
+- **语料质量清洗**：新增 `cpt/curate.py`，修复 v0.2 的 Gutenberg 匹配跑偏（War and Peace 等小说/诗集因 "Opera"/"Category: Music" 被误收）
+- curated 结果：**58,972 docs / 96.86M 字符 / ~24.24M tokens**
+  - SE sound 5.04M + music 7.02M + avp 3.51M（现代制作语料占 64%）
+  - Gutenberg 精选 2,683 docs / 8.01M tokens（乐理/声学/教学）
+  - arXiv 过滤后 0.35M、自建手册 0.24M、DAWproject 0.015M、zh 0.048M
+- 质量指标：DAW/制作关键词覆盖 **37.0% → 46.7%**；Gutenberg boilerplate **7.6% → 0.5%**
+- 新增 `cpt/QA-REPORT.md`（质量评估报告）、`cpt/make_cpt_text.py`（训练格式转换）
+- 仓库 lite 语料更新为 curated 版（7,177 docs / 2.96M tokens）
+- 已在 RTX 5090 上启动 4B LoRA CPT 预览训练（seq 1024 / 400 步）
+
 ## v0.2 — 2026-11-07
 
 - CPT 语料扩量：**108,353 docs / 220.6M 字符 / ~55.19M tokens**（此前 3,313 docs / ~1.05M）

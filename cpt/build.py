@@ -126,7 +126,7 @@ def handbook_docs(limit: int) -> list[dict]:
     return docs
 
 
-def iter_docs(source: dict, budget_tokens: int):
+def iter_docs(source: dict, budget_tokens: int, raw_dir: Path):
     """流式产出 (doc, tokens)，直到 token 预算用尽。"""
     sid = source["id"]
     if source["fetch"].get("method") == "synthetic":
@@ -136,7 +136,7 @@ def iter_docs(source: dict, budget_tokens: int):
             d["tier"] = source["tier"]
             yield d
         return
-    raw = RAW / f"{sid}.jsonl"
+    raw = raw_dir / f"{sid}.jsonl"
     if not raw.exists():
         print(f"跳过 {sid}：无抓取数据（先跑 cpt/fetch.py / fetch_se_dumps.py）")
         return
@@ -161,6 +161,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--max-tokens", type=int, default=3_000_000)
     ap.add_argument("--out", default="cpt/data")
+    ap.add_argument("--raw-dir", default="cpt/raw")
+    ap.add_argument("--corpus-name", default="dawcoder-cpt-v0.2")
     args = ap.parse_args()
     out = ROOT / args.out
 
@@ -186,7 +188,7 @@ def main() -> None:
         if budget <= 0:
             continue
         n = 0
-        for row in iter_docs(src, budget):
+        for row in iter_docs(src, budget, ROOT / args.raw_dir):
             text = row.get("text", "")
             if not (MIN_CHARS <= len(text) <= MAX_CHARS):
                 continue
@@ -267,7 +269,7 @@ def main() -> None:
     pct = lambda p: lengths[min(len(lengths) - 1, int(len(lengths) * p))] if lengths else 0
 
     manifest = {
-        "corpus": "dawcoder-cpt-v0.2",
+        "corpus": args.corpus_name,
         "profile": "public",
         "max_tokens_budget": args.max_tokens,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

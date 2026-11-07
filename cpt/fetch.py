@@ -279,8 +279,8 @@ def fetch_wikipedia_titles(source: dict, out: Path) -> int:
     return append(out, docs)
 
 
-def fetch_wikisource_search(source: dict, out: Path) -> int:
-    """维基文库搜索 + 全文抓取（中文古籍，公版）。"""
+def fetch_mediawiki_search(source: dict, out: Path) -> int:
+    """通用 MediaWiki 搜索 + 全文抓取（维基文库 / 维基教科书等，CC BY-SA / 公版）。"""
     cfg = source["fetch"]
     site = cfg.get("site", "zh.wikisource.org")
     titles: list[str] = []
@@ -296,7 +296,7 @@ def fetch_wikisource_search(source: dict, out: Path) -> int:
             if item["title"] not in titles:
                 titles.append(item["title"])
         time.sleep(1.2)
-    log(f"  wikisource 搜索到 {len(titles)} 个标题")
+    log(f"  {site} 搜索到 {len(titles)} 个标题")
     docs: list[dict] = []
     chars = 0
     for title in titles:
@@ -313,7 +313,7 @@ def fetch_wikisource_search(source: dict, out: Path) -> int:
             if len(text) < int(cfg.get("min_chars", 4000)):
                 continue
             docs.append({
-                "doc_id": f"zhws-{page.get('pageid')}", "source": source["id"],
+                "doc_id": f"mw-{site.split('.')[0]}-{page.get('pageid')}", "source": source["id"],
                 "license": source["license"], "tier": source["tier"],
                 "title": page.get("title", ""),
                 "url": f"https://{site}/?curid={page.get('pageid')}",
@@ -321,7 +321,7 @@ def fetch_wikisource_search(source: dict, out: Path) -> int:
             })
             chars += len(text)
         time.sleep(1.2)
-    log(f"  wikisource 最终 {len(docs)} 篇 / {chars / 1e6:.1f}M 字符")
+    log(f"  {site} 最终 {len(docs)} 篇 / {chars / 1e6:.1f}M 字符")
     return append(out, docs)
 
 
@@ -466,8 +466,8 @@ def main() -> int:
                 n = fetch_wikipedia(src, out)
             elif method == "wikipedia_titles":
                 n = fetch_wikipedia_titles(src, out)
-            elif method == "wikisource_search":
-                n = fetch_wikisource_search(src, out)
+            elif method == "wikisource_search" or method == "mediawiki_search":
+                n = fetch_mediawiki_search(src, out)
             elif method == "stackexchange_dump":
                 log("  Stack Exchange 全量转储由 cpt/fetch_se_dumps.py 处理（先下载 7z）")
                 continue

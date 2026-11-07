@@ -24,19 +24,15 @@ python synthetic/check.py                     # 校验
 
 ## 继续预训练语料（CPT）
 
-`cpt/` 提供 **Qwen3.5-4B 继续预训练**的领域文本语料（音频工程/混音/DAW 格式/乐理）：
+`cpt/` 提供 **Qwen3.5-4B 继续预训练**的领域文本语料（音频工程/混音/DAW 格式/乐理/声学）：
 
 | 版本 | 规模 | 位置 |
 |---|---|---|
-| lite（仓库内置） | 6,736 docs / ~3.27M tokens | `cpt/data/` |
-| full（Release 附件） | ~108,000 docs / **~55M tokens** | GitHub Releases → `cpt-v0.2` |
+| **curated lite**（仓库内置） | 7,177 docs / ~2.96M tokens | `cpt/data/` |
+| **curated full**（训练用，本地构建） | 58,972 docs / **~24.24M tokens** | `cpt/data-curated/`（`python cpt/build.py --raw-dir cpt/raw-curated ...`） |
+| broad full（v0.2，宽口径公开版） | 108,353 docs / ~55.19M tokens | GitHub Releases → `cpt-v0.2` |
 
-```bash
-gh release download cpt-v0.2 -R ShokouP/dawcoder-datasets -D cpt/data-full
-python cpt/check.py                # 校验 lite 语料（CI 会跑）
-```
-
-构建方式：`cpt/fetch.py` / `cpt/fetch_se_dumps.py` 抓取 → `cpt/build.py` 清洗/去重/切分 → `cpt/check.py` 校验。
+质量评估与清洗：见 [`cpt/QA-REPORT.md`](cpt/QA-REPORT.md)。管道：`fetch` → `curate`（Gutenberg 严格过滤 / SE 去噪 / arXiv 去 ML 噪声）→ `build` → `check`。
 许可：CC BY-SA 4.0 + 公版 + MIT + CC0；受版权的 REAPER/FL 手册只做私有源，不入仓库。
 
 ## 目录

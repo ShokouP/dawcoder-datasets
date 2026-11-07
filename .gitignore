@@ -4,7 +4,9 @@ __pycache__/
 /data/
 /_tmp/
 cpt/raw/
+cpt/raw-curated/
 cpt/data-full/
+cpt/data-curated/
 *.7z
 *.gz
 .DS_Store

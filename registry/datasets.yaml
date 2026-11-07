@@ -170,7 +170,7 @@ datasets:
     notes: "仓库内置训练集：3600 条结构化样本 + chat 格式，由 synthetic/generate.py 可复现生成；种子 20261107"
 
   - id: dawcoder-cpt-v0
-    name: DAWcoder CPT Corpus v0.2
+    name: DAWcoder CPT Corpus v0.3 (curated)
     task: [tooling]
     subtasks: [continued_pretraining]
     source_type: synthetic
@@ -178,8 +178,8 @@ datasets:
     license:
       spdx: CC-BY-SA-4.0
       evidence: {url: "https://github.com/ShokouP/dawcoder-datasets/tree/main/cpt", captured_at: "2026-11-07", reviewer: "shokoup"}
-    citation: "DAWcoder contributors, DAWcoder CPT Corpus v0.2, 2026"
-    fetch: {method: none, url: "", sha256: "", size_bytes: 93000000}
+    citation: "DAWcoder contributors, DAWcoder CPT Corpus v0.3 curated, 2026"
+    fetch: {method: none, url: "", sha256: "", size_bytes: 95000000}
     splits: {policy: file_level, group_key: ""}
     in_repo: true
-    notes: "继续预训练语料：lite ~3.27M tokens 在仓库 cpt/data/；full ~55.19M tokens 为 Release cpt-v0.2 附件（gzip，含 sha256）。混合许可（CC BY-SA 4.0 + 公版 + MIT + CC0），逐文档 license 字段在语料中"
+    notes: "curated 版：lite ~2.96M tokens 在仓库 cpt/data/；full ~24.24M tokens 由 cpt/build.py --raw-dir cpt/raw-curated 构建（训练用）。质量清洗见 cpt/QA-REPORT.md；broad v0.2（55M）保留在 Release cpt-v0.2。混合许可 CC BY-SA 4.0 + 公版 + MIT + CC0"

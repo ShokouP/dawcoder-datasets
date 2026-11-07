@@ -25,7 +25,7 @@ sources:
       method: stackexchange_dump
       url: "https://archive.org/download/stackexchange/music.stackexchange.com.7z"
       site: music
-      max_tokens: 21000000
+      max_tokens: 8000000
     notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
 
   - id: stackexchange-avp
@@ -40,6 +40,23 @@ sources:
       max_tokens: 4000000
     notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
 
+  - id: wikibooks-audio
+    title: 维基教科书 音频工程/音乐制作（CC BY-SA 4.0）
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    optional: true
+    fetch:
+      method: mediawiki_search
+      site: en.wikibooks.org
+      queries: [audio engineering, music production, mixing, acoustics, music theory, recording, sound recording, microphone]
+      search_limit: 30
+      max_docs: 120
+      min_chars: 1500
+      max_chars: 3000000
+      max_tokens: 0
+    notes: "教科书条目（声学/录音/乐理），补充现代教学文本"
+
   - id: gutenberg-music
     title: Project Gutenberg 音乐/声学/音频类公版书
     license: Public-Domain
@@ -48,7 +65,7 @@ sources:
     fetch:
       method: gutenberg
       max_books: 500
-      max_tokens: 39000000
+      max_tokens: 12000000
     notes: "公版书全文（音乐理论/声学/乐器/歌唱等）；去除 PG 页眉页脚"
 
   - id: arxiv-audio
@@ -89,6 +106,7 @@ sources:
         - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/README.md", title: "DAWproject README"}
         - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/Project.xsd", title: "DAWproject Project XSD"}
         - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/MetaData.xsd", title: "DAWproject MetaData XSD"}
+        - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/Reference.html", title: "DAWproject XML Reference"}
     notes: "MIT：保留版权与许可声明"
 
   - id: dawcoder-ir-handbook
