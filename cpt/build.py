@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""构建 CPT 语料（只使用 redistributable 源）。
+"""构建 CPT 语料（只使用 redistributable 源），支持 token 预算与流式处理。
 
-  python cpt/build.py                     # 公开语料（T0/T1，可进仓库）
-  python cpt/build.py --profile private   # 私有语料（额外读取本地 T2 原文，不入库）
+  python cpt/build.py                                  # 仓库内置 lite 版（约 300 万 tokens）
+  python cpt/build.py --max-tokens 55000000 --out cpt/data-full   # 完整版（约 5000 万 tokens）
 
-输入：cpt/raw/*.jsonl（fetch.py 抓取）+ synthetic/data（自建 CC0）
-输出：cpt/data/corpus_{train,val}.jsonl、manifest.json、stats.md、ATTRIBUTIONS.md
+输入：cpt/raw/*.jsonl（fetch.py / fetch_se_dumps.py）+ synthetic/data（自建 CC0）
+输出：out/corpus_{train,val}.jsonl、manifest.json、stats.md、ATTRIBUTIONS.md
 """
 from __future__ import annotations
 
@@ -21,10 +21,10 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 CPT = ROOT / "cpt"
 RAW = CPT / "raw"
-OUT = CPT / "data"
 SYN = ROOT / "synthetic" / "data"
 MIN_CHARS = 300
 MAX_CHARS = 120_000
+NEAR_DUP_MAX_DOCS = 20_000
 
 TASK_DESC = [
     ("task-mix", "DAWcoder 混音任务说明",
@@ -66,49 +66,6 @@ def cjk_ratio(text: str) -> float:
         return 0.0
     cjk = sum(1 for ch in text if "\u4e00" <= ch <= "\u9fff")
     return cjk / len(text)
-
-
-def simhash64(text: str) -> int:
-    """轻量 SimHash：用于近似重复检测。"""
-    words = re.findall(r"[a-z0-9]+|[\u4e00-\u9fff]", text.lower())
-    if len(words) < 40:
-        return 0
-    step = max(1, (len(words) - 6) // 300)
-    shingles = {" ".join(words[i:i + 6]) for i in range(0, len(words) - 6, step)}
-    bits = [0] * 64
-    for sh in shingles:
-        h = int.from_bytes(hashlib.blake2b(sh.encode("utf-8"), digest_size=8).digest(), "big")
-        for b in range(64):
-            bits[b] += 1 if (h >> b) & 1 else -1
-    sig = 0
-    for b in range(64):
-        if bits[b] > 0:
-            sig |= 1 << b
-    return sig
-
-
-def hamming(a: int, b: int) -> int:
-    return bin(a ^ b).count("1")
-
-
-def dedupe_near(rows: list[dict]) -> tuple[list[dict], int]:
-    """按 SimHash 分桶检测近似重复（Hamming ≤ 3）。返回 (保留, 删除数)。"""
-    buckets: dict[int, list[int]] = {}
-    kept: list[dict] = []
-    sigs: list[int] = []
-    removed = 0
-    for d in rows:
-        sig = simhash64(d["text"])
-        bucket = sig >> 56
-        candidates = [i for b in (bucket - 1, bucket, bucket + 1) for i in buckets.get(b, [])]
-        dup = any(sigs[i] and hamming(sig, sigs[i]) <= 3 for i in candidates)
-        if dup:
-            removed += 1
-            continue
-        sigs.append(sig)
-        buckets.setdefault(bucket, []).append(len(kept))
-        kept.append(d)
-    return kept, removed
 
 
 def describe_op(op: dict) -> str:
@@ -169,34 +126,23 @@ def handbook_docs(limit: int) -> list[dict]:
     return docs
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--profile", choices=["public", "private"], default="public")
-    args = ap.parse_args()
-
-    sources = load_sources()
-    OUT.mkdir(parents=True, exist_ok=True)
-    docs: list[dict] = []
-    included: dict[str, dict] = {}
-
-    for sid, src in sources.items():
-        if not src.get("redistributable") and args.profile == "public":
-            continue
-        if src["fetch"].get("method") == "synthetic":
-            rows = handbook_docs(int(src["fetch"].get("max_docs", 900)))
-            for r in rows:
-                r["source"] = sid
-                r["license"] = src["license"]
-                r["tier"] = src["tier"]
-            docs.extend(rows)
-            included[sid] = src
-            continue
-        raw = RAW / f"{sid}.jsonl"
-        if not raw.exists():
-            print(f"跳过 {sid}：无抓取数据（先跑 cpt/fetch.py）")
-            continue
-        n = 0
-        for line in raw.read_text(encoding="utf-8").splitlines():
+def iter_docs(source: dict, budget_tokens: int):
+    """流式产出 (doc, tokens)，直到 token 预算用尽。"""
+    sid = source["id"]
+    if source["fetch"].get("method") == "synthetic":
+        for d in handbook_docs(int(source["fetch"].get("max_docs", 900))):
+            d["source"] = sid
+            d["license"] = source["license"]
+            d["tier"] = source["tier"]
+            yield d
+        return
+    raw = RAW / f"{sid}.jsonl"
+    if not raw.exists():
+        print(f"跳过 {sid}：无抓取数据（先跑 cpt/fetch.py / fetch_se_dumps.py）")
+        return
+    used = 0
+    with raw.open(encoding="utf-8") as fh:
+        for line in fh:
             if not line.strip():
                 continue
             row = json.loads(line)
@@ -204,39 +150,100 @@ def main() -> None:
             if not (MIN_CHARS <= len(text) <= MAX_CHARS):
                 continue
             row["text"] = text
+            tok = est_tokens(text)
+            yield row
+            used += tok
+            if used >= budget_tokens:
+                return
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--max-tokens", type=int, default=3_000_000)
+    ap.add_argument("--out", default="cpt/data")
+    args = ap.parse_args()
+    out = ROOT / args.out
+
+    sources = load_sources()
+    out.mkdir(parents=True, exist_ok=True)
+
+    # 预算分配：按各源 max_tokens 权重切分全局预算
+    weights = {sid: float(src["fetch"].get("max_tokens", 0)) for sid, src in sources.items()}
+    total_w = sum(weights.values()) or 1.0
+    budgets = {sid: max(1, int(args.max_tokens * w / total_w)) for sid, w in weights.items()}
+
+    seen_text: set[str] = set()
+    seen_ids: set[str] = set()
+    per_source: dict[str, dict] = {}
+    included: dict[str, dict] = {}
+    exact_removed = 0
+    docs: list[dict] = []
+
+    for sid, src in sources.items():
+        if not src.get("redistributable"):
+            continue
+        budget = budgets.get(sid, 0)
+        if budget <= 0:
+            continue
+        n = 0
+        for row in iter_docs(src, budget):
+            text = row.get("text", "")
+            if not (MIN_CHARS <= len(text) <= MAX_CHARS):
+                continue
+            h = hashlib.sha256(text.encode("utf-8")).hexdigest()
+            if h in seen_text or row.get("doc_id") in seen_ids:
+                exact_removed += 1
+                continue
+            seen_text.add(h)
+            seen_ids.add(row.get("doc_id", h))
+            row["text_sha256"] = h
             docs.append(row)
             n += 1
         included[sid] = src
-        print(f"{sid}: {n} docs")
+        print(f"{sid}: {n} docs（预算 {budget:,} tokens）")
 
-    # 去重：长度过滤 + 精确 hash + doc_id
-    seen_text: set[str] = set()
-    seen_ids: set[str] = set()
-    exact: list[dict] = []
-    for d in docs:
-        text = d.get("text", "")
-        if not (MIN_CHARS <= len(text) <= MAX_CHARS):
-            continue
-        h = hashlib.sha256(text.encode("utf-8")).hexdigest()
-        if h in seen_text or d["doc_id"] in seen_ids:
-            continue
-        seen_text.add(h)
-        seen_ids.add(d["doc_id"])
-        d["text_sha256"] = h
-        exact.append(d)
+    # 近似去重（仅小规模语料；大规模跳过以控制内存/时间）
+    near_removed = 0
+    if len(docs) <= NEAR_DUP_MAX_DOCS:
+        def simhash64(text: str) -> int:
+            words = re.findall(r"[a-z0-9]+|[\u4e00-\u9fff]", text.lower())
+            if len(words) < 40:
+                return 0
+            step = max(1, (len(words) - 6) // 128)
+            shingles = {" ".join(words[i:i + 6]) for i in range(0, len(words) - 6, step)}
+            bits = [0] * 64
+            for sh in shingles:
+                hb = int.from_bytes(hashlib.blake2b(sh.encode("utf-8"), digest_size=8).digest(), "big")
+                for b in range(64):
+                    bits[b] += 1 if (hb >> b) & 1 else -1
+            sig = 0
+            for b in range(64):
+                if bits[b] > 0:
+                    sig |= 1 << b
+            return sig
 
-    # 近似去重（SimHash）
-    unique, near_removed = dedupe_near(exact)
-    exact_removed = len(docs) - len(exact)
+        kept = []
+        buckets: dict[int, list[int]] = {}
+        sigs: list[int] = []
+        for d in docs:
+            sig = simhash64(d["text"])
+            bucket = sig >> 56
+            cand = [i for b in (bucket - 1, bucket, bucket + 1) for i in buckets.get(b, [])]
+            if any(sigs[i] and bin(sig ^ sigs[i]).count("1") <= 3 for i in cand):
+                near_removed += 1
+                continue
+            sigs.append(sig)
+            buckets.setdefault(bucket, []).append(len(kept))
+            kept.append(d)
+        docs = kept
 
-    # 切分：按 hash 后两位 98/2
     train, val = [], []
-    for d in unique:
+    for d in docs:
         bucket = int(d["text_sha256"][:4], 16) % 100
         (val if bucket < 2 else train).append(d)
 
     def dump(name: str, rows: list[dict]) -> dict:
-        path = OUT / name
+        path = out / name
         data = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows)
         path.write_text(data, encoding="utf-8", newline="\n")
         return {"sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
@@ -245,53 +252,55 @@ def main() -> None:
     files = {"corpus_train.jsonl": dump("corpus_train.jsonl", train),
              "corpus_val.jsonl": dump("corpus_val.jsonl", val)}
 
-    per_source: dict[str, dict] = {}
-    for d in unique:
+    for d in docs:
         st = per_source.setdefault(d["source"], {"docs": 0, "chars": 0, "tokens": 0})
         st["docs"] += 1
         st["chars"] += len(d["text"])
         st["tokens"] += est_tokens(d["text"])
-
-    total_chars = sum(len(d["text"]) for d in unique)
-    total_tokens = sum(est_tokens(d["text"]) for d in unique)
+    total_chars = sum(len(d["text"]) for d in docs)
+    total_tokens = sum(est_tokens(d["text"]) for d in docs)
     lang = {"zh": 0, "en": 0, "mixed": 0}
-    for d in unique:
+    for d in docs:
         r = cjk_ratio(d["text"])
         lang["zh" if r > 0.5 else "en" if r < 0.1 else "mixed"] += 1
-    lengths = sorted(len(d["text"]) for d in unique)
+    lengths = sorted(len(d["text"]) for d in docs)
     pct = lambda p: lengths[min(len(lengths) - 1, int(len(lengths) * p))] if lengths else 0
+
     manifest = {
-        "corpus": "dawcoder-cpt-v0.1",
-        "profile": args.profile,
+        "corpus": "dawcoder-cpt-v0.2",
+        "profile": "public",
+        "max_tokens_budget": args.max_tokens,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "docs": len(unique),
+        "docs": len(docs),
         "chars": total_chars,
         "est_tokens": total_tokens,
         "train_docs": len(train),
         "val_docs": len(val),
-        "dedupe": {"exact_removed": exact_removed, "near_removed": near_removed},
+        "dedupe": {"exact_removed": exact_removed, "near_removed": near_removed,
+                   "near_dedup_applied": len(docs) <= NEAR_DUP_MAX_DOCS},
         "language": lang,
         "length": {"p50": pct(0.5), "p90": pct(0.9), "p99": pct(0.99)},
         "sources": {sid: {"license": included[sid]["license"], "tier": included[sid]["tier"], **st}
                     for sid, st in per_source.items()},
         "files": files,
     }
-    (OUT / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2),
-                                      encoding="utf-8", newline="\n")
+    (out / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2),
+                                     encoding="utf-8", newline="\n")
 
     stats = ["# CPT 语料统计", "",
-             f"- 语料版本：`dawcoder-cpt-v0.1`（{args.profile}）",
-             f"- 文档数：**{len(unique)}**（train {len(train)} / val {len(val)}）",
+             f"- 语料版本：`{manifest['corpus']}`（{manifest['profile']}，预算 {args.max_tokens:,} tokens）",
+             f"- 文档数：**{len(docs)}**（train {len(train)} / val {len(val)}）",
              f"- 字符数：**{total_chars:,}**；估算 tokens：**{total_tokens:,}**",
              f"- 语言分布：中文 {lang['zh']} / 英文 {lang['en']} / 中英混合 {lang['mixed']}",
              f"- 长度分位（字符）：p50 {pct(0.5):,} / p90 {pct(0.9):,} / p99 {pct(0.99):,}",
-             f"- 去重：精确重复 {exact_removed} / 近似重复 {near_removed}", "",
+             f"- 去重：精确重复 {exact_removed} / 近似重复 {near_removed}"
+             f"（近似去重{'已启用' if manifest['dedupe']['near_dedup_applied'] else '因规模跳过'}）", "",
              "| 源 | 许可 | 文档 | 字符 | 估算 tokens |", "|---|---|---:|---:|---:|"]
     for sid, st in sorted(per_source.items()):
         src = included[sid]
         stats.append(f"| {sid} | {src['license']} | {st['docs']} | {st['chars']:,} | {st['tokens']:,} |")
     stats += ["", "> 估算方式：CJK 字符 / 1.6 + 其他字符 / 4。正式训练前用 Qwen 分词器实测。"]
-    (OUT / "stats.md").write_text("\n".join(stats) + "\n", encoding="utf-8", newline="\n")
+    (out / "stats.md").write_text("\n".join(stats) + "\n", encoding="utf-8", newline="\n")
 
     attr = ["# 语料署名与许可（ATTRIBUTIONS）", "",
             "本语料由多个开放许可来源构成，逐源声明如下；语料记录中保留 `source` / `license` / `url` 字段。", ""]
@@ -301,16 +310,16 @@ def main() -> None:
         attr.append(f"- 许可：**{src['license']}**（tier {src['tier']}）")
         attr.append(f"- 来源：{src['fetch'].get('url') or src['fetch'].get('method')}")
         if src["license"] == "CC-BY-SA-4.0":
-            attr.append("- 要求：署名 + 相同方式共享；本语料按 CC BY-SA 4.0 分发。")
+            attr.append("- 要求：署名 + 相同方式共享；本语料按 CC BY-SA 4.0 分发。"
+                        "（Stack Exchange 内容版权归各贡献者，见记录中的 url/author）")
         if src["license"] == "MIT":
-            attr.append("- 要求：保留版权与许可声明；语料中该源文本按 MIT 使用。")
+            attr.append("- 要求：保留版权与许可声明。")
         if src["license"] == "CC0-1.0":
-            attr.append("- 要求：无（CC0）；本仓库自建内容。")
+            attr.append("- 要求：无（CC0）。")
         attr.append("")
-    (OUT / "ATTRIBUTIONS.md").write_text("\n".join(attr), encoding="utf-8", newline="\n")
+    (out / "ATTRIBUTIONS.md").write_text("\n".join(attr), encoding="utf-8", newline="\n")
 
-    print(f"完成：{len(unique)} docs / {total_chars:,} chars / ~{total_tokens:,} tokens")
-    print(f"输出：{OUT}")
+    print(f"完成：{len(docs)} docs / {total_chars:,} chars / ~{total_tokens:,} tokens -> {out}")
 
 
 if __name__ == "__main__":

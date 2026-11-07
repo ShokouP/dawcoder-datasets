@@ -4,4 +4,7 @@ __pycache__/
 /data/
 /_tmp/
 cpt/raw/
+cpt/data-full/
+*.7z
+*.gz
 .DS_Store

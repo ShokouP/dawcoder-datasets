@@ -12,6 +12,7 @@ import argparse
 import json
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -50,10 +51,21 @@ def load_yaml(path: Path):
         return yaml.safe_load(fh)
 
 
+def iter_tracked_files() -> list[Path]:
+    """只检查 git 跟踪的文件；无 git 时退回目录扫描并跳过忽略目录。"""
+    try:
+        out = subprocess.run(["git", "ls-files", "-z"], cwd=ROOT, capture_output=True, check=True)
+        names = [n for n in out.stdout.decode("utf-8", "replace").split("\0") if n]
+        return [ROOT / n for n in names]
+    except Exception:  # noqa: BLE001
+        skip = {".git", "__pycache__", ".venv", "raw", "data-full"}
+        return [p for p in ROOT.rglob("*") if p.is_file() and not skip.intersection(p.parts)]
+
+
 def check_files(res: Result) -> None:
     """仓库文件守卫：禁止提交媒体/工程二进制，大文件告警。"""
-    for path in ROOT.rglob("*"):
-        if not path.is_file() or ".git" in path.parts:
+    for path in iter_tracked_files():
+        if not path.is_file():
             continue
         rel = path.relative_to(ROOT).as_posix()
         if path.suffix.lower() in MEDIA_EXT and not rel.startswith(FIXTURE_DIR + "/"):

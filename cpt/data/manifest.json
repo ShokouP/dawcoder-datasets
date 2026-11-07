@@ -1,61 +1,70 @@
 {
-  "corpus": "dawcoder-cpt-v0.1",
+  "corpus": "dawcoder-cpt-v0.2",
   "profile": "public",
-  "generated_at": "2026-11-07T05:29:29Z",
-  "docs": 3313,
-  "chars": 4089786,
-  "est_tokens": 1054447,
-  "train_docs": 3249,
-  "val_docs": 64,
+  "max_tokens_budget": 3000000,
+  "generated_at": "2026-11-07T06:24:31Z",
+  "docs": 6736,
+  "chars": 12826927,
+  "est_tokens": 3269259,
+  "train_docs": 6591,
+  "val_docs": 145,
   "dedupe": {
-    "exact_removed": 503,
-    "near_removed": 0
+    "exact_removed": 6,
+    "near_removed": 0,
+    "near_dedup_applied": true
   },
   "language": {
     "zh": 15,
-    "en": 2978,
-    "mixed": 320
+    "en": 6400,
+    "mixed": 321
   },
   "length": {
-    "p50": 888,
-    "p90": 2585,
-    "p99": 5185
+    "p50": 761,
+    "p90": 3263,
+    "p99": 11998
   },
   "sources": {
     "stackexchange-sound": {
       "license": "CC-BY-SA-4.0",
       "tier": "T1",
-      "docs": 1494,
-      "chars": 1471271,
-      "tokens": 367255
+      "docs": 1210,
+      "chars": 1003772,
+      "tokens": 250481
     },
     "stackexchange-music": {
       "license": "CC-BY-SA-4.0",
       "tier": "T1",
-      "docs": 708,
-      "chars": 1156029,
-      "tokens": 288738
+      "docs": 3458,
+      "chars": 3505678,
+      "tokens": 875122
     },
     "stackexchange-avp": {
       "license": "CC-BY-SA-4.0",
       "tier": "T1",
-      "docs": 236,
-      "chars": 232417,
-      "tokens": 58013
+      "docs": 821,
+      "chars": 668780,
+      "tokens": 166891
+    },
+    "gutenberg-music": {
+      "license": "Public-Domain",
+      "tier": "T0",
+      "docs": 549,
+      "chars": 6514247,
+      "tokens": 1628363
     },
     "arxiv-audio": {
       "license": "CC0-1.0",
       "tier": "T0",
-      "docs": 237,
-      "chars": 284128,
-      "tokens": 70946
+      "docs": 60,
+      "chars": 79859,
+      "tokens": 19942
     },
     "dawproject-spec": {
       "license": "MIT",
       "tier": "T1",
-      "docs": 3,
-      "chars": 34336,
-      "tokens": 8583
+      "docs": 2,
+      "chars": 33284,
+      "tokens": 8320
     },
     "dawcoder-ir-handbook": {
       "license": "CC0-1.0",
@@ -67,21 +76,28 @@
     "zh-wikipedia-audio": {
       "license": "CC-BY-SA-4.0",
       "tier": "T1",
-      "docs": 18,
-      "chars": 49240,
-      "tokens": 23590
+      "docs": 13,
+      "chars": 35936,
+      "tokens": 15846
+    },
+    "zh-wikisource-music": {
+      "license": "Public-Domain",
+      "tier": "T0",
+      "docs": 6,
+      "chars": 123006,
+      "tokens": 66972
     }
   },
   "files": {
     "corpus_train.jsonl": {
-      "sha256": "724b4b51795e1b8f9187a131321430846172c2c072e6d210a200a0f25af7b37c",
-      "bytes": 5718996,
-      "lines": 3249
+      "sha256": "6d83a1370e0a4361a115dc191d460e6fe73b85c374ed6717654db4723a9941eb",
+      "bytes": 16029392,
+      "lines": 6591
     },
     "corpus_val.jsonl": {
-      "sha256": "5b9f4d5c0933bfa45b5e49144bd6dcd7f81b7a5416b1b29983fc11be050065e4",
-      "bytes": 98453,
-      "lines": 64
+      "sha256": "88e609c3b8e147d89dcc4a1db0a8f5dcf3e9b0a9ced488443fd715c722916398",
+      "bytes": 321632,
+      "lines": 145
     }
   }
 }

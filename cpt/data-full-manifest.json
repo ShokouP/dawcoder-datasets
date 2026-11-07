@@ -1,0 +1,103 @@
+{
+  "corpus": "dawcoder-cpt-v0.2",
+  "profile": "public",
+  "max_tokens_budget": 56000000,
+  "generated_at": "2026-11-07T06:25:00Z",
+  "docs": 108353,
+  "chars": 220616427,
+  "est_tokens": 55194118,
+  "train_docs": 106119,
+  "val_docs": 2234,
+  "dedupe": {
+    "exact_removed": 105,
+    "near_removed": 0,
+    "near_dedup_applied": false
+  },
+  "language": {
+    "zh": 32,
+    "en": 107998,
+    "mixed": 323
+  },
+  "length": {
+    "p50": 805,
+    "p90": 5302,
+    "p99": 11998
+  },
+  "sources": {
+    "stackexchange-sound": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 21783,
+      "chars": 18700768,
+      "tokens": 4667029
+    },
+    "stackexchange-music": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 61743,
+      "chars": 65448789,
+      "tokens": 16339129
+    },
+    "stackexchange-avp": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 12735,
+      "chars": 12459478,
+      "tokens": 3110123
+    },
+    "gutenberg-music": {
+      "license": "Public-Domain",
+      "tier": "T0",
+      "docs": 10225,
+      "chars": 121409806,
+      "tokens": 30348714
+    },
+    "arxiv-audio": {
+      "license": "CC0-1.0",
+      "tier": "T0",
+      "docs": 1209,
+      "chars": 1475890,
+      "tokens": 368519
+    },
+    "dawproject-spec": {
+      "license": "MIT",
+      "tier": "T1",
+      "docs": 3,
+      "chars": 34336,
+      "tokens": 8583
+    },
+    "dawcoder-ir-handbook": {
+      "license": "CC0-1.0",
+      "tier": "T0",
+      "docs": 617,
+      "chars": 862365,
+      "tokens": 237322
+    },
+    "zh-wikipedia-audio": {
+      "license": "CC-BY-SA-4.0",
+      "tier": "T1",
+      "docs": 32,
+      "chars": 101989,
+      "tokens": 47727
+    },
+    "zh-wikisource-music": {
+      "license": "Public-Domain",
+      "tier": "T0",
+      "docs": 6,
+      "chars": 123006,
+      "tokens": 66972
+    }
+  },
+  "files": {
+    "corpus_train.jsonl": {
+      "sha256": "f80feddba7481d4562cfb9829ee7a1e88d337df3cecc1211c629dc4d6706cd20",
+      "bytes": 265345610,
+      "lines": 106119
+    },
+    "corpus_val.jsonl": {
+      "sha256": "d1cafa69d9ac802059cc709885c6d114898c10e8c8e6ed99e29a4419ed906ab7",
+      "bytes": 5627801,
+      "lines": 2234
+    }
+  }
+}

@@ -1,44 +1,55 @@
 # DAWcoder 继续预训练（CPT）语料源注册表
-# 只允许 redistributable: true 的源进入公开语料（cpt/build.py --profile public）。
-# T2 源只能 fetch 到本地，不能进入公开语料；T3 禁止。
-version: 2
-corpus: dawcoder-cpt-v0.1
+# 只允许 redistributable: true 的源进入公开语料（cpt/build.py）。
+# max_tokens 是构建预算权重（同时用于 full/lite 两种构建的比例分配）。
+version: 3
+corpus: dawcoder-cpt-v0.2
 sources:
   - id: stackexchange-sound
-    title: Sound Design Stack Exchange（录音/混音/音效问答）
+    title: Sound Design Stack Exchange 全量（官方数据转储）
     license: CC-BY-SA-4.0
     tier: T1
     redistributable: true
     fetch:
-      method: stackexchange
+      method: stackexchange_dump
+      url: "https://archive.org/download/stackexchange/sound.stackexchange.com.7z"
       site: sound
-      tags: [mixing, mastering, recording, eq, compression, reverb, monitoring, microphone]
-      questions_per_tag: 80
+      max_tokens: 6000000
     notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
 
   - id: stackexchange-music
-    title: Music Practice & Theory Stack Exchange（乐理/编曲问答）
+    title: Music Practice & Theory Stack Exchange 全量（官方数据转储）
     license: CC-BY-SA-4.0
     tier: T1
     redistributable: true
     fetch:
-      method: stackexchange
+      method: stackexchange_dump
+      url: "https://archive.org/download/stackexchange/music.stackexchange.com.7z"
       site: music
-      tags: [theory, composition, chord-progressions]
-      questions_per_tag: 80
+      max_tokens: 21000000
     notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
 
   - id: stackexchange-avp
-    title: Audio/Video Production Stack Exchange（音频制作问答）
+    title: Audio/Video Production Stack Exchange 全量（官方数据转储）
     license: CC-BY-SA-4.0
     tier: T1
     redistributable: true
     fetch:
-      method: stackexchange
+      method: stackexchange_dump
+      url: "https://archive.org/download/stackexchange/avp.stackexchange.com.7z"
       site: avp
-      tags: [audio, recording, sound-design]
-      questions_per_tag: 60
+      max_tokens: 4000000
     notes: "用户贡献内容 CC BY-SA 4.0；记录帖子 URL 与作者署名"
+
+  - id: gutenberg-music
+    title: Project Gutenberg 音乐/声学/音频类公版书
+    license: Public-Domain
+    tier: T0
+    redistributable: true
+    fetch:
+      method: gutenberg
+      max_books: 500
+      max_tokens: 39000000
+    notes: "公版书全文（音乐理论/声学/乐器/歌唱等）；去除 PG 页眉页脚"
 
   - id: arxiv-audio
     title: arXiv 音频/混音方向论文摘要（元数据 CC0）
@@ -55,7 +66,15 @@ sources:
         - '"equalization"'
         - '"dynamic range compression"'
         - '"music production"'
-      max_results_per_query: 40
+        - '"loudness normalization"'
+        - '"spatial audio"'
+        - '"reverberation"'
+        - '"audio plugin"'
+        - '"digital audio workstation"'
+        - '"mixing console"'
+        - '"music information retrieval"'
+      max_results_per_query: 200
+      max_tokens: 500000
     notes: "arXiv API 元数据（标题/摘要）按 CC0 1.0 提供；摘要版权归作者，按 arXiv 元数据许可使用"
 
   - id: dawproject-spec
@@ -65,6 +84,7 @@ sources:
     redistributable: true
     fetch:
       method: raw_url
+      max_tokens: 60000
       files:
         - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/README.md", title: "DAWproject README"}
         - {url: "https://raw.githubusercontent.com/bitwig/dawproject/main/Project.xsd", title: "DAWproject Project XSD"}
@@ -80,28 +100,8 @@ sources:
       method: synthetic
       from: synthetic/data
       max_docs: 900
+      max_tokens: 300000
     notes: "由仓库内 SFT 合成样本转写的领域说明文本，完全自有"
-
-  - id: wikipedia-audio
-    title: Wikipedia 音频工程 / 音乐制作条目
-    license: CC-BY-SA-4.0
-    tier: T1
-    redistributable: true
-    optional: true
-    fetch:
-      method: wikipedia
-      max_pages: 200
-      full_text_pages: 0
-      categories:
-        - Audio engineering
-        - Audio effects
-        - Equalization (audio)
-        - Dynamic range compression
-        - Reverb
-        - Mixing (music)
-        - Music production
-        - Audio signal processing
-    notes: "可选源：Wikipedia 对批量抓取限速严格（429），失败时跳过；后续可用 dumps 补充"
 
   - id: zh-wikipedia-audio
     title: 中文维基百科 音频工程条目
@@ -111,42 +111,102 @@ sources:
     optional: true
     fetch:
       method: wikipedia_titles
+      site: zh.wikipedia.org
+      max_tokens: 300000
       titles:
-        - 混音
-        - 均衡器
-        - 压缩器
-        - 动态范围压缩
-        - 混响
-        - 母带处理
-        - 响度
-        - 分轨
-        - 数字音频工作站
-        - 音频信号处理
-        - 音频滤波器
-        - 频率响应
-        - 总谐波失真
-        - 信噪比
-        - 采样率
-        - 位深度
-        - 效果器
-        - 合成器
-        - 采样器
-        - 声像
-        - 效果器
-        - 音频接口
-        - 前置放大器
-        - 麦克风
-        - 监听音箱
-        - 相位
-        - 立体声
-        - 降噪
-        - 噪声门
-        - 限制器
-        - 动态范围
-        - 多段压缩
-        - 混音师
+        - 音频工程
+        - 音乐制作
+        - 录音
+        - 录音室
         - 母带
+        - 动态范围
+        - 动态范围压缩
+        - 失真
+        - 噪声
+        - 分贝
+        - 频率
+        - 滤波器
+        - 混响
+        - 混响时间
+        - 声学
+        - 心理声学
+        - 音色
+        - 泛音
+        - 音高
+        - 节拍
+        - 和声
+        - 对位
+        - 编曲
+        - 配器
+        - 采样
+        - 采样率
+        - 量化
+        - 脉冲编码调制
+        - 调音台
+        - 监听
+        - 扬声器
+        - 耳机
+        - 麦克风
+        - 前置放大器
+        - 放大器
+        - 均衡器
+        - 声像
+        - 立体声
+        - 环绕声
+        - 音频接口
+        - 数字音频
+        - 插件
+        - 虚拟乐器
+        - 工作站
+        - 效果器
+        - 延迟
+        - 声压级
+        - 响度
+        - 音频信号
+        - 频谱
+        - 傅里叶变换
     notes: "中文术语覆盖；逐条抓取全文，限速时跳过"
+
+  - id: zh-wikisource-music
+    title: 中文维基文库 古代音乐文献（公版）
+    license: Public-Domain
+    tier: T0
+    redistributable: true
+    optional: true
+    fetch:
+      method: wikisource_search
+      site: zh.wikisource.org
+      queries: [律呂, 樂律, 樂記, 琴, 聲律, 曲律, 樂府, 雅樂, 燕樂, 歌]
+      search_limit: 60
+      max_docs: 250
+      min_chars: 4000
+      max_chars: 8000000
+      max_tokens: 3000000
+    notes: "公版古籍（乐律/琴论/曲论等）；搜索后全文抓取"
+
+  - id: wikipedia-audio
+    title: Wikipedia 音频工程 / 音乐制作条目
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    optional: true
+    fetch:
+      method: wikipedia
+      max_pages: 300
+      full_text_pages: 0
+      max_tokens: 0
+      categories:
+        - Audio engineering
+        - Audio effects
+        - Equalization (audio)
+        - Dynamic range compression
+        - Reverb
+        - Mixing (music)
+        - Music production
+        - Audio signal processing
+        - Loudness
+        - Digital audio workstation
+    notes: "可选源：Wikipedia 批量抓取限速严格（429），失败时跳过；后续用 dumps 补充"
 
   - id: reaper-user-guide
     title: REAPER User Guide（Cockos）

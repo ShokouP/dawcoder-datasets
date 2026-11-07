@@ -253,14 +253,15 @@ def fetch_arxiv(source: dict, out: Path) -> int:
 
 def fetch_wikipedia_titles(source: dict, out: Path) -> int:
     cfg = source["fetch"]
+    site = cfg.get("site", "zh.wikipedia.org")
     docs: list[dict] = []
     for title in cfg["titles"]:
-        url = ("https://zh.wikipedia.org/w/api.php?action=query&prop=extracts&explaintext=1"
+        url = (f"https://{site}/w/api.php?action=query&prop=extracts&explaintext=1"
                f"&exlimit=1&redirects=1&format=json&titles={urllib.parse.quote(title)}")
         try:
             data = fetch_json(url)
         except RuntimeError as exc:
-            log(f"  中文条目失败（跳过）：{title}：{exc}")
+            log(f"  条目失败（跳过）：{title}：{exc}")
             continue
         for page in data.get("query", {}).get("pages", {}).values():
             text = page.get("extract") or ""
@@ -270,12 +271,143 @@ def fetch_wikipedia_titles(source: dict, out: Path) -> int:
                 "doc_id": f"zhwiki-{page.get('pageid')}", "source": source["id"],
                 "license": source["license"], "tier": source["tier"],
                 "title": page.get("title", ""),
-                "url": f"https://zh.wikipedia.org/?curid={page.get('pageid')}",
+                "url": f"https://{site}/?curid={page.get('pageid')}",
                 "kind": "full", "text": text, "retrieved_at": now(),
             })
         time.sleep(2.0)
-    log(f"  zh-wikipedia 最终 {len(docs)} 篇")
+    log(f"  {site} 最终 {len(docs)} 篇")
     return append(out, docs)
+
+
+def fetch_wikisource_search(source: dict, out: Path) -> int:
+    """维基文库搜索 + 全文抓取（中文古籍，公版）。"""
+    cfg = source["fetch"]
+    site = cfg.get("site", "zh.wikisource.org")
+    titles: list[str] = []
+    for q in cfg["queries"]:
+        url = (f"https://{site}/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(q)}"
+               f"&srlimit={cfg.get('search_limit', 40)}&srnamespace=0&format=json")
+        try:
+            data = fetch_json(url)
+        except RuntimeError as exc:
+            log(f"  搜索失败（跳过）：{q}：{exc}")
+            continue
+        for item in data.get("query", {}).get("search", []):
+            if item["title"] not in titles:
+                titles.append(item["title"])
+        time.sleep(1.2)
+    log(f"  wikisource 搜索到 {len(titles)} 个标题")
+    docs: list[dict] = []
+    chars = 0
+    for title in titles:
+        if len(docs) >= cfg.get("max_docs", 250) or chars >= cfg.get("max_chars", 8_000_000):
+            break
+        url = (f"https://{site}/w/api.php?action=query&prop=extracts&explaintext=1"
+               f"&exlimit=1&redirects=1&format=json&titles={urllib.parse.quote(title)}")
+        try:
+            data = fetch_json(url)
+        except RuntimeError:
+            continue
+        for page in data.get("query", {}).get("pages", {}).values():
+            text = page.get("extract") or ""
+            if len(text) < int(cfg.get("min_chars", 4000)):
+                continue
+            docs.append({
+                "doc_id": f"zhws-{page.get('pageid')}", "source": source["id"],
+                "license": source["license"], "tier": source["tier"],
+                "title": page.get("title", ""),
+                "url": f"https://{site}/?curid={page.get('pageid')}",
+                "kind": "text", "text": text, "retrieved_at": now(),
+            })
+            chars += len(text)
+        time.sleep(1.2)
+    log(f"  wikisource 最终 {len(docs)} 篇 / {chars / 1e6:.1f}M 字符")
+    return append(out, docs)
+
+
+# ------------------------------------------------------------------ gutenberg
+
+PG_KEYWORDS = ("music", "musical", "sound", "acoustic", "harmony", "counterpoint",
+               "orchestra", "piano", "violin", "opera", "audio", "singing", "song")
+CHUNK = 12000
+
+
+def chunk_text(text: str) -> list[str]:
+    """把长书拆成 3k–12k 字符的块，便于 CPT 打包。"""
+    parts: list[str] = []
+    i = 0
+    while i < len(text):
+        j = min(len(text), i + CHUNK)
+        if j < len(text):
+            cut = text.rfind(" ", i + CHUNK // 2, j)
+            if cut > i:
+                j = cut
+        part = text[i:j].strip()
+        if len(part) >= 3000:
+            parts.append(part)
+        i = j
+    return parts
+
+
+def fetch_gutenberg(source: dict, out: Path) -> int:
+    import csv
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    cfg = source["fetch"]
+    catalog = RAW / "pg_catalog.csv"
+    if not catalog.exists():
+        log("  下载 Gutenberg 目录 ...")
+        catalog.write_bytes(fetch_bytes("https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv"))
+    max_books = int(cfg.get("max_books", 400))
+    candidates: list[dict] = []
+    with catalog.open(encoding="utf-8", errors="replace", newline="") as fh:
+        for row in csv.DictReader(fh):
+            if row.get("Type") != "Text" or "en" not in (row.get("Language") or ""):
+                continue
+            hay = " ".join([row.get("Subjects") or "", row.get("Bookshelves") or "", row.get("LoCC") or ""]).lower()
+            if not any(k in hay for k in PG_KEYWORDS):
+                continue
+            candidates.append({"id": row.get("Text#", ""), "title": row.get("Title", ""),
+                               "authors": row.get("Authors", "")})
+    log(f"  gutenberg 候选 {len(candidates)} 本，下载上限 {max_books}")
+    rows: list[dict] = []
+    start_re = re.compile(r"\*\*\*\s*START OF (?:THE|THIS) PROJECT GUTENBERG EBOOK.*?\*\*\*", re.I | re.S)
+    end_re = re.compile(r"\*\*\*\s*END OF (?:THE|THIS) PROJECT GUTENBERG EBOOK.*?\*\*\*", re.I | re.S)
+
+    def one(book: dict) -> list[dict]:
+        url = f"https://www.gutenberg.org/cache/epub/{book['id']}/pg{book['id']}.txt"
+        try:
+            raw = fetch_bytes(url)
+        except Exception:  # noqa: BLE001
+            return []
+        if len(raw) > 8_000_000:
+            return []
+        text = raw.decode("utf-8", errors="replace")
+        m = start_re.search(text)
+        if m:
+            text = text[m.end():]
+        m = end_re.search(text)
+        if m:
+            text = text[:m.start()]
+        text = re.sub(r"\s+", " ", text).strip()
+        if len(text) < 5000:
+            return []
+        out_rows = []
+        for k, part in enumerate(chunk_text(text)):
+            out_rows.append({
+                "doc_id": f"gutenberg-{book['id']}-{k:03d}", "source": source["id"],
+                "license": "Public-Domain", "tier": "T0",
+                "title": book["title"], "url": f"https://www.gutenberg.org/ebooks/{book['id']}",
+                "author": book["authors"], "kind": "book-chunk", "text": part, "retrieved_at": now(),
+            })
+        return out_rows
+
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        futures = {pool.submit(one, b): b for b in candidates[:max_books]}
+        for fut in as_completed(futures):
+            rows.extend(fut.result())
+            if len(rows) % 200 < 5:
+                log(f"    gutenberg: {len(rows)} chunks")
+    return append(out, rows)
 
 
 # ------------------------------------------------------------------ raw_url
@@ -334,10 +466,17 @@ def main() -> int:
                 n = fetch_wikipedia(src, out)
             elif method == "wikipedia_titles":
                 n = fetch_wikipedia_titles(src, out)
+            elif method == "wikisource_search":
+                n = fetch_wikisource_search(src, out)
+            elif method == "stackexchange_dump":
+                log("  Stack Exchange 全量转储由 cpt/fetch_se_dumps.py 处理（先下载 7z）")
+                continue
             elif method == "stackexchange":
                 n = fetch_stackexchange(src, out)
             elif method == "arxiv":
                 n = fetch_arxiv(src, out)
+            elif method == "gutenberg":
+                n = fetch_gutenberg(src, out)
             elif method == "raw_url":
                 n = fetch_raw_url(src, out)
             elif method == "synthetic":
