@@ -138,14 +138,16 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dump", default=str(DEFAULT_DUMP))
     ap.add_argument("--max-docs", type=int, default=12000)
-    ap.add_argument("--max-chars", type=int, default=50_000_000)
+    ap.add_argument("--max-chars", type=int, default=60_000_000)
     ap.add_argument("--min-chars", type=int, default=1500)
+    ap.add_argument("--max-pages", type=int, default=1_600_000)
     ap.add_argument("--out", default=str(OUT))
     args = ap.parse_args()
     dump = Path(args.dump)
     if not dump.exists():
         sys.exit(f"缺少 dump：{dump}（先下载 zhwiki-latest-pages-articles.xml.bz2）")
 
+    quick_keys = STRONG + WEAK
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     if out.exists():
@@ -167,7 +169,10 @@ def main() -> int:
                     redirect = elem.find(f"{NS}redirect")
                     rev = elem.find(f"{NS}revision")
                     text = rev.findtext(f"{NS}text") if rev is not None else ""
-                    if ns == "0" and redirect is None and text:
+                    # 先做廉价预筛：raw wikitext 命中关键词才进入昂贵的清洗
+                    if (ns == "0" and redirect is None and text
+                            and len(text) <= 300_000
+                            and any(k in text or k in title for k in quick_keys)):
                         clean = clean_wikitext(text)
                         if args.min_chars <= len(clean) <= 150_000 and is_relevant(title, clean):
                             kept_pages += 1
@@ -195,10 +200,11 @@ def main() -> int:
                             except ValueError:
                                 pass
                     elem.clear()
-                    if docs >= args.max_docs or chars >= args.max_chars:
-                        print(f"达到上限：docs={docs} chars={chars/1e6:.1f}M", flush=True)
+                    if docs >= args.max_docs or chars >= args.max_chars or pages >= args.max_pages:
+                        print(f"停止：pages={pages:,} docs={docs} chars={chars/1e6:.1f}M", flush=True)
                         break
-                    if pages % 20000 == 0:
+                    if pages % 50000 == 0:
+                        fh.flush()
                         print(f"  pages={pages:,} kept_pages={kept_pages:,} docs={docs:,} "
                               f"chars={chars/1e6:.1f}M {time.time()-t0:.0f}s", flush=True)
                 if stack:
