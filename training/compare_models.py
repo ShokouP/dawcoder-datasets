@@ -1,4 +1,4 @@
-"""Build training/COMPARISON-REPORT.md from eval-report-*.json (+ optional reward comparison).
+﻿"""Build training/COMPARISON-REPORT.md from eval-report-*.json (+ optional reward comparison).
 
   python training/compare_models.py
 """
@@ -36,7 +36,7 @@ def load_reports() -> list[dict]:
 def load_reward() -> dict:
     """Merge reward summaries from compare-posttrain*.json (model -> overall)."""
     out = {}
-    for p in sorted(TRAIN.glob("compare-posttrain*.json")):
+    for p in sorted(list(TRAIN.glob("compare-posttrain*.json")) + list(TRAIN.glob("compare-astra*.json"))):
         try:
             data = json.loads(p.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
@@ -56,13 +56,13 @@ def main() -> int:
     reports = load_reports()
     rewards = load_reward()
     lines = [
-        "# DAWcoder 模型对比报告",
+        "# DAWcoder 妯″瀷瀵规瘮鎶ュ憡",
         "",
-        f"生成时间：{datetime.now().strftime('%Y-%m-%d %H:%M')}",
+        f"鐢熸垚鏃堕棿锛歿datetime.now().strftime('%Y-%m-%d %H:%M')}",
         "",
-        "评测协议：`training/EVAL-PROTOCOL.md`（val 60 条均衡，seed 20261107，temperature 0，num_predict 8192）",
+        "璇勬祴鍗忚锛歚training/EVAL-PROTOCOL.md`锛坴al 60 鏉″潎琛★紝seed 20261107锛宼emperature 0锛宯um_predict 8192锛?,
         "",
-        "| 模型 | 报告 | 可靠 | JSON 解析 | schema 合法 | macro | mix | form | texture | reward(overall) |",
+        "| 妯″瀷 | 鎶ュ憡 | 鍙潬 | JSON 瑙ｆ瀽 | schema 鍚堟硶 | macro | mix | form | texture | reward(overall) |",
         "|---|---|---|---|---|---|---|---|---|---|",
     ]
     rows = []
@@ -85,32 +85,32 @@ def main() -> int:
     for x in rows:
         lines.append(
             "| {m} | {f} | {rel} | {j} | {v} | {ma} | {mix} | {form} | {tex} | {rw} |".format(
-                m=x["model"], f=x["file"], rel="✅" if x["reliable"] else "⚠️ 请求错误多",
+                m=x["model"], f=x["file"], rel="鉁? if x["reliable"] else "鈿狅笍 璇锋眰閿欒澶?,
                 j=pct(x["json"]), v=pct(x["valid"]), ma=pct(x["macro"]),
                 mix=pct(x["mix"]), form=pct(x["form"]), tex=pct(x["texture"]),
                 rw="-" if x["reward"] is None else f"{x['reward']:.4f}"))
 
     base = next((r for r in rows if r["model"] == BASELINE), None)
-    lines += ["", "## 回归检查（相对基线 `%s`）" % BASELINE, ""]
+    lines += ["", "## 鍥炲綊妫€鏌ワ紙鐩稿鍩虹嚎 `%s`锛? % BASELINE, ""]
     if base is None:
-        lines.append("- 基线报告缺失（`eval-report-preview.json`）")
+        lines.append("- 鍩虹嚎鎶ュ憡缂哄け锛坄eval-report-preview.json`锛?)
     else:
         for x in rows:
             if x["model"] == BASELINE or not x["reliable"]:
                 continue
             issues = []
             if x["valid"] is not None and base["valid"] is not None and x["valid"] < base["valid"] - 0.05:
-                issues.append(f"schema 合法率下降 {(base['valid'] - x['valid']) * 100:.1f} 个百分点")
+                issues.append(f"schema 鍚堟硶鐜囦笅闄?{(base['valid'] - x['valid']) * 100:.1f} 涓櫨鍒嗙偣")
             for task in ("mix", "form", "texture"):
                 if x[task] is not None and base[task] is not None and x[task] < base[task] - 0.05:
-                    issues.append(f"{task} 合法率下降 {(base[task] - x[task]) * 100:.1f} 个百分点")
+                    issues.append(f"{task} 鍚堟硶鐜囦笅闄?{(base[task] - x[task]) * 100:.1f} 涓櫨鍒嗙偣")
             if x["reward"] is not None and base["reward"] is not None and x["reward"] < base["reward"] - 0.01:
-                issues.append(f"reward 下降 {base['reward'] - x['reward']:.4f}")
-            lines.append(f"- **{x['model']}**：" + ("；".join(issues) if issues else "无退化，通过"))
-    lines += ["", "## 说明", "",
-              "- 标 ⚠️ 的报告存在 >10% request-error（Ollama 服务中断），数据不可用于对比，需重跑。",
-              "- reward 来自 `compare-posttrain*.json`（如有），为与金标准 patch 的相似度（0~1）。",
-              "- 可发布标准：JSON 解析 ≥99%、schema ≥98%、无单任务 <95%、相对基线无 >5pp 退化。"]
+                issues.append(f"reward 涓嬮檷 {base['reward'] - x['reward']:.4f}")
+            lines.append(f"- **{x['model']}**锛? + ("锛?.join(issues) if issues else "鏃犻€€鍖栵紝閫氳繃"))
+    lines += ["", "## 璇存槑", "",
+              "- 鏍?鈿狅笍 鐨勬姤鍛婂瓨鍦?>10% request-error锛圤llama 鏈嶅姟涓柇锛夛紝鏁版嵁涓嶅彲鐢ㄤ簬瀵规瘮锛岄渶閲嶈窇銆?,
+              "- reward 鏉ヨ嚜 `compare-posttrain*.json`锛堝鏈夛級锛屼负涓庨噾鏍囧噯 patch 鐨勭浉浼煎害锛?~1锛夈€?,
+              "- 鍙彂甯冩爣鍑嗭細JSON 瑙ｆ瀽 鈮?9%銆乻chema 鈮?8%銆佹棤鍗曚换鍔?<95%銆佺浉瀵瑰熀绾挎棤 >5pp 閫€鍖栥€?]
     OUT.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
     print("wrote", OUT)
     print("\n".join(lines[:20]))
@@ -119,3 +119,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
