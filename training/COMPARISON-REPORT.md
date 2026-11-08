@@ -8,7 +8,7 @@
 |---|---|---|---|---|---|---|---|---|---|
 | dawcoder-dpo | eval-report-dpo.json | ✅ | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.9657 |
 | dawcoder-preview | eval-report-preview.json | ✅ | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.9657 |
-| dawcoder-sft-v2 | eval-report-sft-v2.json | ✅ | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | - |
+| dawcoder-sft-v2 | eval-report-sft-v2.json | ✅ | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.9710 |
 | dawcoder-grpo | eval-report-grpo.json | ✅ | 100.0% | 90.0% | 90.0% | 100.0% | 100.0% | 70.0% | 0.8516 |
 | dawcoder-grpo-v2 | eval-report-grpo-v2.json | ⚠️ 请求错误多 | 35.0% | 30.0% | 30.0% | 40.0% | 35.0% | 15.0% | - |
 
