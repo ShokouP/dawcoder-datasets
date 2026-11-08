@@ -1,0 +1,27 @@
+{
+  "candidate": "dawcoder-sft-v2",
+  "adapter": "D:\\LLM\\models\\dawcoder-sft-v2\\adapter_model.safetensors",
+  "adapter_sha256": "fa4520f3e0b1e71d7a8cbae8b9973c127436769f4f79e96f36ad7afc1c8c1786",
+  "parent_adapter_sha256": "68c164bc40f16f76850239fdd386de38907a3aaf826f18b327b34628e38e6dfd",
+  "completed_steps": 100,
+  "samples_presented": {
+    "mix": 267,
+    "form": 267,
+    "texture": 266
+  },
+  "elapsed_seconds": 645.39,
+  "peak_allocated_gib": 12.713,
+  "train_sample_mean_loss_by_task": {
+    "mix": 0.12207316956046815,
+    "form": 0.16823920445719015,
+    "texture": 0.14575320611098655
+  },
+  "finite_adapter_tensors": 496,
+  "changed_adapter_tensors": 496,
+  "finite_nonzero_gradient_steps": 100,
+  "cpu_tests_passed": 14,
+  "truncated_examples": 0,
+  "evaluation_status": "not_run_by_training_side",
+  "fixed_val_sha256": "6c769be3b61d1cc1ce23632bf0a268c28a9580a4e6f013b2f441b78ecb0bebbf",
+  "system_prompt_sha256": "f5a13600d5f5f37fd2d6d63cca59e470b949a2e07a3f27887e97c0b9ab1802f0"
+}

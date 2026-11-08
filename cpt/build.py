@@ -13,6 +13,7 @@ import argparse
 import hashlib
 import json
 import re
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -25,6 +26,30 @@ SYN = ROOT / "synthetic" / "data"
 MIN_CHARS = 300
 MAX_CHARS = 120_000
 NEAR_DUP_MAX_DOCS = 20_000
+PERMISSIVE_LICENSES = {"CC0-1.0", "Public-Domain", "MIT", "ISC", "BSD-2-Clause", "BSD-3-Clause", "Apache-2.0"}
+
+
+def document_group(doc: dict) -> str:
+    """Group chunks, translations and Q/A by their originating document."""
+    if doc.get("group_key"):
+        return str(doc["group_key"])
+    source = doc["source"]
+    if source == "gutenberg-music":
+        match = re.match(r"gutenberg-(\d+)", doc.get("doc_id", ""))
+        if match:
+            return f"gutenberg:{match.group(1)}"
+    if doc.get("url"):
+        return source + ":" + doc["url"].split("#", 1)[0]
+    return source + ":" + doc["doc_id"]
+
+
+def split_docs(docs):
+    train, val = [], []
+    for doc in docs:
+        doc["group_key"] = document_group(doc)
+        bucket = int(hashlib.sha256(doc["group_key"].encode("utf-8")).hexdigest()[:8], 16) % 100
+        (val if bucket < 2 else train).append(doc)
+    return train, val
 
 TASK_DESC = [
     ("task-mix", "DAWcoder 混音任务说明",
@@ -163,6 +188,7 @@ def main() -> None:
     ap.add_argument("--out", default="cpt/data")
     ap.add_argument("--raw-dir", default="cpt/raw")
     ap.add_argument("--corpus-name", default="dawcoder-cpt-v0.2")
+    ap.add_argument("--profile", choices=("public", "permissive"), default="public")
     args = ap.parse_args()
     out = ROOT / args.out
 
@@ -170,7 +196,10 @@ def main() -> None:
     out.mkdir(parents=True, exist_ok=True)
 
     # 预算分配：按各源 max_tokens 权重切分全局预算
-    weights = {sid: float(src["fetch"].get("max_tokens", 0)) for sid, src in sources.items()}
+    sources = {sid: src for sid, src in sources.items() if src.get("redistributable")
+               and (args.profile == "public" or src["license"] in PERMISSIVE_LICENSES)}
+    weights = {sid: float(src["fetch"].get("max_tokens", 0)) for sid, src in sources.items()
+               if float(src["fetch"].get("max_tokens", 0)) > 0}
     total_w = sum(weights.values()) or 1.0
     budgets = {sid: max(1, int(args.max_tokens * w / total_w)) for sid, w in weights.items()}
 
@@ -239,10 +268,7 @@ def main() -> None:
             kept.append(d)
         docs = kept
 
-    train, val = [], []
-    for d in docs:
-        bucket = int(d["text_sha256"][:4], 16) % 100
-        (val if bucket < 2 else train).append(d)
+    train, val = split_docs(docs)
 
     def dump(name: str, rows: list[dict]) -> dict:
         path = out / name
@@ -270,7 +296,8 @@ def main() -> None:
 
     manifest = {
         "corpus": args.corpus_name,
-        "profile": "public",
+        "profile": args.profile,
+        "split_policy": "source_document_group_sha256_2pct_val",
         "max_tokens_budget": args.max_tokens,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "docs": len(docs),
@@ -316,6 +343,13 @@ def main() -> None:
                         "（Stack Exchange 内容版权归各贡献者，见记录中的 url/author）")
         if src["license"] == "MIT":
             attr.append("- 要求：保留版权与许可声明。")
+        if src["license"] in {"ISC", "BSD-2-Clause", "BSD-3-Clause", "Apache-2.0"}:
+            attr.append("- 要求：保留原版权及许可声明，参见随附 licenses/。")
+        evidence = CPT / "licenses" / f"{sid}.txt"
+        if evidence.exists():
+            (out / "licenses").mkdir(exist_ok=True)
+            shutil.copyfile(evidence, out / "licenses" / evidence.name)
+            attr.append(f"- 原始许可声明：`licenses/{evidence.name}`；文件级来源和版本见记录中的 url/revision。")
         if src["license"] == "CC0-1.0":
             attr.append("- 要求：无（CC0）。")
         attr.append("")

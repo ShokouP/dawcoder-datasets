@@ -16,6 +16,8 @@ import sys
 from pathlib import Path
 
 DATA = Path(__file__).resolve().parent / "data"
+sys.path.insert(0, str(DATA.parent.parent / "training"))
+from patch_validation import validate  # noqa: E402
 PPQ = 480
 VALID_TASKS = {"mix", "form", "texture"}
 DENSITY_KEYS = {"Intro", "Verse", "Chorus", "Hook", "Drop", "Build", "Break", "Bridge", "Solo", "Outro"}
@@ -181,6 +183,11 @@ def check_sft(errors: list[str]) -> None:
                 continue
             if user.get("task") not in VALID_TASKS:
                 err(errors, f"{path.name}:{i} task 非法")
+                continue
+            ok, reason = validate(user["task"], user.get("state", {}), assistant)
+            if not ok:
+                err(errors, f"{path.name}:{i} patch 非法：{reason}")
+                continue
             expected_key = {"mix": "ops", "form": "sections", "texture": "notes"}[user["task"]]
             if expected_key not in assistant:
                 err(errors, f"{path.name}:{i} assistant 缺少 {expected_key}")
@@ -203,6 +210,10 @@ def main() -> int:
                 ids.add(s["id"])
                 if s["task"] != task:
                     err(errors, f"{s['id']} task 字段不匹配")
+                ok, reason = validate(task, s.get("state", {}), s.get("patch"))
+                if not ok:
+                    err(errors, f"{s['id']} patch 非法：{reason}")
+                    continue
                 checker(s, errors)
     check_sft(errors)
 

@@ -14,13 +14,19 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install deps
-        run: pip install pyyaml jsonschema
+        run: pip install -r requirements.txt
       - name: Registry (structure + license + file guard)
         run: python tools/validate.py --strict
       - name: Synthetic training data (schema + semantics)
         run: python synthetic/check.py
+      - name: Evaluation coverage and patch validation regressions
+        run: python -m unittest discover -s training -p "test_*.py"
       - name: CPT corpus (manifest + license + provenance)
         run: python cpt/check.py
+      - name: CPT document grouping and extraction regressions
+        run: python -m unittest discover -s cpt -p "test_*.py"
+      - name: Symbolic data parsing and split isolation regressions
+        run: python -m unittest discover -s tools -p "test_*.py"
       - name: No media binaries committed
         run: |
           ! git ls-files | grep -Ei '\.(wav|flac|mp3|m4a|aif|aiff|ogg|flp|als|rpp|mid|midi|mxl)$' | grep -v '^fixtures/'

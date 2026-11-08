@@ -1,0 +1,363 @@
+{
+  "created_at": "2026-11-08T04:51:05.107429+00:00",
+  "cpu_only": true,
+  "model_loaded": false,
+  "gpu_training_started": false,
+  "packages": {
+    "torch": "2.11.0+cu128",
+    "peft": "0.18.1",
+    "transformers": "5.6.0",
+    "trl": "0.24.0",
+    "numpy": "2.5.4"
+  },
+  "input_sha256": {
+    "D:\\train\\scripts\\train_dpo_dawcoder.py": "481faf85f5f54139e45fe39d567d8790d8f5c71a86df61c5a0e23b6518295444",
+    "D:\\train\\scripts\\grpo_train_dawcoder.py": "c5002a278e26ab431719591cdf8d198cb8ffd8b55606ab0035445b038b928044",
+    "D:\\train\\scripts\\lib_dawcoder_reward.py": "0bd8742d1de0c696f68988ca13c89ec2261474563e1c13cf740dded32aace0e5",
+    "D:\\train\\scripts\\train_sft.py": "7b43e2fa462bfc9039c1cf073ae8e0a9c87e3d7220efa56b262ea8843b927307",
+    "D:\\LLM\\dawcoder-datasets\\training\\data\\dawcoder_sft_train.jsonl": "12bfb03ba0435f15738e13369e6dce1d9e2d074abe71a8ef91c65b8c03322248",
+    "D:\\LLM\\dawcoder-datasets\\training\\data\\dawcoder_sft_val.jsonl": "6c769be3b61d1cc1ce23632bf0a268c28a9580a4e6f013b2f441b78ecb0bebbf",
+    "D:\\train\\data\\dpo-dawcoder\\dpo_train.jsonl": "c442237dcce9024e656ec388316e5df52816fc12f241c7b41e360c94044c5542",
+    "D:\\train\\runs\\dawcoder_dpo.log": "e19cb7ac7a0d2fa0bbeb56f37867ed1a4564c657eec4bb62bf269278c89c6c5f",
+    "D:\\train\\runs\\dawcoder_grpo.log": "a6d7adc84f27226a44df4d7f9acf5128c858b2ca723c66168ec05d031a264718",
+    "D:\\train\\runs\\dawcoder_grpo_v2.log": "6cd0932379e44a8be1278d4533a3a72df6356b6f0f4fdccccc410ba0eb239680",
+    "D:\\train\\models\\Qwen3.5-4B\\chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+    "D:\\train\\models\\Qwen3.5-4B\\config.json": "ddc63e1c717afa86c865bb5e01313d89d72bb53b97ad4a8a03ba8510c0621670",
+    "D:\\train\\models\\Qwen3.5-4B\\tokenizer.json": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42",
+    "D:\\train\\models\\Qwen3.5-4B\\tokenizer_config.json": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8"
+  },
+  "weights": {
+    "sft_sha256": "68c164bc40f16f76850239fdd386de38907a3aaf826f18b327b34628e38e6dfd",
+    "comparisons": {
+      "dpo_policy": {
+        "path": "D:\\train\\models\\dpo_dawcoder_v1\\policy\\adapter_model.safetensors",
+        "sha256": "68c164bc40f16f76850239fdd386de38907a3aaf826f18b327b34628e38e6dfd",
+        "tensors": 496,
+        "changed_vs_sft": 0,
+        "missing_keys": 0,
+        "extra_keys": 0
+      },
+      "dpo_reference": {
+        "path": "D:\\train\\models\\dpo_dawcoder_v1\\ref\\adapter_model.safetensors",
+        "sha256": "033dc2184926f25e8b8df5bc687dbe294fffe62e1813929d3ca1ab5d876bca48",
+        "tensors": 496,
+        "changed_vs_sft": 496,
+        "missing_keys": 0,
+        "extra_keys": 0
+      },
+      "grpo_v1_policy": {
+        "path": "D:\\train\\models\\grpo_dawcoder_v1\\policy\\adapter_model.safetensors",
+        "sha256": "0372fe10fef28226f8e87cdffc0755f2878445b96ff7f62c0445b4f7f2107a69",
+        "tensors": 496,
+        "changed_vs_sft": 496,
+        "missing_keys": 0,
+        "extra_keys": 0
+      },
+      "grpo_v2_policy": {
+        "path": "D:\\train\\models\\grpo_dawcoder_v2\\policy\\adapter_model.safetensors",
+        "sha256": "8e6ee6477668c49c1109f01ff22bc117791783aed3eafb62bc7e881d27258c9a",
+        "tensors": 496,
+        "changed_vs_sft": 496,
+        "missing_keys": 0,
+        "extra_keys": 0
+      }
+    }
+  },
+  "reference_precision_probe": {
+    "reference_tensors": 496,
+    "equal_to_sft_after_bfloat16_roundtrip": 496,
+    "cpu_only": true
+  },
+  "dpo_data": {
+    "texture": {
+      "n": 1571,
+      "identical_pairs": 0,
+      "chosen_valid": 1571,
+      "rejected_valid": 225
+    },
+    "mix": {
+      "n": 1045,
+      "identical_pairs": 1,
+      "chosen_valid": 1045,
+      "rejected_valid": 526
+    },
+    "form": {
+      "n": 527,
+      "identical_pairs": 0,
+      "chosen_valid": 527,
+      "rejected_valid": 0
+    }
+  },
+  "sft_exact_prompt_overlap_train_val": 162,
+  "legacy_reward_counterexamples": {
+    "set_eq": {
+      "valid": true,
+      "reason": "ok",
+      "gold_reward": 1.0,
+      "changed_reward": 1.0,
+      "gold_first": {
+        "op": "set_eq",
+        "track": "Backing Vox",
+        "band": 2,
+        "type": "bell",
+        "freq": 400,
+        "gain_db": -2.1,
+        "q": 1.2
+      },
+      "changed_first": {
+        "op": "set_eq",
+        "track": "Backing Vox",
+        "band": 2,
+        "type": "bell",
+        "freq": 20000,
+        "gain_db": 2.1,
+        "q": 1.2
+      }
+    },
+    "set_send": {
+      "valid": true,
+      "reason": "ok",
+      "gold_reward": 1.0,
+      "changed_reward": 1.0,
+      "gold_first": {
+        "op": "set_send",
+        "from": "Lead Vocal",
+        "to": "Plate Reverb",
+        "gain_db": -19.2
+      },
+      "changed_first": {
+        "op": "set_send",
+        "from": "Lead Vocal",
+        "to": "Plate Reverb",
+        "gain_db": -60
+      }
+    },
+    "set_comp": {
+      "valid": true,
+      "reason": "ok",
+      "gold_reward": 1.0,
+      "changed_reward": 1.0,
+      "gold_first": {
+        "op": "set_comp",
+        "track": "Drum Bus",
+        "params": {
+          "threshold_db": -20,
+          "ratio": 3.0,
+          "attack_ms": 40,
+          "release_ms": 120
+        }
+      },
+      "changed_first": {
+        "op": "set_comp",
+        "track": "Drum Bus",
+        "params": {
+          "threshold_db": -20,
+          "ratio": 20,
+          "attack_ms": 40,
+          "release_ms": 120
+        }
+      }
+    },
+    "form_energy": {
+      "valid": true,
+      "reason": "ok",
+      "gold_reward": 1.0,
+      "changed_reward": 1.0,
+      "gold_first": {
+        "name": "Intro",
+        "start_bar": 1,
+        "bars": 12,
+        "energy": 0.28,
+        "density": 0.23
+      },
+      "changed_first": {
+        "name": "Intro",
+        "start_bar": 1,
+        "bars": 12,
+        "energy": 0.72,
+        "density": 0.23
+      }
+    },
+    "texture_velocity": {
+      "valid": true,
+      "reason": "ok",
+      "gold_reward": 1.0,
+      "changed_reward": 1.0,
+      "gold_first": {
+        "bar": 1,
+        "step": 0,
+        "key": 48,
+        "len_steps": 2,
+        "vel": 67
+      },
+      "changed_first": {
+        "bar": 1,
+        "step": 0,
+        "key": 48,
+        "len_steps": 2,
+        "vel": 1
+      }
+    }
+  },
+  "token_lengths": {
+    "sft": {
+      "mix": {
+        "n": 1080,
+        "sft_truncated_at_1536": 0,
+        "no_target_at_1536": 0,
+        "sft_truncated_at_2048": 0,
+        "no_target_at_2048": 0,
+        "sft_truncated_at_4096": 0,
+        "no_target_at_4096": 0,
+        "sft_truncated_at_8192": 0,
+        "no_target_at_8192": 0,
+        "dpo_prompt_truncated_at_512": 862,
+        "lengths": {
+          "prompt": {
+            "p50": 534,
+            "p95": 609,
+            "p99": 613,
+            "max": 615
+          },
+          "completion": {
+            "p50": 43,
+            "p95": 62,
+            "p99": 64,
+            "max": 65
+          },
+          "full": {
+            "p50": 577,
+            "p95": 652,
+            "p99": 672,
+            "max": 675
+          }
+        }
+      },
+      "form": {
+        "n": 540,
+        "sft_truncated_at_1536": 0,
+        "no_target_at_1536": 0,
+        "sft_truncated_at_2048": 0,
+        "no_target_at_2048": 0,
+        "sft_truncated_at_4096": 0,
+        "no_target_at_4096": 0,
+        "sft_truncated_at_8192": 0,
+        "no_target_at_8192": 0,
+        "dpo_prompt_truncated_at_512": 0,
+        "lengths": {
+          "prompt": {
+            "p50": 177,
+            "p95": 178,
+            "p99": 178,
+            "max": 178
+          },
+          "completion": {
+            "p50": 326,
+            "p95": 333,
+            "p99": 335,
+            "max": 336
+          },
+          "full": {
+            "p50": 503,
+            "p95": 510,
+            "p99": 512,
+            "max": 513
+          }
+        }
+      },
+      "texture": {
+        "n": 1620,
+        "sft_truncated_at_1536": 1330,
+        "no_target_at_1536": 0,
+        "sft_truncated_at_2048": 657,
+        "no_target_at_2048": 0,
+        "sft_truncated_at_4096": 0,
+        "no_target_at_4096": 0,
+        "sft_truncated_at_8192": 0,
+        "no_target_at_8192": 0,
+        "dpo_prompt_truncated_at_512": 0,
+        "lengths": {
+          "prompt": {
+            "p50": 199,
+            "p95": 206,
+            "p99": 206,
+            "max": 206
+          },
+          "completion": {
+            "p50": 1502,
+            "p95": 2811,
+            "p99": 2880,
+            "max": 2929
+          },
+          "full": {
+            "p50": 1705,
+            "p95": 3012,
+            "p99": 3082,
+            "max": 3135
+          }
+        }
+      }
+    },
+    "dpo_seq1024": {
+      "texture": {
+        "n": 1571,
+        "prompt_truncated": 0,
+        "chosen_truncated": 1290,
+        "rejected_truncated": 1103,
+        "identical_after_truncation": 114
+      },
+      "mix": {
+        "n": 1045,
+        "prompt_truncated": 838,
+        "chosen_truncated": 0,
+        "rejected_truncated": 0,
+        "identical_after_truncation": 0
+      },
+      "form": {
+        "n": 527,
+        "prompt_truncated": 0,
+        "chosen_truncated": 0,
+        "rejected_truncated": 0,
+        "identical_after_truncation": 0
+      }
+    }
+  },
+  "eval": {
+    "eval-report-dpo.json": {
+      "sha256": "06fac14de7c78bd9d4f7064efe0a64aa8bf0a7d633a0606b77f173a9d0fbd6e2",
+      "n": 60,
+      "request_errors": 0,
+      "valid_count": 60,
+      "end_to_end_valid_rate": 1.0,
+      "conditional_valid_rate": 1.0,
+      "quality_comparison_eligible": true
+    },
+    "eval-report-grpo-v2.json": {
+      "sha256": "86af650e622ebde46dd727b7238de5a9c223b22376dc6703d7fab15b1f085c52",
+      "n": 60,
+      "request_errors": 39,
+      "valid_count": 18,
+      "end_to_end_valid_rate": 0.3,
+      "conditional_valid_rate": 0.8571428571428571,
+      "quality_comparison_eligible": false
+    },
+    "eval-report-grpo.json": {
+      "sha256": "e555d6a58185eca0a4e151f579431e82f9ecde693f990eb7deb561948bab44ee",
+      "n": 60,
+      "request_errors": 0,
+      "valid_count": 54,
+      "end_to_end_valid_rate": 0.9,
+      "conditional_valid_rate": 0.9,
+      "quality_comparison_eligible": true
+    },
+    "eval-report-preview.json": {
+      "sha256": "c1df7249ae9b38d2753040779f3a978e5786e868ae1e9eca84822fa833182b85",
+      "n": 60,
+      "request_errors": 0,
+      "valid_count": 60,
+      "end_to_end_valid_rate": 1.0,
+      "conditional_valid_rate": 1.0,
+      "quality_comparison_eligible": true
+    }
+  }
+}

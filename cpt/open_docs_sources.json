@@ -1,0 +1,150 @@
+{
+  "sources": [
+    {
+      "id": "sfz-format-docs",
+      "repo": "sfz/sfz.github.io",
+      "license": "CC0-1.0",
+      "license_path": "LICENSE",
+      "license_marker": "CC0 1.0 Universal",
+      "include": [
+        "docs/*.md"
+      ],
+      "title": "SFZ sampler parameter reference",
+      "max_tokens": 1000000
+    },
+    {
+      "id": "sonic-pi-tutorial",
+      "repo": "sonic-pi-net/sonic-pi",
+      "license": "CC-BY-SA-4.0",
+      "license_path": "etc/doc/LICENSE.md",
+      "license_marker": "CC BY-SA 4.0",
+      "include": [
+        "etc/doc/tutorial/*.md",
+        "etc/doc/lang/sonic-pi-tutorial-zh*.po"
+      ],
+      "title": "Sonic Pi English and Chinese music production tutorials",
+      "max_tokens": 2000000
+    },
+    {
+      "id": "librosa-docs",
+      "repo": "librosa/librosa",
+      "license": "ISC",
+      "license_path": "LICENSE.md",
+      "license_marker": "ISC License",
+      "include": [
+        "docs/*.rst",
+        "librosa/*.py"
+      ],
+      "title": "librosa audio and music analysis documentation",
+      "max_tokens": 2000000
+    },
+    {
+      "id": "mido-docs",
+      "repo": "mido/mido",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "docs/*.rst",
+        "mido/*.py"
+      ],
+      "title": "Mido MIDI messages, timing and files",
+      "max_tokens": 500000
+    },
+    {
+      "id": "pretty-midi-docs",
+      "repo": "craffel/pretty-midi",
+      "license": "MIT",
+      "license_path": "LICENSE.txt",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "README.md",
+        "docs/*.rst",
+        "pretty_midi/*.py"
+      ],
+      "title": "pretty_midi symbolic music and MIDI documentation",
+      "max_tokens": 500000
+    },
+    {
+      "id": "pyloudnorm-docs",
+      "repo": "csteinmetz1/pyloudnorm",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "README.md",
+        "pyloudnorm/*.py"
+      ],
+      "title": "pyloudnorm loudness measurement and normalization",
+      "max_tokens": 200000
+    },
+    {
+      "id": "sounddevice-docs",
+      "repo": "spatialaudio/python-sounddevice",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "doc/*.rst",
+        "sounddevice.py"
+      ],
+      "title": "Sounddevice audio streams, latency and devices",
+      "max_tokens": 500000
+    },
+    {
+      "id": "audioflux-docs",
+      "repo": "libAudioFlux/audioFlux",
+      "license": "MIT",
+      "license_path": "LICENSE.md",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "docs/*.rst",
+        "docs/*.md",
+        "python/audioflux/*.py",
+        "README.md"
+      ],
+      "title": "audioFlux spectral, pitch and rhythm analysis",
+      "max_tokens": 2000000
+    },
+    {
+      "id": "pyroomacoustics-docs",
+      "repo": "LCAV/pyroomacoustics",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "docs/*.rst",
+        "pyroomacoustics/*.py",
+        "README.rst"
+      ],
+      "title": "Room acoustics, reverberation and microphone arrays",
+      "max_tokens": 1500000
+    },
+    {
+      "id": "clap-docs",
+      "repo": "free-audio/clap",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "README.md",
+        "docs/*.md"
+      ],
+      "title": "CLAP audio plugin protocol documentation",
+      "max_tokens": 300000
+    },
+    {
+      "id": "windows-midi-docs",
+      "repo": "microsoft/MIDI",
+      "license": "MIT",
+      "license_path": "LICENSE",
+      "license_marker": "Permission is hereby granted",
+      "include": [
+        "docs/*.md",
+        "README.md"
+      ],
+      "title": "Windows MIDI Services protocols and timing",
+      "max_tokens": 2000000
+    }
+  ]
+}

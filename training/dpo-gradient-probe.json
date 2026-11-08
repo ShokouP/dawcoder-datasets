@@ -1,0 +1,15 @@
+{
+  "cpu_only": true,
+  "toy_reproduction_not_full_model": true,
+  "device": "cpu",
+  "switch_to_ref_before_backward": {
+    "policy_grad_tensors": 0,
+    "ref_grad_tensors": 1,
+    "changed_policy_tensors": 0
+  },
+  "restore_policy_before_backward": {
+    "policy_grad_tensors": 1,
+    "ref_grad_tensors": 0,
+    "changed_policy_tensors": 1
+  }
+}

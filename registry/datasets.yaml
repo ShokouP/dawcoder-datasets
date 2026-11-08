@@ -2,6 +2,19 @@
 # 字段说明见 schemas/dataset.schema.json；许可档位见 registry/licenses.yaml
 version: 1
 datasets:
+  - id: groove-midi
+    name: Groove MIDI Dataset v1.0.0 (MIDI-only)
+    task: [texture]
+    subtasks: [drum_pattern, microtiming, velocity]
+    source_type: public_midi
+    modality: [midi, annotation]
+    license:
+      spdx: CC-BY-4.0
+      evidence: {url: "https://magenta.tensorflow.org/datasets/groove", captured_at: "2026-11-07", reviewer: "codex"}
+    citation: "Gillick et al., Learning to Groove with Inverse Sequence Transformations, ICML 2019"
+    fetch: {method: url, url: "https://storage.googleapis.com/magentadata/datasets/groove/groove-v1.0.0-midionly.zip", sha256: "651cbc524ffb891be1a3e46d89dc82a1cecb09a57c748c7b45b844c4841dcc1e", size_bytes: 3260318}
+    splits: {policy: song_level, group_key: groove_midi_performance_id}
+    notes: "Retain official performance-level splits; windows inherit their parent split. CPU-only preparation: tools/collect_symbolic.py. Original and derived third-party data stay under ignored data/symbolic/."
   - id: slakh2100
     name: Slakh2100
     task: [mix, texture]
@@ -68,7 +81,7 @@ datasets:
       spdx: CC0-1.0
       evidence: {url: "https://ddmal.ca/research/salami/annotation/", captured_at: "2026-11-07", reviewer: "shokoup"}
     citation: "Smith et al., SALAMI, ISMIR 2011"
-    fetch: {method: git, url: "https://github.com/DDMAL/salami-data-public", sha256: "", size_bytes: 50000000}
+    fetch: {method: url, url: "https://codeload.github.com/DDMAL/salami-data-public/tar.gz/8e4f95d18a3ab628c53011fa5a43e9d3be27965d", sha256: "476cafb01754b571e7028343ce54b6ad9c6d0f730ff69f2e4b8aa132d9c70985", size_bytes: 2075525}
     splits: {policy: song_level, group_key: salami_track_id}
     notes: "只含标注；对应音频需自行从 Internet Archive 获取并核对权利"
 

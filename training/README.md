@@ -67,6 +67,27 @@ python training/eval_dawcoder.py --model dawcoder-preview --limit 60 --out train
 - 各任务 schema 合法率 ≥ 80%
 - 与未微调基座在同样 val 上对比提升明显
 
+评测器现在按任务内固定种子抽样，再轮流抽取三类任务。默认 `--limit 60`
+选取 mix / form / texture 各 20 条；`--limit 0` 评测完整验证集；不足 3 条或
+验证集缺少任一任务时会报错。报告含各任务失败原因、总体和宏平均合法率、输入文件 SHA-256。
+
+只核对覆盖率，使用下面的 CPU 命令，不调用模型：
+
+```bash
+python training/eval_dawcoder.py --dry-run
+python -m unittest discover -s training -p "test_*.py"
+```
+
+`training/patch_validation.py` 供评测器与合成数据校验器共用，检查目标轨道、
+发送两端与反馈回路、必需字段、有限数值及单位范围、段落连续性与 marker 内容、
+音符音域/力度/整数网格/重复音符/结尾越界。当前 IR 支持 4/4，EQ 为 1–7 段；
+不支持的字段会被拒绝。参数合法率只代表当前 IR 的约束通过，不能证明音频质量
+或真实 DAW 的插件映射正确，也不衡量自然语言意图是否被完全满足。
+
+新增训练材料见 `../cpt/COLLECTION-REPORT.md`。`cpt/data-expanded/` 已准备统一
+`text` 列的 CPT 文件；`data/symbolic/` 是带来源记录的真实演奏/结构标注，
+需要相应训练任务与模型输入格式，不能直接混入当前三任务的 SFT 文件。
+
 ## 6. 训练记录模板
 
 | 项 | 值 |
@@ -78,3 +99,27 @@ python training/eval_dawcoder.py --model dawcoder-preview --limit 60 --out train
 | SFT 配置 | LoRA r=64, seq 2048, 1 epoch |
 | JSON 解析率 | __% |
 | schema 合法率 | mix __% / form __% / texture __% |
+
+## Astra：完整答案 SFT 续训
+
+2026-11-08 的审计与新方案见 [ASTRA-POSTTRAIN-PLAN.md](ASTRA-POSTTRAIN-PLAN.md)。
+新训练入口为 `train_sft_complete.py`，不截断答案，三任务均衡，采用数值等价的
+分块交叉熵减少显存占用。旧 DPO/GRPO 的问题及证据保存在该方案和
+`posttrain-audit.json` 中。固定验证集和评测口径保持原样。
+
+```powershell
+# CPU：核对完整长度与系统提示
+D:\train\venv\Scripts\python.exe training\train_sft_complete.py --prepare-only --output D:\LLM\models\dawcoder-sft-v2
+
+# 单 GPU：入口会先检查显存与利用率；输出必须是新的运行目录
+D:\train\venv\Scripts\python.exe training\train_sft_complete.py --output D:\LLM\models\dawcoder-sft-v2 --steps 100 --accum 8 --lr 1e-5
+
+# CPU：训练完成后导出，不自动注册 Ollama，不运行固定验证集
+D:\train\venv\Scripts\python.exe training\export_candidate.py --adapter D:\LLM\models\dawcoder-sft-v2 --out D:\LLM\models\dawcoder-sft-v2-export
+```
+
+具体运行结果与交付路径以 `ASTRA-HANDOFF.md` 为准；训练 loss 不能替代独立评测。
+
+GRPO v3（从已评测 SFT v2 初始化）方法、奖励、组内采样及边界见
+[ASTRA-GRPO-V3-PLAN.md](ASTRA-GRPO-V3-PLAN.md)。训练完成摘要见
+`grpo-v3-training-summary.json`，评测侧交付见 `ASTRA-GRPO-V3-HANDOFF.md`。

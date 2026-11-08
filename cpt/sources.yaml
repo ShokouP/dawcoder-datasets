@@ -1,7 +1,7 @@
 # DAWcoder 继续预训练（CPT）语料源注册表
 # 只允许 redistributable: true 的源进入公开语料（cpt/build.py）。
 # max_tokens 是构建预算权重（同时用于 full/lite 两种构建的比例分配）。
-version: 3
+version: 4
 corpus: dawcoder-cpt-v0.2
 sources:
   - id: stackexchange-sound
@@ -245,3 +245,124 @@ sources:
       method: manual_request
       url: "https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/"
     notes: "受版权保护，只能本地获取用于私有语料，不得进入公开语料"
+
+  - id: sfz-format-docs
+    title: "SFZ sampler parameter reference"
+    license: CC0-1.0
+    tier: T0
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/sfz/sfz.github.io"
+      max_tokens: 1000000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: sonic-pi-tutorial
+    title: "Sonic Pi English and Chinese music production tutorials"
+    license: CC-BY-SA-4.0
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/sonic-pi-net/sonic-pi"
+      max_tokens: 2000000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Tutorials are CC BY-SA 4.0, independently of the application code license."
+
+  - id: librosa-docs
+    title: "librosa audio and music analysis documentation"
+    license: ISC
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/librosa/librosa"
+      max_tokens: 2000000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: mido-docs
+    title: "Mido MIDI messages, timing and files"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/mido/mido"
+      max_tokens: 500000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: pretty-midi-docs
+    title: "pretty_midi symbolic music and MIDI documentation"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/craffel/pretty-midi"
+      max_tokens: 500000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: pyloudnorm-docs
+    title: "pyloudnorm loudness measurement and normalization"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/csteinmetz1/pyloudnorm"
+      max_tokens: 200000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: sounddevice-docs
+    title: "Sounddevice audio streams, latency and devices"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/spatialaudio/python-sounddevice"
+      max_tokens: 500000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: audioflux-docs
+    title: "audioFlux spectral, pitch and rhythm analysis"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/libAudioFlux/audioFlux"
+      max_tokens: 2000000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: pyroomacoustics-docs
+    title: "Room acoustics, reverberation and microphone arrays"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/LCAV/pyroomacoustics"
+      max_tokens: 1500000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: clap-docs
+    title: "CLAP audio plugin protocol documentation"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/free-audio/clap"
+      max_tokens: 300000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."
+
+  - id: windows-midi-docs
+    title: "Windows MIDI Services protocols and timing"
+    license: MIT
+    tier: T1
+    redistributable: true
+    fetch:
+      method: github_docs
+      url: "https://github.com/microsoft/MIDI"
+      max_tokens: 2000000
+    notes: "Allowlisted documentation only; commit pins, file hashes and license evidence in cpt/open_docs.lock.json and cpt/licenses/. Preserve original notices."

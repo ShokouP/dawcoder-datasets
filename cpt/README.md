@@ -1,5 +1,9 @@
 # DAWcoder CPT 语料（继续预训练数据库）v0.3-curated
 
+新增 v0.4 扩充版的实际采集量、许可与复现命令见 [COLLECTION-REPORT.md](COLLECTION-REPORT.md)。
+本地新增 `data-expanded/`（公开混合许可）与 `data-permissive/`（许可白名单，排除 SA）；
+两者均在 `.gitignore` 中。原有语料与训练输入文件保持独立，构建、转换和校验仅使用 CPU。
+
 面向 **Qwen3.5-4B 继续预训练（CPT）** 的领域语料：音频工程 / 混音 / DAW 工程格式 / 乐理 / 声学。
 
 质量评估与清洗过程见 [`QA-REPORT.md`](QA-REPORT.md)：**v0.2 broad 大而不精 → v0.3 curated 用于训练预览版**。

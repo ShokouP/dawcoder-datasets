@@ -325,6 +325,51 @@ def fetch_mediawiki_search(source: dict, out: Path) -> int:
     return append(out, docs)
 
 
+def fetch_mediawiki_search_intro(source: dict, out: Path) -> int:
+    """搜索 + 批量导语抓取（20 条/请求，适合大批量轻量补充，CC BY-SA）。"""
+    cfg = source["fetch"]
+    site = cfg.get("site", "zh.wikipedia.org")
+    titles: list[str] = []
+    for q in cfg["queries"]:
+        url = (f"https://{site}/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(q)}"
+               f"&srlimit={cfg.get('search_limit', 40)}&srnamespace=0&format=json")
+        try:
+            data = fetch_json(url)
+        except RuntimeError as exc:
+            log(f"  搜索失败（跳过）：{q}：{exc}")
+            continue
+        for item in data.get("query", {}).get("search", []):
+            if item["title"] not in titles:
+                titles.append(item["title"])
+        time.sleep(2.0)
+    titles = titles[: int(cfg.get("max_titles", 300))]
+    log(f"  {site} 搜索到 {len(titles)} 个标题")
+    docs: list[dict] = []
+    for i in range(0, len(titles), 20):
+        batch = titles[i:i + 20]
+        url = (f"https://{site}/w/api.php?action=query&prop=extracts&exintro=1&explaintext=1"
+               f"&exlimit=20&redirects=1&format=json&titles={urllib.parse.quote('|'.join(batch))}")
+        try:
+            data = fetch_json(url)
+        except RuntimeError as exc:
+            log(f"  batch 失败（跳过）：{exc}")
+            continue
+        for page in data.get("query", {}).get("pages", {}).values():
+            text = page.get("extract") or ""
+            if len(text) < int(cfg.get("min_chars", 250)):
+                continue
+            docs.append({
+                "doc_id": f"mwintro-{site.split('.')[0]}-{page.get('pageid')}",
+                "source": source["id"], "license": source["license"], "tier": source["tier"],
+                "title": page.get("title", ""),
+                "url": f"https://{site}/?curid={page.get('pageid')}",
+                "kind": "intro", "text": text, "retrieved_at": now(),
+            })
+        time.sleep(3.0)
+    log(f"  {site} 最终 {len(docs)} 篇")
+    return append(out, docs)
+
+
 # ------------------------------------------------------------------ gutenberg
 
 PG_KEYWORDS = ("music", "musical", "sound", "acoustic", "harmony", "counterpoint",
@@ -466,8 +511,10 @@ def main() -> int:
                 n = fetch_wikipedia(src, out)
             elif method == "wikipedia_titles":
                 n = fetch_wikipedia_titles(src, out)
-            elif method == "wikisource_search" or method == "mediawiki_search":
+            elif method == "mediawiki_search":
                 n = fetch_mediawiki_search(src, out)
+            elif method == "mediawiki_search_intro":
+                n = fetch_mediawiki_search_intro(src, out)
             elif method == "stackexchange_dump":
                 log("  Stack Exchange 全量转储由 cpt/fetch_se_dumps.py 处理（先下载 7z）")
                 continue
@@ -479,6 +526,10 @@ def main() -> int:
                 n = fetch_gutenberg(src, out)
             elif method == "raw_url":
                 n = fetch_raw_url(src, out)
+            elif method == "github_docs":
+                import subprocess
+                subprocess.run([sys.executable, str(ROOT / "cpt" / "collect_open_docs.py"), "--source", sid], check=True)
+                n = sum(1 for line in out.open(encoding="utf-8") if line.strip())
             elif method == "synthetic":
                 log("  合成源由 cpt/build.py 生成，跳过抓取")
                 continue

@@ -1,0 +1,50 @@
+{
+  "candidate": "dawcoder-grpo-v3",
+  "adapter": "D:\\LLM\\models\\dawcoder-grpo-v3\\adapter_model.safetensors",
+  "adapter_sha256": "67d050b2e0feee8db8738148a599e6a4fa4db0a6eea5aed95962fbb75ed4a6a2",
+  "parent_adapter_sha256": "fa4520f3e0b1e71d7a8cbae8b9973c127436769f4f79e96f36ad7afc1c8c1786",
+  "completed_steps": 24,
+  "generation_groups": 25,
+  "rollouts": 100,
+  "valid_rollouts": 99,
+  "truncated_rollouts": 1,
+  "task_steps": {
+    "mix": 8,
+    "form": 8,
+    "texture": 8
+  },
+  "task_summary": {
+    "mix": {
+      "steps": 8,
+      "mean_group_reward": 0.9793073592857834,
+      "mean_group_reward_std": 0.010265608981218657,
+      "mean_valid_rate": 1.0,
+      "mean_rl_grad_norm": 0.393965064547956,
+      "mean_replay_loss": 0.17013724707067013
+    },
+    "form": {
+      "steps": 8,
+      "mean_group_reward": 0.9139285937499999,
+      "mean_group_reward_std": 0.017067932763582146,
+      "mean_valid_rate": 1.0,
+      "mean_rl_grad_norm": 0.2731745224446058,
+      "mean_replay_loss": 0.14248319528996944
+    },
+    "texture": {
+      "steps": 8,
+      "mean_group_reward": 0.942064506259846,
+      "mean_group_reward_std": 0.02641304107920388,
+      "mean_valid_rate": 0.96875,
+      "mean_rl_grad_norm": 0.01974655213780352,
+      "mean_replay_loss": 0.11114111077040434
+    }
+  },
+  "elapsed_seconds": 1526.66,
+  "peak_allocated_gib": 13.418,
+  "reference_unchanged": true,
+  "all_rl_gradients_nonzero": true,
+  "all_policy_tensors_finite_and_changed": 496,
+  "fixed_evaluation": "not_run_by_training_side",
+  "fixed_eval_sha256": "6c769be3b61d1cc1ce23632bf0a268c28a9580a4e6f013b2f441b78ecb0bebbf",
+  "system_prompt_sha256": "f5a13600d5f5f37fd2d6d63cca59e470b949a2e07a3f27887e97c0b9ab1802f0"
+}

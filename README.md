@@ -1,5 +1,8 @@
 # dawcoder-datasets
 
+本地已扩充训练资料并修复评测覆盖/补丁校验，详见 [`cpt/COLLECTION-REPORT.md`](cpt/COLLECTION-REPORT.md)。
+新增资料包含开放文档 CPT、Groove 鼓 MIDI 与 SALAMI 曲式标注；采集与数据准备仅使用 CPU。
+
 DAWcoder 的数据仓库：**第三方数据不进仓库**（走 fetch 脚本），仓库里放的是**许可治理 + 可直接训练的自建合成数据**。
 
 - 代码：Apache-2.0（`LICENSE`）

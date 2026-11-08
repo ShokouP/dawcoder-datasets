@@ -10,3 +10,6 @@ cpt/data-curated/
 *.7z
 *.gz
 .DS_Store
+
+cpt/data-expanded/
+cpt/data-permissive/
