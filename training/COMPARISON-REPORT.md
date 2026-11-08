@@ -1,6 +1,6 @@
 # DAWcoder 模型对比报告
 
-生成时间：2026-11-08 12:40
+生成时间：2026-11-08 15:52
 
 评测协议：`training/EVAL-PROTOCOL.md`（val 60 条均衡，seed 20261107，temperature 0，num_predict 8192）
 
@@ -8,12 +8,14 @@
 |---|---|---|---|---|---|---|---|---|---|
 | dawcoder-dpo | eval-report-dpo.json | ✅ | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.9657 |
 | dawcoder-preview | eval-report-preview.json | ✅ | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 0.9657 |
+| dawcoder-sft-v2 | eval-report-sft-v2.json | ✅ | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | 100.0% | - |
 | dawcoder-grpo | eval-report-grpo.json | ✅ | 100.0% | 90.0% | 90.0% | 100.0% | 100.0% | 70.0% | 0.8516 |
 | dawcoder-grpo-v2 | eval-report-grpo-v2.json | ⚠️ 请求错误多 | 35.0% | 30.0% | 30.0% | 40.0% | 35.0% | 15.0% | - |
 
 ## 回归检查（相对基线 `dawcoder-preview`）
 
 - **dawcoder-dpo**：无退化，通过
+- **dawcoder-sft-v2**：无退化，通过
 - **dawcoder-grpo**：schema 合法率下降 10.0 个百分点；texture 合法率下降 30.0 个百分点；reward 下降 0.1141
 
 ## 说明

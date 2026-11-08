@@ -1,0 +1,769 @@
+{
+  "model": "dawcoder-sft-v2",
+  "total": 60,
+  "seed": 20261107,
+  "validation_file": "D:\\LLM\\dawcoder-datasets\\training\\data\\dawcoder_sft_val.jsonl",
+  "validation_sha256": "6c769be3b61d1cc1ce23632bf0a268c28a9580a4e6f013b2f441b78ecb0bebbf",
+  "selection": "balanced_round_robin",
+  "num_predict": 8192,
+  "coverage_complete": true,
+  "json_parse_rate": 1.0,
+  "valid_rate": 1.0,
+  "macro_valid_rate": 1.0,
+  "per_task": {
+    "mix": {
+      "n": 20,
+      "parsed": 20,
+      "valid": 20,
+      "reasons": {
+        "ok": 20
+      },
+      "rate": 1.0,
+      "json_parse_rate": 1.0
+    },
+    "form": {
+      "n": 20,
+      "parsed": 20,
+      "valid": 20,
+      "reasons": {
+        "ok": 20
+      },
+      "rate": 1.0,
+      "json_parse_rate": 1.0
+    },
+    "texture": {
+      "n": 20,
+      "parsed": 20,
+      "valid": 20,
+      "reasons": {
+        "ok": 20
+      },
+      "rate": 1.0,
+      "json_parse_rate": 1.0
+    }
+  },
+  "samples": [
+    {
+      "task": "mix",
+      "ok": true,
+      "reason": "ok",
+      "input": {
+        "task": "mix",
+        "state": {
+          "genre": "hiphop",
+          "tempo": 124,
+          "sample_rate": 48000,
+          "tracks": [
+            {
+              "name": "Kick",
+              "role": "kick",
+              "kind": "audio",
+              "volume_db": -5.1,
+              "pan": 0.04,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "808",
+              "role": "bass",
+              "kind": "midi",
+              "volume_db": -7.2,
+              "pan": -0.06,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "Snare",
+              "role": "snare",
+              "kind": "audio",
+              "volume_db": -5.1,
+              "pan": 0.14,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "Hats",
+              "role": "hats",
+              "kind": "audio",
+              "volume_db": -14.0,
+              "pan": -0.03,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "Keys",
+              "role": "keys",
+              "kind": "midi",
+              "volume_db": -11.2,
+              "pan": 0.08,
+              "fx": [],
+              "sends": [
+                {
+                  "to": "Plate Reverb",
+                  "gain_db": -13.2
+                }
+              ]
+            },
+            {
+              "name": "Lead Vocal",
+              "role": "vocal",
+              "kind": "audio",
+              "volume_db": -9.4,
+              "pan": -0.09,
+              "fx": [
+                {
+                  "type": "comp",
+                  "params": {
+                    "threshold_db": -18,
+                    "ratio": 3.0,
+                    "attack_ms": 5,
+                    "release_ms": 80
+                  }
+                }
+              ],
+              "sends": [
+                {
+                  "to": "Plate Reverb",
+                  "gain_db": -14.3
+                }
+              ]
+            }
+          ],
+          "buses": [
+            {
+              "name": "Drum Bus",
+              "volume_db": -2.0
+            },
+            {
+              "name": "Vocal Bus",
+              "volume_db": -2.0
+            },
+            {
+              "name": "Plate Reverb",
+              "volume_db": -6.0
+            }
+          ],
+          "master": {
+            "target_lufs": -8.0,
+            "headroom_db": -6.0
+          }
+        },
+        "intent": "人声太靠后了，往前提 1-2 dB"
+      },
+      "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Lead Vocal\",\"fields\":{\"volume_db\":-8.4}}]}"
+    },
+    {
+      "task": "form",
+      "ok": true,
+      "reason": "ok",
+      "input": {
+        "task": "form",
+        "state": {
+          "genre": "rock",
+          "tempo": 124,
+          "time_signature": "4/4",
+          "target_seconds": 209
+        },
+        "intent": "做一首 rock，速度约 124 BPM，总长约 209 秒；需要有记忆点的副歌，段落之间能量要有对比，最后自然收尾。"
+      },
+      "output": "{\"tempo\":124,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{\"name\":\"Solo\",\"start_bar\":73,\"bars\":16,\"energy\":0.7,\"density\":0.73},{\"name\":\"Chorus\",\"start_bar\":89,\"bars\":16,\"energy\":0.8,\"density\":0.83},{\"name\":\"Outro\",\"start_bar\":105,\"bars\":8,\"energy\":0.24,\"density\":0.24}],\"markers\":[{\"bar\":1,\"name\":\"Intro\"},{\"bar\":9,\"name\":\"Verse\"},{\"bar\":25,\"name\":\"Chorus\"},{\"bar\":41,\"name\":\"Verse\"},{\"bar\":57,\"name\":\"Chorus\"},{\"bar\":73,\"name\":\"Solo\"},{\"bar\":89,\"name\":\"Chorus\"},{\"bar\":105,\"name\":\"Outro\"}]}"
+    },
+    {
+      "task": "texture",
+      "ok": true,
+      "reason": "ok",
+      "input": {
+        "task": "texture",
+        "state": {
+          "tempo": 100,
+          "time_signature": "4/4",
+          "progression": [
+            "Am7",
+            "F",
+            "Cmaj7",
+            "G"
+          ],
+          "style": "pad",
+          "range": [
+            "C3",
+            "C5"
+          ]
+        },
+        "intent": "Am7 - F - Cmaj7 - G 进行，用 长音铺底，音域 C3–C5，力度 40–65，不要出现和弦外音。"
+      },
+      "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":48},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":48},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":53,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":4,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":4,\"step\":0,\"key\":53,\"len_steps\":16,\"vel\":52},{\"bar\":4,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":5,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":5,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":52},{\"bar\":5,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":52},{\"bar\":5,\"step\":0,\"key\":59,\"len_steps\":16,\"vel\":52},{\"bar\":6,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":6,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":52},{\"bar\":6,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":52},{\"bar\":6,\"step\":0,\"key\":59,\"len_steps\":16,\"vel\":52},{\"bar\":7,\"step\":0,\"key\":50,\"len_steps\":16,\"vel\":52},{\"bar\":7,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":52},{\"bar\":7,\"step\":0,\"key\":59,\"len_steps\":16,\"vel\":52},{\"bar\":8,\"step\":0,\"key\":50,\"len_steps\":16,\"vel\":52},{\"bar\":8,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":52},{\"bar\":8,\"step\":0,\"key\":59,\"len_steps\":16,\"vel\":52}]}"
+    },
+    {
+      "task": "mix",
+      "ok": true,
+      "reason": "ok",
+      "input": {
+        "task": "mix",
+        "state": {
+          "genre": "hiphop",
+          "tempo": 120,
+          "sample_rate": 48000,
+          "tracks": [
+            {
+              "name": "Kick",
+              "role": "kick",
+              "kind": "audio",
+              "volume_db": -4.3,
+              "pan": -0.03,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "808",
+              "role": "bass",
+              "kind": "midi",
+              "volume_db": -5.0,
+              "pan": -0.08,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "Snare",
+              "role": "snare",
+              "kind": "audio",
+              "volume_db": -6.2,
+              "pan": -0.06,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "Hats",
+              "role": "hats",
+              "kind": "audio",
+              "volume_db": -14.6,
+              "pan": 0.04,
+              "fx": [],
+              "sends": []
+            },
+            {
+              "name": "Keys",
+              "role": "keys",
+              "kind": "midi",
+              "volume_db": -9.6,
+              "pan": -0.04,
+              "fx": [],
+              "sends": [
+                {
+                  "to": "Plate Reverb",
+                  "gain_db": -16.7
+                }
+              ]
+            },
+            {
+              "name": "Lead Vocal",
+              "role": "vocal",
+              "kind": "audio",
+              "volume_db": -7.4,
+              "pan": -0.04,
+              "fx": [
+                {
+                  "type": "comp",
+                  "params": {
+                    "threshold_db": -18,
+                    "ratio": 3.0,
+                    "attack_ms": 5,
+                    "release_ms": 80
+                  }
+                }
+              ],
+              "sends": [
+                {
+                  "to": "Plate Reverb",
+                  "gain_db": -14.7
+                }
+              ]
+            }
+          ],
+          "buses": [
+            {
+              "name": "Drum Bus",
+              "volume_db": -2.0
+            },
+            {
+              "name": "Vocal Bus",
+              "volume_db": -2.0
+            },
+            {
+              "name": "Plate Reverb",
+              "volume_db": -6.0
+            }
+          ],
+          "master": {
+            "target_lufs": -9.0,
+            "headroom_db": -6.0
+          }
+        },
+        "intent": "底鼓太轰，50-70Hz 收一下"
+      },
+      "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Kick\",\"band\":1,\"type\":\"bell\",\"freq\":60,\"gain_db\":-3.4,\"q\":0.9}]}"
+    },
+    {
+      "task": "form",
+      "ok": true,
+      "reason": "ok",
+      "input": {
+        "task": "form",
+        "state": {
+          "genre": "house",
+          "tempo": 120,
+          "time_signature": "4/4",
+          "target_seconds": 256
+        },
+        "intent": "做一首 house，速度约 120 BPM，总长约 256 秒；需要 drop 段落，段落之间能量要有对比，最后自然收尾。"
+      },
+      "output": "{\"tempo\":120,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":16,\"energy\":0.2,\"density\":0.26},{\"name\":\"Build\",\"start_bar\":17,\"bars\":16,\"energy\":0.6,\"density\":0.56},{\"name\":\"Drop\",\"start_bar\":33,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\"name\":\"Break\",\"start_bar\":65,\"bars\":16,\"energy\":0.28,\"density\":0.33},{\"name\":\"Drop\",\"start_bar\":81,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\"name\":\"Outro\",\"start_bar\":113,\"bars\":16,\"energy\":0.24,\"density\":0.24}],\"markers\":[{\"bar\":1,\"name\":\"Intro\"},{\"bar\":17,\"name\":\"Build\"},{\"bar\":33,\"name\":\"Drop\"},{\"bar\":65,\"name\":\"Break\"},{\"bar\":81,\"name\":\"Drop\"},{\"bar\":113,\"name\":\"Outro\"}]}"
+    },
+    {
+      "task": "texture",
+      "ok": true,
+      "reason": "ok",
+      "input": {
+        "task": "texture",
+        "state": {
+          "tempo": 124,
+          "time_signature": "4/4",
+          "progression": [
+            "F",
+            "G",
+            "Em",
+            "Am"
+          ],
+          "style": "broken_8",
+          "range": [
+            "C3",
+            "C5"
+          ]
+        },
+        "intent": "F - G - Em - Am 进行，用 8 分音符分解和弦，音域 C3–C5，力度 60–90，不要出现和弦外音。"
+      },
+      "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":77},{\"bar\":1,\"step\":14,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":2,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":8,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":10,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":2,\"step\":14,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":0,\"key\":50,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":2,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":4,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":6,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":8,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":10,\"key\":50,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":12,\"key\":50,\"len_steps\":2,\"vel\":72},{\"bar\":3,\"step\":14,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":0,\"key\":50,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":2,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":4,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":6,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":8,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":10,\"key\":50,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":12,\"key\":50,\"len_steps\":2,\"vel\":72},{\"bar\":4,\"step\":14,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":0,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":2,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":4,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":6,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":8,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":10,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":12,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":5,\"step\":14,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":0,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":2,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":4,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":6,\"key\":59,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":8,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":10,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":12,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":6,\"step\":14,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":8,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":10,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":7,\"step\":14,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":8,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":10,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":8,\"step\":14,\"key\":52,\"len_steps\":2,\"vel\":72}]}"
+    }
+  ],
+  "results": [
+    {
+      "task": "mix",
+      "input_sha256": "a28777342e3d8bba54e057da54e1347a71f788a9ab688abbc3569f2d636644cd",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "dd7e4990d2b6ea60ef70fe5e01a15fd60ceadcdc41e29a2bbb814403a6f4821f",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "e19946d9d7e4c79cc0a74aa3ce7f2fdde180e3927ce7d4fdd079f0276d7665fd",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "7a2b2a895fb59dd618c6f15a86b001686514656493f81e98c5939ffb9bb0cf65",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "06f5a78a3e5997547be31dfe7e624b321ccf2df4316db2f773c93c057c82e072",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "2d7c9d46259d83f2c3e3f069c83411862acaf7c3e6975b66835378d0fb3e2307",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "a6837167e29907642206200cf5f1b1f6edbbe343db062ec7d749b503dd555b6d",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "e67340d1a47bbe9881b6eb6553299adca0c4eb6e7c712bb418d2111612e644d5",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "f0cdaaf888c6e5dcca347fd0be40cc24b22f18c32c36aab704b5598fa50ba6f3",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "8201ffc3d86dd33c2c3ad58837c1faabd7565de94776675baa6b19524367e926",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "f0c34da915e6ca48d75830e5afb323d8358489d857b4c0b264664761b00b2656",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "a1218ae1a6ca728c9c2f8692ea47f88712909ae79cc1cd03cdf039f8ea826d98",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "29bb0eee4f6e4bcfc13d06c9f9a6fe3ddca7de55d1af79ccceea54a50c77e0da",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "4275b81c37b7c1e33af6ca0e8db61d5356513cca231645031bb63cf8c03b5bdf",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "79fdeddd51fa0ea31b6851fc742f541df020654c40e4d90bc5031352515f156c",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "89a6f7060bc9375f77c53a9334935deab3856c5e6d50894cadd4e2ac2bd17f53",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "c4ee40f95df4c5a2dace71091b947cd204529f6fd61f856133f27d420360aec9",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "6e17c1edab303e42c2e070490f25d758d5225079446f19eafe88e1a60e529265",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "986b3df50066de0efdf8aee13a5b1dedfd888a59902e33edb186b65869915096",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "447e55cf4c7176a026828ac2928a4962a01453682b51f2561d2ac7ad29acd864",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "839259e938036c6c32f21af57bd0ce76afa6fc7d24a7597c1efa391df678bb22",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "b254cd355c04916ef4087674f2a6ba2f1d35bab88c43d81fbeb2aac2ce100fbe",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "aeb4a78dd6d298866a2a7bf42195464f41324758be4fdd3592de91df9eb3cb81",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "b28abc928b00526284f81a7e5cb48a3befd2df9be25d3b699a818f07a93efb28",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "22954ead3a41837b6e0564309747026be799dff578e9d4ef8acc0415f5b24e14",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "9b70b8f5b90ea350d6e5e8ce33a8faf825a7b5cd26b79c474b89f8395e445a27",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "f40cc06199bb9a337e3a1ab1b05f47f46cae9f4711451ceadff6cf279f485ce9",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "a4a27c46dbb1317c6684199099591bcb5069308d6b25963b33466ef5e981f191",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "3935d81cecf927350ec530577f4ec526f37c8dbc4234cef06031268ccc819f4f",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "ef0bcc0ac941db40ee89689ed0915e43b36cc4a69b181d6d0809f538c2599441",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "5fed60ce057b5ce0eab86896c90c8482c31149607adc38e291b2c57e5ef943a7",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "3adc672a97943616996c0d4d27dc594697f571ff54a9e451f4153475974fd1e2",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "239cd82a5a3a8ff3826dae7cb1807ee975e42c2b65990a8e3d3dbb2fb8905bac",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "6516d8332144c0be09c6eded33a25d5ab58bda69bea2bf54acf1666d145432fe",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "14760252238eba6dad962c4e9be0f2a61f611219e9b9e7254e7614a13c60f455",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "ed30f74464e026ce15e78784e20f54c8536faa8c496fee239d7ab4e627789898",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "1b904666f133bdf6ffb59e294b92202389c82c4c422897038afc7a4d2dc2a41c",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "fdade2ba359d8ffce2910d15751ea719082d458233c940788df19458a6009957",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "67fab672e2b2cd8196a5bf4281e891b7015e40895cad2e66a8b1cecc8e6e81f1",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "f648e91f441c98e913cec090f7e804975ae90007f4b921f0704f7d5fea3b1946",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "06f5a78a3e5997547be31dfe7e624b321ccf2df4316db2f773c93c057c82e072",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "fcdd312985d1c9ed194f54903ea260d35065b116a4d8a0c21913b678cbe5e665",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "c882c03c7f630dcb44f29bab5fa75f02d619335e7906ad1667b166670d40c083",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "da042380ba57f858997b5f42981ca002b2f6974f42cd228bfa00105c9ab73ec6",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "1cca2ce2e7cc1c6f382cea9a5af113e728a9486552d005faa0f4369f64755265",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "df6608cec34f12474449cb1d8e67c3261a5352c0960b978d2b2a76675bdaca40",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "150a6eaaa315aaab262d32b3a1a770afc5ce0c01c33ebeef765b07da12a3cef5",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "25cfef530f2a63a7ebed5e3b910b5631e56afd0133c4dd695ddb9d47c7f3cef2",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "d01b5a52fbf04576fe7251d53f49ce3840d26cff2e466bf1de3b2066117f9efb",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "9a328c72686782486f0371dca30856d9825e8a9362ebbabb509f354214b5ab9c",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "85302f2daeb8add61c2be6517547e8c9e65157161237ae61bd1fdb65f74b3783",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "da858f0f1da9d932dc98a43320f83022a0fa95eb26fd899d07addc1ad2f52be5",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "ea9ed85b25941d45cdff313975f86bdedd14d3c1cb5bbb776636cf74add78849",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "91ed9d4fbc69b72bd018524ffa7c43b8958b1cd1ca7294ec3909252044b7756a",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "c2472af04d5c466cdcd0552a5a4035c28f582ff05cc6904449b45e55463e40a1",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "050b4d899075536d129aaa1220d4e38375de5c687d1ec833f5b4d53232f54d18",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "a82ee9407d06759680b46e00e3978e5f3b096984b18e051620d38b70be09013b",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "mix",
+      "input_sha256": "578ecedfb91c903113b1b042e8e3e8a9be508e76e01a699fbb19cac7dc902b61",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "form",
+      "input_sha256": "34480b165c50fc337b23c30eacb216bdad91bf8085a9f63a9f7f507e8882df01",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    },
+    {
+      "task": "texture",
+      "input_sha256": "2e5a7ee0ca574cecea524b899ac8b477fa02ef54de0decf09c63e02b6a8ec5bf",
+      "parsed": true,
+      "valid": true,
+      "reason": "ok"
+    }
+  ]
+}
