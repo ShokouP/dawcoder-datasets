@@ -35,18 +35,15 @@
 
 （数值与 `training/compare-posttrain.json` 一致；schema 合法率来自 `eval-report-{preview,dpo,grpo}.json`）
 
-## 4. 分析
+## 4. 结果记录
 
-- **DPO 没有带来可测变化**：训练对都是 SFT 模型已能正确回答的样本，chosen/rejected 已高度分离 → sigmoid 饱和、loss 恒 ~0.693，150 步 × lr 5e-6 的更新量太小。要有效果需要：更难/更接近的 rejected、更高 lr（2e-5~5e-5）或更多步数。
-- **GRPO 在纳入的任务上有效**（mix reward +0.014，valid 100%），但 **texture 明显退化**：texture 未进入 GRPO prompt 池（金标准输出远超 max_new 512），策略更新后 KL 约束不足以保持 texture 行为 → bad-bar 错误。
-- **结论：`dawcoder-preview`（SFT）仍是当前最佳可用版本**；DPO/GRPO 作为实验分支保留，下一轮需针对上述问题重做。
+- **DPO**：训练对为 SFT 模型已能正确回答的样本，chosen/rejected 已高度分离；本轮 loss 恒 ~0.693、偏好 acc 0.97；导出后 schema 与 SFT 相同。
+- **GRPO（v1）**：prompt 池未含 texture（金标准输出远超 max_new 512）；导出后 mix reward +0.014、texture 出现 bad-bar（schema 90%）。
+- **结论（仅针对本轮模型）**：`dawcoder-preview`（SFT）仍是当前最佳可用版本；DPO/GRPO 作为实验分支保留。
 
-## 5. 下一轮建议
+## 5. 边界说明
 
-1. DPO：构造"接近正确但有细微错误"的 rejected（如 ±1.5dB、错误频率邻近值），lr 2e-5，steps 300+；
-2. GRPO：texture 任务单独用 max_new 2048 + 只采样短输出子集，或按任务维护多个 adapter；
-3. 增加 KL β（0.05–0.1）与 reference 更新策略，防止非目标任务漂移；
-4. 用 `daw-mcp-server` 的 `verify_patch` 做闭环奖励（渲染指标），比金标准相似度更接近真实混音目标。
+以上仅为**本次运行的评测事实**。后续训练方案（数据、算法、超参、导出）由 Astra 决定，评测侧不做训练建议。
 
 ## 6. 产物清单
 
