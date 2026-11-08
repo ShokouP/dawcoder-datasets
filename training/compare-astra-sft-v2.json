@@ -1,0 +1,780 @@
+{
+  "dawcoder-preview": {
+    "summary": {
+      "mix": {
+        "n": 20,
+        "valid_rate": 1.0,
+        "json_rate": 1.0,
+        "mean_reward": 0.9097
+      },
+      "form": {
+        "n": 20,
+        "valid_rate": 1.0,
+        "json_rate": 1.0,
+        "mean_reward": 0.9933
+      },
+      "texture": {
+        "n": 20,
+        "valid_rate": 1.0,
+        "json_rate": 1.0,
+        "mean_reward": 0.994
+      },
+      "overall": {
+        "n": 60,
+        "valid_rate": 1.0,
+        "mean_reward": 0.9657
+      }
+    },
+    "details": [
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9997,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Drum Bus\",\"fields\":{\"volume_db\":-0.4}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Lead Vocal\",\"band\":5,\"type\":\"bell\",\"freq\":8000,\"gain_db\":-2.2,\"q\":2.0}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_send\",\"from\":\"Lead Vocal\",\"to\":\"Plate Reverb\",\"gain_db\":-18.1}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9964,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Pad\",\"fields\":{\"volume_db\":-18.4}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.55,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Lead Vocal\",\"band\":6,\"type\":\"high_shelf\",\"freq\":12000,\"gain_db\":1.8,\"q\":0.7}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.0,\"attack_ms\":40,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.55,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Backing Vox\",\"band\":2,\"type\":\"bell\",\"freq\":250,\"gain_db\":-2.8,\"q\":1.2}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Kick\",\"band\":1,\"type\":\"bell\",\"freq\":50,\"gain_db\":-3.2,\"q\":0.8}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Vocal Chop\",\"band\":4,\"type\":\"bell\",\"freq\":3150,\"gain_db\":-2.8,\"q\":1.5}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Lead Vocal\",\"band\":2,\"type\":\"bell\",\"freq\":315,\"gain_db\":-2.8,\"q\":1.2}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.55,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Lead Vocal\",\"fields\":{\"volume_db\":-6.4}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9994,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Drum Bus\",\"fields\":{\"volume_db\":-0.3}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"808\",\"band\":1,\"type\":\"bell\",\"freq\":100,\"gain_db\":-2.8,\"q\":0.8}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.0,\"attack_ms\":40,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.55,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Backing Vox\",\"band\":2,\"type\":\"bell\",\"freq\":250,\"gain_db\":-2.8,\"q\":1.2}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9988,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Drum Bus\",\"fields\":{\"volume_db\":-0.4}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.5,\"attack_ms\":40,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_send\",\"from\":\"Lead Vocal\",\"to\":\"Plate Reverb\",\"gain_db\":-18.0}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Lead Vocal\",\"band\":4,\"type\":\"bell\",\"freq\":4000,\"gain_db\":-2.4,\"q\":1.5}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.5,\"attack_ms\":40,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9966,
+        "output": "{\"tempo\":124,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":16,\"energy\":0.24,\"density\":0.25},{\"name\":\"Build\",\"start_bar\":17,\"bars\":16,\"energy\":0.6,\"density\":0.63},{\"name\":\"Drop\",\"start_bar\":33,\"bars\":32,\"energy\":0.99,\"density\":0.98},{\"name\":\"Break\",\"start_bar\":65,\"bars\":16,\"energy\":0.3,\"density\":0.33},{\"name\":\"Drop\",\"start_bar\":81,\"bars\":32,\"energy\":0.95,\"density\":0.99},{\""
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":88,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.25},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.85,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.55,\"density\":0.54},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.81,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9775,
+        "output": "{\"tempo\":98,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.55,\"density\":0.54},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.81,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9906,
+        "output": "{\"tempo\":127,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.24},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.85,\"density\":0.83}"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9955,
+        "output": "{\"tempo\":76,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.53},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":120,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":16,\"energy\":0.24,\"density\":0.24},{\"name\":\"Build\",\"start_bar\":17,\"bars\":16,\"energy\":0.6,\"density\":0.63},{\"name\":\"Drop\",\"start_bar\":33,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\"name\":\"Break\",\"start_bar\":65,\"bars\":16,\"energy\":0.3,\"density\":0.33},{\"name\":\"Drop\",\"start_bar\":81,\"bars\":32,\"energy\":0.95,\"density\":0.98},{\""
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9884,
+        "output": "{\"tempo\":66,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9875,
+        "output": "{\"tempo\":86,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.55,\"density\":0.54},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.83,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.53},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9958,
+        "output": "{\"tempo\":60,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.25},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9955,
+        "output": "{\"tempo\":80,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.28},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.83,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9898,
+        "output": "{\"tempo\":86,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.53},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9958,
+        "output": "{\"tempo\":70,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.81,\"density\":0.83},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":108,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.25},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":82,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.55,\"density\":0.54},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.81,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9891,
+        "output": "{\"tempo\":102,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.25},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9925,
+        "output": "{\"tempo\":122,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":16,\"energy\":0.24,\"density\":0.25},{\"name\":\"Build\",\"start_bar\":17,\"bars\":16,\"energy\":0.8,\"density\":0.55},{\"name\":\"Drop\",\"start_bar\":33,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\"name\":\"Break\",\"start_bar\":65,\"bars\":16,\"energy\":0.3,\"density\":0.33},{\"name\":\"Drop\",\"start_bar\":81,\"bars\":32,\"energy\":0.98,\"density\":0.98},{\""
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.985,
+        "output": "{\"tempo\":86,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.83,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.85,\"density\":0.85},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":103,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.83,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.85,\"density\":0.85}"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9958,
+        "output": "{\"tempo\":78,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.25},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.83,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.85,\"density\":0.83},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9906,
+        "output": "{\"tempo\":127,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.24},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.85,\"density\":0.83}"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9762,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":57"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":52,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9937,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":55,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":78},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":75},{\"bar\":1,\"step\":8,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":52,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9859,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":55,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9639,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":57,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":56},{\"bar\":2,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":53"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":8,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":57,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9885,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":55,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":51,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":51,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":51,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9859,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":53,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":57,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":53,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":53,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":53,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":2,\"vel\":78},{\"bar\":1,\"step\":4,\"key\":59,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":52,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":8,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":10,\"key\":59,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":12,\"key\":52,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":14,\"key\":55,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":51,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":58,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":51,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":58,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9859,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":51,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":51,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":51,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":51,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":0,\"key\":55,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":8,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":8,\"key\":57,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":10,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":12,\"key\":52,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":14,\"key\":48,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":1,\"step\":0,\"key\":53,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":53,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":50,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":55"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":53,\"le"
+      }
+    ]
+  },
+  "dawcoder-sft-v2": {
+    "summary": {
+      "mix": {
+        "n": 20,
+        "valid_rate": 1.0,
+        "json_rate": 1.0,
+        "mean_reward": 0.9246
+      },
+      "form": {
+        "n": 20,
+        "valid_rate": 1.0,
+        "json_rate": 1.0,
+        "mean_reward": 0.9933
+      },
+      "texture": {
+        "n": 20,
+        "valid_rate": 1.0,
+        "json_rate": 1.0,
+        "mean_reward": 0.995
+      },
+      "overall": {
+        "n": 60,
+        "valid_rate": 1.0,
+        "mean_reward": 0.971
+      }
+    },
+    "details": [
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9997,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Drum Bus\",\"fields\":{\"volume_db\":-0.4}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Lead Vocal\",\"band\":5,\"type\":\"bell\",\"freq\":7000,\"gain_db\":-2.4,\"q\":2.0}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_send\",\"from\":\"Lead Vocal\",\"to\":\"Plate Reverb\",\"gain_db\":-18.4}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9964,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Pad\",\"fields\":{\"volume_db\":-18.4}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Backing Vox\",\"band\":6,\"type\":\"high_shelf\",\"freq\":12000,\"gain_db\":2.4,\"q\":0.7}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.0,\"attack_ms\":30,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.55,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Backing Vox\",\"band\":2,\"type\":\"bell\",\"freq\":250,\"gain_db\":-2.8,\"q\":1.2}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Kick\",\"band\":1,\"type\":\"bell\",\"freq\":60,\"gain_db\":-3.4,\"q\":0.9}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Vocal Chop\",\"band\":4,\"type\":\"bell\",\"freq\":3150,\"gain_db\":-2.6,\"q\":1.5}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Lead Vocal\",\"band\":2,\"type\":\"bell\",\"freq\":250,\"gain_db\":-2.8,\"q\":1.2}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.8492,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Backing Vox\",\"fields\":{\"volume_db\":-8.0}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9985,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Drum Bus\",\"fields\":{\"volume_db\":-0.0}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"808\",\"band\":1,\"type\":\"bell\",\"freq\":80,\"gain_db\":-2.6,\"q\":0.8}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.0,\"attack_ms\":30,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.55,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Backing Vox\",\"band\":2,\"type\":\"bell\",\"freq\":250,\"gain_db\":-2.6,\"q\":1.2}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.9988,
+        "output": "{\"ops\":[{\"op\":\"set_track\",\"track\":\"Drum Bus\",\"fields\":{\"volume_db\":-0.4}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.0,\"attack_ms\":40,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_send\",\"from\":\"Backing Vox\",\"to\":\"Plate Reverb\",\"gain_db\":-18.4}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 0.55,
+        "output": "{\"ops\":[{\"op\":\"set_eq\",\"track\":\"Backing Vox\",\"band\":4,\"type\":\"bell\",\"freq\":3150,\"gain_db\":-2.6,\"q\":1.5}]}"
+      },
+      {
+        "task": "mix",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"ops\":[{\"op\":\"set_comp\",\"track\":\"Drum Bus\",\"params\":{\"threshold_db\":-18,\"ratio\":2.0,\"attack_ms\":30,\"release_ms\":150}}]}"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9966,
+        "output": "{\"tempo\":124,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":16,\"energy\":0.24,\"density\":0.26},{\"name\":\"Build\",\"start_bar\":17,\"bars\":16,\"energy\":0.64,\"density\":0.57},{\"name\":\"Drop\",\"start_bar\":33,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\"name\":\"Break\",\"start_bar\":65,\"bars\":16,\"energy\":0.29,\"density\":0.33},{\"name\":\"Drop\",\"start_bar\":81,\"bars\":32,\"energy\":0.94,\"density\":0.92},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":88,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.81,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.54,\"density\":0.54},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.8,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"nam"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9775,
+        "output": "{\"tempo\":98,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.84,\"density\":0.84},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.54,\"density\":0.54},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.81,\"density\":0.81},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9906,
+        "output": "{\"tempo\":127,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.54,\"density\":0.54},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.81,\"density\":0.83"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9955,
+        "output": "{\"tempo\":76,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":120,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":16,\"energy\":0.2,\"density\":0.26},{\"name\":\"Build\",\"start_bar\":17,\"bars\":16,\"energy\":0.6,\"density\":0.56},{\"name\":\"Drop\",\"start_bar\":33,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\"name\":\"Break\",\"start_bar\":65,\"bars\":16,\"energy\":0.28,\"density\":0.33},{\"name\":\"Drop\",\"start_bar\":81,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\""
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9884,
+        "output": "{\"tempo\":66,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.54,\"density\":0.54},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9875,
+        "output": "{\"tempo\":86,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.81,\"density\":0.89},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.54,\"density\":0.54},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.81,\"density\":0.81},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9958,
+        "output": "{\"tempo\":60,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.2,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.55,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.84,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.85,\"density\":0.83},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9955,
+        "output": "{\"tempo\":80,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.2,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.54,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{\""
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9898,
+        "output": "{\"tempo\":86,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.81,\"density\":0.89},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.85,\"density\":0.81},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.55,\"density\":0.53},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9958,
+        "output": "{\"tempo\":70,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":108,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":82,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.24,\"density\":0.24},{\"name\":\"Hook\",\"start_bar\":9,\"bars\":16,\"energy\":0.81,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":25,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Hook\",\"start_bar\":41,\"bars\":16,\"energy\":0.85,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":57,\"bars\":16,\"energy\":0.55,\"density\":0.53},{\"na"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9891,
+        "output": "{\"tempo\":102,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9925,
+        "output": "{\"tempo\":122,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":16,\"energy\":0.24,\"density\":0.26},{\"name\":\"Build\",\"start_bar\":17,\"bars\":16,\"energy\":0.64,\"density\":0.57},{\"name\":\"Drop\",\"start_bar\":33,\"bars\":32,\"energy\":0.99,\"density\":0.99},{\"name\":\"Break\",\"start_bar\":65,\"bars\":16,\"energy\":0.29,\"density\":0.33},{\"name\":\"Drop\",\"start_bar\":81,\"bars\":32,\"energy\":0.94,\"density\":0.92},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.985,
+        "output": "{\"tempo\":86,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"tempo\":103,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9958,
+        "output": "{\"tempo\":78,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.81,\"density\":0.85},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.5,\"density\":0.55},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.8,\"density\":0.85},{"
+      },
+      {
+        "task": "form",
+        "valid": true,
+        "reward": 0.9906,
+        "output": "{\"tempo\":127,\"time_signature\":\"4/4\",\"sections\":[{\"name\":\"Intro\",\"start_bar\":1,\"bars\":8,\"energy\":0.25,\"density\":0.26},{\"name\":\"Verse\",\"start_bar\":9,\"bars\":16,\"energy\":0.58,\"density\":0.56},{\"name\":\"Chorus\",\"start_bar\":25,\"bars\":16,\"energy\":0.85,\"density\":0.83},{\"name\":\"Verse\",\"start_bar\":41,\"bars\":16,\"energy\":0.54,\"density\":0.54},{\"name\":\"Chorus\",\"start_bar\":57,\"bars\":16,\"energy\":0.81,\"density\":0.83"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9762,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":55,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":57"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":8,\"key\":52,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":10,\"key\":57,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":52,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9937,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":55,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":78},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":78},{\"bar\":1,\"step\":8,\"key\":52,\"len_steps\":2,\"vel\":78},{\"bar\":1,\"step\":10,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":52,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9859,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":55,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9845,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":57,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":48},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":42},{\"bar\":2,\"step\":0,\"key\":52,\"len_steps\":16,\"vel\":58},{\"bar\":2,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":42},{\"bar\":3,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":53"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":4,\"vel\":92},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":4,\"vel\":92},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":8,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":10,\"key\":52,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":12,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":14,\"key\":57,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9885,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":59,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":55,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":2,\"key\":51,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":8,\"key\":51,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":10,\"key\":55,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":14,\"key\":51,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9859,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":53,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":57,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":53,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":53,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":53,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":4,\"key\":59,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":52,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":8,\"key\":55,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":10,\"key\":59,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":12,\"key\":52,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":14,\"key\":55,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":2,\"key\":51,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":58,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":10,\"key\":51,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":55,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":14,\"key\":58,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 0.9859,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":1,\"key\":51,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":2,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":3,\"key\":51,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":5,\"key\":51,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":6,\"key\":55,\"len_steps\":1,\"vel\":82},{\"bar\":1,\"step\":7,\"key\":51,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":4,\"vel\":88},{\"bar\":1,\"step\":0,\"key\":52,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":0,\"key\":55,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":52,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":8,\"key\":48,\"len_steps\":4,\"vel\":82},{\"bar\":1,\"step\":8,\"key\":52,\"len_s"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":2,\"key\":52,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":6,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":8,\"key\":57,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":10,\"key\":55,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":12,\"key\":52,\"len_steps\":2,\"vel\":77},{\"bar\":1,\"step\":14,\"key\":48,\"le"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":48},{\"bar\":1,\"step\":0,\"key\":53,\"len_steps\":16,\"vel\":42},{\"bar\":1,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":58},{\"bar\":2,\"step\":0,\"key\":48,\"len_steps\":16,\"vel\":58},{\"bar\":2,\"step\":0,\"key\":53,\"len_steps\":16,\"vel\":52},{\"bar\":2,\"step\":0,\"key\":57,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":50,\"len_steps\":16,\"vel\":52},{\"bar\":3,\"step\":0,\"key\":55"
+      },
+      {
+        "task": "texture",
+        "valid": true,
+        "reward": 1.0,
+        "output": "{\"notes\":[{\"bar\":1,\"step\":0,\"key\":48,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":2,\"key\":53,\"len_steps\":2,\"vel\":72},{\"bar\":1,\"step\":4,\"key\":57,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":6,\"key\":48,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":8,\"key\":53,\"len_steps\":2,\"vel\":68},{\"bar\":1,\"step\":10,\"key\":57,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":12,\"key\":48,\"len_steps\":2,\"vel\":62},{\"bar\":1,\"step\":14,\"key\":53,\"le"
+      }
+    ]
+  }
+}

@@ -1,6 +1,6 @@
 # DAWcoder 模型对比报告
 
-生成时间：2026-11-08 15:52
+生成时间：2026-11-08 16:02
 
 评测协议：`training/EVAL-PROTOCOL.md`（val 60 条均衡，seed 20261107，temperature 0，num_predict 8192）
 
